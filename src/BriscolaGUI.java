@@ -54,7 +54,7 @@ public class BriscolaGUI extends JFrame {
                 topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
             }
         });
-
+        // Set the frame to be visible
         frame.setVisible(true);
     }
 
