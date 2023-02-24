@@ -18,6 +18,7 @@ public class BriscolaGUI extends JFrame {
     public BriscolaGUI() {
 
         deck = new Deck();
+        topCard = deck.getTopCard();
 
         frame = new JFrame("Briscola");
         frame.setSize(gameWidth, gameHeight);
@@ -46,10 +47,11 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(backOfCardPic);
 
         topCardButton.addActionListener(e -> {
-            topCard = deck.getTopCard();
             topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
             topCardPic.setBounds(300, 150, scaledWidth, scaledHeight);
             contentPane.add(topCardPic);
+            topCard = deck.getTopCard();
+
 
             System.out.println(deck.getDeck().size());
         });
