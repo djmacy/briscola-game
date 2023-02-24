@@ -6,12 +6,10 @@ public class Card {
     private final ImageIcon image;
 
     public enum Suit {
-        Coins,
-        Sticks,
-        Cups,
-        Swords
+        Coins, Sticks, Cups, Swords
     }
 
+    // Added a comment
     public enum FaceName {
         Ace(11, 9),
         Two(0, 0),
@@ -22,24 +20,22 @@ public class Card {
         Seven(0, 4),
         Jack(2, 5),
         Horse(3, 6),
-        King(4,7);
 
-        private int cardWorth;
+        King(4, 7);
 
-        private int CardStrength;
+        private final int cardWorth;
+        private final int cardStrength;
 
-        FaceName(int cardWorth, int CardStrength) {
+        FaceName(int cardWorth, int cardStrength) {
             this.cardWorth = cardWorth;
-            this.CardStrength = CardStrength;
-
+            this.cardStrength = cardStrength;
+        }
+        public int getCardWorth() {
+            return cardWorth;
         }
 
         public int getCardStrength() {
-            return CardStrength;
-        }
-
-        public int getCardWorth() {
-            return cardWorth;
+            return cardStrength;
         }
     }
 

@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+// A comment
 public class BriscolaGUI extends JFrame {
     private JFrame frame;
     private JPanel panel;
