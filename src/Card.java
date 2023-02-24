@@ -1,11 +1,9 @@
 import javax.swing.ImageIcon;
-import java.util.Hashtable;
 
 public class Card {
     private final Suit suit;
     private final FaceName faceName;
     private final ImageIcon image;
-//    private final Hashtable<Card, Integer> deck = makeDeck();
 
     public enum Suit {
         Coins, Sticks, Cups, Swords
@@ -13,7 +11,31 @@ public class Card {
 
     // Added a comment
     public enum FaceName {
-        Ace, Two, Three, Four, Five, Six, Seven, Jack, Horse, King
+        Ace(11, 9),
+        Two(0, 0),
+        Three(10, 8),
+        Four(0, 1),
+        Five(0, 2),
+        Six(0, 3),
+        Seven(0, 4),
+        Jack(2, 5),
+        Horse(3, 6),
+        King(4, 7);
+
+        private final int cardWorth;
+        private final int cardStrength;
+
+        FaceName(int cardWorth, int cardStrength) {
+            this.cardWorth = cardWorth;
+            this.cardStrength = cardStrength;
+        }
+        public int getCardWorth() {
+            return cardWorth;
+        }
+
+        public int getCardStrength() {
+            return cardStrength;
+        }
     }
 
     public Card(Suit suit, FaceName faceName, String imagePath) {
@@ -21,14 +43,6 @@ public class Card {
         this.faceName = faceName;
         this.image = new ImageIcon(imagePath);
     }
-
-//    public Hashtable makeDeck() {
-//        Hashtable<Card, Integer> deck = new Hashtable<>();
-//
-//
-//
-//        return deck;
-//    }
 
     public Suit getSuit() {
         return suit;
