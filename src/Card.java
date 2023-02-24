@@ -13,17 +13,36 @@ public class Card {
     }
 
     public enum FaceName {
-        Ace,
-        Two,
-        Three,
-        Four,
-        Five,
-        Six,
-        Seven,
-        Jack,
-        Horse,
-        King
+        Ace(11, 9),
+        Two(0, 0),
+        Three(10, 8),
+        Four(0, 1),
+        Five(0, 2),
+        Six(0, 3),
+        Seven(0, 4),
+        Jack(2, 5),
+        Horse(3, 6),
+        King(4,7);
+
+        private int cardWorth;
+
+        private int CardStrength;
+
+        FaceName(int cardWorth, int CardStrength) {
+            this.cardWorth = cardWorth;
+            this.CardStrength = CardStrength;
+
+        }
+
+        public int getCardStrength() {
+            return CardStrength;
+        }
+
+        public int getCardWorth() {
+            return cardWorth;
+        }
     }
+
 
     public Card(Suit suit, FaceName faceName, String imagePath) {
         this.suit = suit;

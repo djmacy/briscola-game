@@ -16,8 +16,8 @@ public class BriscolaGUI extends JFrame {
     private Card topCard;
 
     public BriscolaGUI() {
+
         deck = new Deck();
-        topCard = deck.getTopCard();
 
         frame = new JFrame("Briscola");
         frame.setSize(gameWidth, gameHeight);
@@ -32,9 +32,7 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(topCardButton);
 
         //use the method below to scale the image
-        JLabel topCardPic = new JLabel(scaleImage(topCard));
-        topCardPic.setBounds(300, 150, scaledWidth, scaledHeight);
-        contentPane.add(topCardPic);
+        JLabel topCardPic = new JLabel();
 
         //making back of card image
         ImageIcon backOfCard = new ImageIcon("src/images/backOfCard.png");
@@ -47,15 +45,20 @@ public class BriscolaGUI extends JFrame {
         backOfCardPic.setBounds(100,150, scaledWidth,scaledHeight);
         contentPane.add(backOfCardPic);
 
-        topCardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                topCard = deck.getTopCard();
-                topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
-            }
+        topCardButton.addActionListener(e -> {
+            topCard = deck.getTopCard();
+            topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
+            topCardPic.setBounds(300, 150, scaledWidth, scaledHeight);
+            contentPane.add(topCardPic);
+
+            System.out.println(deck.getDeck().size());
         });
         // Set the frame to be visible
         frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new BriscolaGUI();
     }
 
     public ImageIcon scaleImage(Card topCard) {
@@ -65,10 +68,6 @@ public class BriscolaGUI extends JFrame {
         Image scaledImage = originalImage.getImage().getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         return scaledIcon;
-    }
-
-    public static void main(String[] args) {
-        new BriscolaGUI();
     }
 
 }
