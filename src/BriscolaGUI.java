@@ -58,11 +58,17 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(backOfCardPic);
 
         topCardButton.addActionListener(e -> {
-            topCard = deck.getTopCard();
-            topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
-            topCardPic.setBounds(300, 150, scaledWidth, scaledHeight);
-            contentPane.add(topCardPic);
-            System.out.println(deck.getDeck().size());
+            if (deck.lookTopCard() != null) {
+                topCard = deck.getTopCard();
+                topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
+                topCardPic.setBounds(300, 150, scaledWidth, scaledHeight);
+                contentPane.add(topCardPic);
+                System.out.println(deck.getDeck().size());
+            } else {
+
+                topCardButton.setEnabled(false);
+                topCardButton.setVisible(false);
+            }
         });
         // Set the frame to be visible
         frame.setVisible(true);

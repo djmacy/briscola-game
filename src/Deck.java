@@ -19,9 +19,22 @@ public class Deck {
         return this.deck;
     }
 
+    public Card lookTopCard() {
+        if (deck.size() > 0) {
+            Card card = deck.get(0);
+            return card;
+        } else {
+            return null;
+        }
+    }
+
     public Card getTopCard() {
-        Card topCard = deck.remove(0);
-        return topCard;
+        if (deck.size() > 0) {
+            Card topCard = deck.remove(0);
+            return topCard;
+        } else {
+            return null;
+        }
     }
 
     public void dealTopCard(Hand hand) {
