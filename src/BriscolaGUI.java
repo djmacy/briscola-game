@@ -10,6 +10,8 @@ public class BriscolaGUI extends JFrame {
     private JButton topCardButton;
     private JLabel topCardLabel;
     private Deck deck;
+    private Hand hand1;
+    private Hand hand2;
     private final int gameHeight = 1000;
     private final int gameWidth = 1000;
     private int scaledWidth = 200;
@@ -19,19 +21,26 @@ public class BriscolaGUI extends JFrame {
     public BriscolaGUI() {
 
         deck = new Deck();
+        hand1 = new Hand();
+        hand2 = new Hand();
         System.out.println("Size of Deck: " + deck.getDeck().size());
 
         frame = new JFrame("Briscola");
         frame.setSize(gameWidth, gameHeight);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //CREATING CONTENT PANE
         Container contentPane = frame.getContentPane();
         contentPane.setLayout(null);
         contentPane.setBackground(Color.red);
 
+        //create draw button NOT COMPLETE
         topCardButton = new JButton("Show Top Card");
         topCardButton.setBounds(gameWidth / 2 - 150 / 2, 700, 150, 50);
         contentPane.add(topCardButton);
+
+        //Create card images/buttons
+        
 
         //use the method below to scale the image
         JLabel topCardPic = new JLabel();
