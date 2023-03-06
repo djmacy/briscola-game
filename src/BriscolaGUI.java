@@ -44,13 +44,20 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(topCardButton);
 
         //Create card images/buttons
-        player1Card1Button = new JButton("card1");
+        Icon scaledIconPlayer1Card1 = scaleImage(deck.lookTopCard());
+        player1Card1Button = new JButton(scaledIconPlayer1Card1);
         player1Card1Button.setBounds(650,370,scaledWidth,325);
         contentPane.add(player1Card1Button);
 
-        player1Card2Button = new JButton("card2");
-        player1Card2Button.setBounds(650 + scaledWidth, 370, scaledWidth, 325);
+        Icon scaledIconPlayer1Card2 = scaleImage(deck.lookTopCard());
+        player1Card2Button = new JButton(scaledIconPlayer1Card2);
+        player1Card2Button.setBounds(655 + scaledWidth, 370, scaledWidth, 325);
         contentPane.add(player1Card2Button);
+
+        Icon scaledIconPlayer1Card3 = scaleImage(deck.lookTopCard());
+        player1Card3Button  = new JButton(scaledIconPlayer1Card3);
+        player1Card3Button.setBounds(660 + scaledWidth + scaledWidth, 370, scaledWidth, 325);
+        contentPane.add(player1Card3Button);
         
 
         //use the method below to scale the image
@@ -67,6 +74,10 @@ public class BriscolaGUI extends JFrame {
         JLabel backOfCardPic = new JLabel(scaledIcon);
         backOfCardPic.setBounds(100,150, scaledWidth,scaledHeight);
         contentPane.add(backOfCardPic);
+
+        JLabel cpuCard1 = new JLabel(scaledIcon);
+        cpuCard1.setBounds(650, 50, scaledWidth, scaledHeight);
+        contentPane.add(cpuCard1);
 
         topCardButton.addActionListener(e -> {
             if (deck.lookTopCard() != null) {
