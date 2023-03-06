@@ -30,11 +30,11 @@ public class Card {
             this.cardWorth = cardWorth;
             this.cardStrength = cardStrength;
         }
-        public int getCardWorth() {
+        public int getWorth() {
             return cardWorth;
         }
 
-        public int getCardStrength() {
+        public int getStrength() {
             return cardStrength;
         }
     }
@@ -53,6 +53,15 @@ public class Card {
     public FaceName getFaceName() {
         return faceName;
     }
+
+    public int getStrength() {
+        return faceName.getStrength();
+    }
+
+    public int getWorth() {
+        return faceName.getWorth();
+    }
+
 
     public ImageIcon getImage() {
         return image;
