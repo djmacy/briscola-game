@@ -6,12 +6,11 @@ import javax.swing.*;
 // A comment
 public class BriscolaGUI extends JFrame {
     private JFrame frame;
-    private JPanel panel;
-    private JButton topCardButton;
+    private JButton dealButton;
+
     private JButton player1Card1Button;
     private JButton player1Card2Button;
     private JButton player1Card3Button;
-    private JLabel topCardLabel;
     private Deck deck;
     private Hand hand1;
     private Hand hand2;
@@ -39,9 +38,9 @@ public class BriscolaGUI extends JFrame {
         contentPane.setBackground(Color.red);
 
         //create draw button NOT COMPLETE
-        topCardButton = new JButton("Show Top Card");
-        topCardButton.setBounds(((gameWidth / 2) / 2) - 150 / 2, 700, 150, 50);
-        contentPane.add(topCardButton);
+        dealButton = new JButton("Deal Cards");
+        dealButton.setBounds(((gameWidth / 2) / 2) - 150 / 2, 700, 150, 50);
+        contentPane.add(dealButton);
 
         //Create card images/buttons
         Icon scaledIconPlayer1Card1 = scaleImage(deck.lookTopCard());
@@ -87,21 +86,25 @@ public class BriscolaGUI extends JFrame {
         cpuCard3.setBounds(760 + scaledWidth + scaledWidth, 10, scaledWidth, scaledHeight);
         contentPane.add(cpuCard3);
 
-        topCardButton.addActionListener(e -> {
-            if (deck.getDeck().size() > 1) {
-                topCard = deck.getTopCard();
-                topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
+        dealButton.addActionListener(e -> {
+            if (deck.getDeck().size() == 40) {
+                Card trumpSuitCard = deck.dealCards(hand1, hand2);
+                Card playerCard1 = hand1.getHand().get(0);
+                Card playerCard2 = hand1.getHand().get(1);
+                Card playerCard3 = hand1.getHand().get(2);
+                player1Card1Button.setVisible(true);
+                player1Card2Button.setVisible(true);
+                player1Card3Button.setVisible(true);
+
+
+                topCardPic.setIcon(new ImageIcon(scaleImage(trumpSuitCard).getImage()));
                 topCardPic.setBounds(105 + scaledWidth, gameHeight / 2 - scaledHeight / 2, scaledWidth, scaledHeight);
                 contentPane.add(topCardPic);
                 System.out.println(deck.getDeck().size());
             } else {
-                topCard = deck.getTopCard();
-                topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
-                topCardPic.setBounds(275, 150, scaledWidth, scaledHeight);
-                contentPane.add(topCardPic);
-                System.out.println(deck.getDeck().size());
-                topCardButton.setEnabled(false);
-                topCardButton.setVisible(false);
+
+                dealButton.setEnabled(false);
+                dealButton.setVisible(false);
             }
         });
 
