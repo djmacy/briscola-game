@@ -76,17 +76,30 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(backOfCardPic);
 
         JLabel cpuCard1 = new JLabel(scaledIcon);
-        cpuCard1.setBounds(650, 50, scaledWidth, scaledHeight);
+        cpuCard1.setBounds(650, 10, scaledWidth, scaledHeight);
         contentPane.add(cpuCard1);
 
+        JLabel cpuCard2 = new JLabel(scaledIcon);
+        cpuCard2.setBounds(655 + scaledWidth, 10, scaledWidth, scaledHeight);
+        contentPane.add(cpuCard2);
+
+        JLabel cpuCard3 = new JLabel(scaledIcon);
+        cpuCard3.setBounds(660 + scaledWidth + scaledWidth, 10, scaledWidth, scaledHeight);
+        contentPane.add(cpuCard3);
+
         topCardButton.addActionListener(e -> {
-            if (deck.lookTopCard() != null) {
+            if (deck.getDeck().size() > 1) {
                 topCard = deck.getTopCard();
                 topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
                 topCardPic.setBounds(275, 150, scaledWidth, scaledHeight);
                 contentPane.add(topCardPic);
                 System.out.println(deck.getDeck().size());
             } else {
+                topCard = deck.getTopCard();
+                topCardPic.setIcon(new ImageIcon(scaleImage(topCard).getImage()));
+                topCardPic.setBounds(275, 150, scaledWidth, scaledHeight);
+                contentPane.add(topCardPic);
+                System.out.println(deck.getDeck().size());
                 topCardButton.setEnabled(false);
                 topCardButton.setVisible(false);
             }
