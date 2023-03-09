@@ -14,6 +14,7 @@ public class BriscolaGUI extends JFrame {
     private Deck deck;
     private Hand hand1;
     private Hand hand2;
+    private Discard discard;
     private final int gameHeight = 800;
     private final int gameWidth = 1300;
     private int scaledWidth = 125;
@@ -29,7 +30,7 @@ public class BriscolaGUI extends JFrame {
     private JLabel cpuCard1;
     private JLabel cpuCard2;
     private JLabel cpuCard3;
-
+    private int whoWentFirst;
 
 
     public BriscolaGUI() {
@@ -37,6 +38,12 @@ public class BriscolaGUI extends JFrame {
         deck = new Deck();
         hand1 = new Hand();
         hand2 = new Hand();
+        discard = new Discard();
+
+        player1Card1Button = new JButton();
+        player1Card2Button = new JButton();
+        player1Card3Button = new JButton();
+
         System.out.println("Size of Deck: " + deck.getDeck().size());
 
         frame = new JFrame("Briscola");
@@ -72,7 +79,7 @@ public class BriscolaGUI extends JFrame {
 
          */
 
-        //use the method below to scale the image
+        //creating  and adding the cpu cards to the screen
         JLabel topCardPic = new JLabel();
         contentPane.add(topCardPic);
         JLabel cpuCard1 = new JLabel();
@@ -81,6 +88,12 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(cpuCard2);
         JLabel cpuCard3 = new JLabel();
         contentPane.add(cpuCard3);
+
+        //Add where we put the played cards
+        JLabel player1PlayedCard = new JLabel();
+        contentPane.add(player1PlayedCard);
+        JLabel player2PlayedCard = new JLabel();
+        contentPane.add(player2PlayedCard);
 
         //making back of card image
         backOfCard = new ImageIcon("src/images/backOfCard.png");
@@ -107,10 +120,11 @@ public class BriscolaGUI extends JFrame {
                 Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
                 Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
 
+                /*
                 player1Card1Button = new JButton();
                 player1Card2Button = new JButton();
                 player1Card3Button = new JButton();
-
+                */
                 player1Card1Button.setBounds(750,500,scaledWidth,250);
                 contentPane.add(player1Card1Button);
                 player1Card2Button.setBounds(755 + scaledWidth, 500, scaledWidth, 250);
@@ -153,6 +167,32 @@ public class BriscolaGUI extends JFrame {
             }
         });
 
+        player1Card1Button.addActionListener(e -> {
+
+            Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
+            player1PlayedCard.setBounds(400,scaledHeight/2 + 150,scaledWidth,250);
+            contentPane.add(player1PlayedCard);
+
+            player1PlayedCard.setIcon(scaledIconPlayerCard1);
+
+            player1Card1Button.setVisible(false);
+            player1Card1Button.setEnabled(false);
+
+            hand1.playFirstCard(discard);
+            hand2.playFirstCard(discard);
+
+            System.out.println("Discard Pile: " + discard.getDiscard());
+
+        });
+
+        player1Card2Button.addActionListener(e -> {
+
+        });
+
+        player1Card3Button.addActionListener(e -> {
+
+        });
+
         // Set the frame to be visible
         frame.setVisible(true);
     }
@@ -161,7 +201,7 @@ public class BriscolaGUI extends JFrame {
         new BriscolaGUI();
     }
 
-    public ImageIcon scaleImage(Card topCard) {
+    private ImageIcon scaleImage(Card topCard) {
         ImageIcon originalImage = new ImageIcon(topCard.getImage().getImage());
         // Scale the image to a smaller size
         scaledHeight = (int) ((double) scaledWidth / originalImage.getIconWidth() * originalImage.getIconHeight());
@@ -170,4 +210,28 @@ public class BriscolaGUI extends JFrame {
         return scaledIcon;
     }
 
+    //method for checking who wins a round. We will make card one, player ones card and card 2 player two's card
+    private int checkWhoWins(Card card1, Card card2) {
+        if (card1.getSuit().equals(card2.getSuit())) {
+            if (card1.getStrength() > card2.getStrength()) {
+                return 1;
+            } else {
+                return 2;
+            }
+        } else {
+            if (whoWentFirst == 0) {
+                
+            }
+        }
+
+        return 0;
+    }
+
+    private int whoStartsGame() {
+        return (int) (int) Math.random();
+    }
+
+    private int randomCardPicker() {
+        return 0;
+    }
 }
