@@ -203,7 +203,6 @@ public class BriscolaGUI extends JFrame {
             int whoWon = checkWhoWins(playerCard1, playerCard2);
 
             if (whoWon == 0) {
-                discard.cardsWon(pile1);
                 System.out.println("You Won This Round");
 
                 Timer timer = new Timer(5000, event -> {
@@ -211,35 +210,37 @@ public class BriscolaGUI extends JFrame {
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(false);
 
+                    Card card1 = deck.dealTopCard(hand1);
+                    Card card2 = deck.dealTopCard(hand2);
+                    playerCard1 = hand1.getHand().get(0);
+                    playerCard2 = hand1.getHand().get(1);
+                    playerCard3 = hand1.getHand().get(2);
+                    System.out.println("Your new hand" + hand1.getHand());
 
-
-
-
-
-                Card card1 = deck.dealTopCard(hand1);
-                Card card2 = deck.dealTopCard(hand2);
-                System.out.println("Your new hand" + hand1.getHand());
-
-                Icon scaledIconCard1 = scaleImage(card1);
-                player1Card1Button.setIcon(scaledIconCard1);
-                player1Card1Button.setVisible(true);
-                player1Card1Button.setEnabled(true);
-                cpuCard1.setVisible(true);
-                cpuCard1.setIcon(scaledIcon);
+                    Icon scaledIconCard1 = scaleImage(card1);
+                    player1Card1Button.setIcon(scaledIconCard1);
+                    player1Card1Button.setVisible(true);
+                    player1Card1Button.setEnabled(true);
+                    cpuCard1.setVisible(true);
+                    cpuCard1.setIcon(scaledIcon);
+                    deck.dealTopCard(hand1);
+                    deck.dealTopCard(hand2);
 
                 });
                 timer.setRepeats(false);
                 timer.start();
-                discard.cardsWon(pile1);
-
-
 
             } else {
-                discard.cardsWon(pile2);
                 System.out.println("You Lost This Round");
                 deck.dealTopCard(hand2);
                 deck.dealTopCard(hand1);
             }
+
+
+            player1Card1Button.setIcon(scaleImage(playerCard1));
+            player1Card2Button.setIcon(scaleImage(playerCard2));
+            player1Card3Button.setIcon(scaleImage(playerCard3));
+
 
         });
 
@@ -271,6 +272,7 @@ public class BriscolaGUI extends JFrame {
 
     //method for checking who wins a round. We will make card one, player ones card and card 2 player two's card
     private int checkWhoWins(Card card1, Card card2) {
+
         if (card1.getSuit().equals(card2.getSuit())) {
             if (card1.getStrength() > card2.getStrength()) {
                 return 1;
