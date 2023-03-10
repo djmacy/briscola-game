@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 // A comment
@@ -15,6 +18,8 @@ public class BriscolaGUI extends JFrame {
     private Hand hand1;
     private Hand hand2;
     private Discard discard;
+    private Pile pile1;
+    private Pile pile2;
     private final int gameHeight = 800;
     private final int gameWidth = 1300;
     private int scaledWidth = 125;
@@ -39,6 +44,8 @@ public class BriscolaGUI extends JFrame {
         hand1 = new Hand();
         hand2 = new Hand();
         discard = new Discard();
+        pile1 = new Pile();
+        pile2 = new Pile();
 
         player1Card1Button = new JButton();
         player1Card2Button = new JButton();
@@ -170,18 +177,69 @@ public class BriscolaGUI extends JFrame {
         player1Card1Button.addActionListener(e -> {
 
             Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
-            player1PlayedCard.setBounds(400,scaledHeight/2 + 150,scaledWidth,250);
+            player1PlayedCard.setBounds(400,scaledHeight/2 + 150,scaledWidth,scaledHeight);
             contentPane.add(player1PlayedCard);
-
             player1PlayedCard.setIcon(scaledIconPlayerCard1);
 
-            player1Card1Button.setVisible(false);
-            player1Card1Button.setEnabled(false);
+            //method for selecting card for now just pick first
+            Card player2Card = hand2.getHand().get(0);
+
+            Icon scaledIconPlayer2Card = scaleImage(player2Card);
+            player2PlayedCard.setBounds(405 + scaledWidth, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+            contentPane.add(player2PlayedCard);
+            player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
             hand1.playFirstCard(discard);
             hand2.playFirstCard(discard);
 
+            player1Card1Button.setVisible(false);
+            player1Card1Button.setEnabled(false);
+            cpuCard1.setVisible(false);
+
+            player1PlayedCard.setVisible(true);
+            player2PlayedCard.setVisible(true);
+
             System.out.println("Discard Pile: " + discard.getDiscard());
+            int whoWon = checkWhoWins(playerCard1, playerCard2);
+
+            if (whoWon == 0) {
+                discard.cardsWon(pile1);
+                System.out.println("You Won This Round");
+
+                Timer timer = new Timer(5000, event -> {
+
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
+
+
+
+
+
+
+                Card card1 = deck.dealTopCard(hand1);
+                Card card2 = deck.dealTopCard(hand2);
+                System.out.println("Your new hand" + hand1.getHand());
+
+                Icon scaledIconCard1 = scaleImage(card1);
+                player1Card1Button.setIcon(scaledIconCard1);
+                player1Card1Button.setVisible(true);
+                player1Card1Button.setEnabled(true);
+                cpuCard1.setVisible(true);
+                cpuCard1.setIcon(scaledIcon);
+
+                });
+                timer.setRepeats(false);
+                timer.start();
+                discard.cardsWon(pile1);
+
+
+
+            } else {
+                discard.cardsWon(pile2);
+                System.out.println("You Lost This Round");
+                deck.dealTopCard(hand2);
+                deck.dealTopCard(hand1);
+            }
 
         });
 

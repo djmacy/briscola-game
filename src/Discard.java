@@ -25,6 +25,7 @@ public class Discard {
     public void cardsWon(Pile pile) {
         for (Card cardsPlayed : discard) {
             pile.getPile().add(cardsPlayed);
+            discard.clear();
         }
     }
 

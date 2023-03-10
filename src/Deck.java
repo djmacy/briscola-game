@@ -37,9 +37,10 @@ public class Deck {
         }
     }
 
-    public void dealTopCard(Hand hand) {
+    public Card dealTopCard(Hand hand) {
         Card topCard = deck.remove(0);
         hand.getHand().add(topCard);
+        return topCard;
     }
 
     public Card dealCards(Hand hand1, Hand hand2) {
