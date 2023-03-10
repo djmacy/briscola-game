@@ -1,16 +1,14 @@
+package runnable;
+
+import classes.*;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 // A comment
 public class BriscolaGUI extends JFrame {
     private JFrame frame;
     private JButton dealButton;
-
     private JButton player1Card1Button;
     private JButton player1Card2Button;
     private JButton player1Card3Button;
@@ -51,7 +49,7 @@ public class BriscolaGUI extends JFrame {
         player1Card2Button = new JButton();
         player1Card3Button = new JButton();
 
-        System.out.println("Size of Deck: " + deck.getDeck().size());
+        System.out.println("Size of classes.Deck: " + deck.getDeck().size());
 
         frame = new JFrame("Briscola");
         frame.setSize(gameWidth, gameHeight);
@@ -199,10 +197,10 @@ public class BriscolaGUI extends JFrame {
             player1PlayedCard.setVisible(true);
             player2PlayedCard.setVisible(true);
 
-            System.out.println("Discard Pile: " + discard.getDiscard());
+            System.out.println("classes.Discard classes.Pile: " + discard.getDiscard());
             int whoWon = checkWhoWins(playerCard1, playerCard2);
 
-            if (whoWon == 0) {
+            if (whoWon == 0 || whoWon == 1 || whoWon == 2) {
                 System.out.println("You Won This Round");
 
                 Timer timer = new Timer(5000, event -> {
@@ -279,11 +277,13 @@ public class BriscolaGUI extends JFrame {
             } else {
                 return 2;
             }
-        } else {
+        } /*else {
+
             if (whoWentFirst == 0) {
                 
             }
         }
+        */
 
         return 0;
     }

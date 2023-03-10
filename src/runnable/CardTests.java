@@ -1,3 +1,6 @@
+package runnable;
+
+import classes.Card;
 
 public class CardTests {
 
