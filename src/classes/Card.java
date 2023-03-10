@@ -1,3 +1,5 @@
+package classes;
+
 import javax.swing.ImageIcon;
 
 public class Card {
