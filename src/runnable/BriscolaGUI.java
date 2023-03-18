@@ -45,6 +45,7 @@ public class BriscolaGUI extends JFrame {
         discard = new Discard();
         pile1 = new Pile();
         pile2 = new Pile();
+        whoStartsGame();
 
         player1Card1Button = new JButton();
         player1Card2Button = new JButton();
@@ -199,11 +200,9 @@ public class BriscolaGUI extends JFrame {
             player2PlayedCard.setVisible(true);
 
             System.out.println("Discard Pile: " + discard.getDiscard());
-            int whoWon = checkWhoWins(playerCard1, playerCard2);
 
+            if (whoWon == 1) {
 
-            if (whoWon == 0 || whoWon == 1 || whoWon == 2) {
-                System.out.println("You Won This Round");
 
                 Timer timer = new Timer(5000, event -> {
 
@@ -240,7 +239,14 @@ public class BriscolaGUI extends JFrame {
                 });
                 timer.setRepeats(false);
                 timer.start();
-                discard.cardsWon(pile1);
+                checkWhoWins(playerCard1, playerCard2);
+                if (whoWon == 1) {
+                    System.out.println("You Won that round");
+                    discard.cardsWon(pile1);
+                } else {
+                    System.out.println("You Lost that round");
+                    discard.cardsWon(pile2);
+                }
                 System.out.println("Your winnings: " + pile1.getPile());
 
 
@@ -290,7 +296,7 @@ public class BriscolaGUI extends JFrame {
             player2PlayedCard.setVisible(true);
 
             System.out.println("classes.Discard classes.Pile: " + discard.getDiscard());
-            int whoWon = checkWhoWins(playerCard1, playerCard2);
+            checkWhoWins(playerCard1, playerCard2);
 
             if (whoWon == 0 || whoWon == 1 || whoWon == 2) {
                 System.out.println("You Won This Round");
@@ -374,7 +380,7 @@ public class BriscolaGUI extends JFrame {
             player2PlayedCard.setVisible(true);
 
             System.out.println("classes.Discard classes.Pile: " + discard.getDiscard());
-            int whoWon = checkWhoWins(playerCard1, playerCard2);
+            checkWhoWins(playerCard1, playerCard2);
 
             if (whoWon == 0 || whoWon == 1 || whoWon == 2) {
                 System.out.println("You Won This Round");
