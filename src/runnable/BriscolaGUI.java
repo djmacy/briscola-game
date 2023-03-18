@@ -3,6 +3,7 @@ package runnable;
 import classes.*;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 // A comment
@@ -34,7 +35,6 @@ public class BriscolaGUI extends JFrame {
     private JLabel cpuCard2;
     private JLabel cpuCard3;
     private int whoWentFirst;
-
 
     public BriscolaGUI() {
 

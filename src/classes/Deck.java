@@ -1,5 +1,7 @@
 package classes;
 
+import classes.Hand;
+
 import java.util.*;
 
 public class Deck {
