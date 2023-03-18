@@ -197,8 +197,9 @@ public class BriscolaGUI extends JFrame {
             player1PlayedCard.setVisible(true);
             player2PlayedCard.setVisible(true);
 
-            System.out.println("classes.Discard classes.Pile: " + discard.getDiscard());
+            System.out.println("Discard Pile: " + discard.getDiscard());
             int whoWon = checkWhoWins(playerCard1, playerCard2);
+
 
             if (whoWon == 0 || whoWon == 1 || whoWon == 2) {
                 System.out.println("You Won This Round");
@@ -234,14 +235,22 @@ public class BriscolaGUI extends JFrame {
                     cpuCard1.setVisible(true);
                     cpuCard1.setIcon(scaledIcon);
 
+
                 });
                 timer.setRepeats(false);
                 timer.start();
+                discard.cardsWon(pile1);
+                System.out.println("Your winnings: " + pile1.getPile());
+
+
 
             } else {
                 System.out.println("You Lost This Round");
                 deck.dealTopCard(hand2);
                 deck.dealTopCard(hand1);
+
+                discard.cardsWon(pile2);
+
             }
 
 
@@ -316,6 +325,7 @@ public class BriscolaGUI extends JFrame {
                     cpuCard1.setVisible(true);
                     cpuCard1.setIcon(scaledIcon);
 
+
                 });
                 timer.setRepeats(false);
                 timer.start();
@@ -324,6 +334,7 @@ public class BriscolaGUI extends JFrame {
                 System.out.println("You Lost This Round");
                 deck.dealTopCard(hand2);
                 deck.dealTopCard(hand1);
+
             }
 
 
@@ -395,7 +406,7 @@ public class BriscolaGUI extends JFrame {
                     cpuCard1.setVisible(true);
                     cpuCard1.setIcon(scaledIcon);
 
-
+                    //send cards to player 1 pile
 
                 });
                 timer.setRepeats(false);
@@ -405,6 +416,8 @@ public class BriscolaGUI extends JFrame {
                 System.out.println("You Lost This Round");
                 deck.dealTopCard(hand2);
                 deck.dealTopCard(hand1);
+
+                //send cards to player2 pile
             }
 
 
