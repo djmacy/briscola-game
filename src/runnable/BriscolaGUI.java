@@ -34,7 +34,8 @@ public class BriscolaGUI extends JFrame {
     private JLabel cpuCard1;
     private JLabel cpuCard2;
     private JLabel cpuCard3;
-    private int whoWentFirst;
+    private int whoWon;
+    private Card trumpSuitCard;
 
     public BriscolaGUI() {
 
@@ -113,7 +114,7 @@ public class BriscolaGUI extends JFrame {
 
         dealButton.addActionListener(e -> {
             if (deck.getDeck().size() == 40) {
-                Card trumpSuitCard = deck.dealCards(hand1, hand2);
+                trumpSuitCard = deck.dealCards(hand1, hand2);
                 playerCard1 = hand1.getHand().get(0);
                 playerCard2 = hand1.getHand().get(1);
                 playerCard3 = hand1.getHand().get(2);
@@ -330,6 +331,9 @@ public class BriscolaGUI extends JFrame {
                 timer.setRepeats(false);
                 timer.start();
 
+                discard.cardsWon(pile1);
+                System.out.println("Your winnings: " + pile1.getPile());
+
             } else {
                 System.out.println("You Lost This Round");
                 deck.dealTopCard(hand2);
@@ -412,6 +416,9 @@ public class BriscolaGUI extends JFrame {
                 timer.setRepeats(false);
                 timer.start();
 
+                discard.cardsWon(pile1);
+                System.out.println("Your winnings: " + pile1.getPile());
+
             } else {
                 System.out.println("You Lost This Round");
                 deck.dealTopCard(hand2);
@@ -444,27 +451,33 @@ public class BriscolaGUI extends JFrame {
     }
 
     //method for checking who wins a round. We will make card one, player ones card and card 2 player two's card
-    private int checkWhoWins(Card card1, Card card2) {
+    //returns 1 if player one wins and returns 2 if player two wins
+    private void checkWhoWins(Card card1, Card card2) {
 
         if (card1.getSuit().equals(card2.getSuit())) {
             if (card1.getStrength() > card2.getStrength()) {
-                return 1;
+                whoWon = 1;
             } else {
-                return 2;
+                whoWon =  2;
             }
-        } /*else {
-
-            if (whoWentFirst == 0) {
-                
+        } else if (card1.getSuit().equals(trumpSuitCard.getSuit()) && !card2.getSuit().equals(trumpSuitCard.getSuit())) {
+            whoWon = 1;
+        } else if (!card1.getSuit().equals(trumpSuitCard.getSuit()) && card2.getSuit().equals(trumpSuitCard.getSuit())) {
+            whoWon = 2;
+        } else {
+            if (whoWon == 1) {
+                if (!card1.getSuit().equals(card2.getSuit())) {
+                    whoWon = 1;
+                }
+            } else {
+                whoWon = 2;
             }
         }
-        */
 
-        return 0;
     }
 
-    private int whoStartsGame() {
-        return (int) (int) Math.random();
+    private void whoStartsGame() {
+        whoWon = (int) (int) Math.random();
     }
 
     private int randomCardPicker() {
