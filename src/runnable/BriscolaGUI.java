@@ -178,7 +178,7 @@ public class BriscolaGUI extends JFrame {
 
             checkWhoWins(discard.getDiscard().get(0), discard.getDiscard().get(1));
 
-            if (whoWon == 0) {
+            if (whoWon == 1) {
                 discard.cardsWon(pile1);
 
                 player1PlayedCard.setVisible(false);
@@ -212,7 +212,7 @@ public class BriscolaGUI extends JFrame {
 
                 nextRoundButton.setVisible(false);
                 nextRoundButton.setEnabled(false);
-            } else if (whoWon == 1 || whoWon == 2) {
+            } else if (whoWon == 2) {
                 discard.cardsWon(pile2);
 
                 player1PlayedCard.setVisible(false);
@@ -220,9 +220,11 @@ public class BriscolaGUI extends JFrame {
 
                 deck.dealTopCard(hand2);
                 deck.dealTopCard(hand1);
+
                 playerCard1 = hand1.getHand().get(0);
                 playerCard2 = hand1.getHand().get(1);
                 playerCard3 = hand1.getHand().get(2);
+
                 System.out.println("Your new hand" + hand1.getHand());
 
                 Icon scaledIconCard1 = scaleImage(playerCard1);
@@ -250,8 +252,6 @@ public class BriscolaGUI extends JFrame {
                 Card player2Card = hand2.getHand().get(0);
 
                 Icon scaledIconPlayer2Card = scaleImage(player2Card);
-                player2PlayedCard.setBounds(405 + scaledWidth, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
-                contentPane.add(player2PlayedCard);
                 player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
                 //method for selecting card for cpu
