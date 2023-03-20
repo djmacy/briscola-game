@@ -5,10 +5,10 @@ import classes.Card;
 public class CardTests {
     private static int passed = 0;
     private static int failed = 0;
-    public static Card cardOne = new Card(Card.Suit.Coins, Card.FaceName.Ace, "txt");
-    public static Card cardTwo = new Card(Card.Suit.Sticks, Card.FaceName.Three, "txt");
+    public static Card cardOne = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
+    public static Card cardTwo = new Card(Card.Suit.Sticks, Card.FaceName.Three, "test.png");
 //    cardThree is a duplicate of cardOne to see how the program behaves with identical card types
-    public static Card cardThree = new Card(Card.Suit.Coins, Card.FaceName.Ace, "txt");
+    public static Card cardThree = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
 
     public static void main(String[] args) {
         testHighestCards(cardOne, cardTwo, cardThree);
@@ -52,7 +52,7 @@ public class CardTests {
         }
 
         System.out.println("Testing Get Image Path (getImage)...");
-        if (cardA.getImage().equals("txt")) {
+        if (cardA.getImage().equals("test.png")) {
             System.out.println("   pass");
             passed++;
         } else {
@@ -60,5 +60,7 @@ public class CardTests {
             System.out.println(cardA.getImage());
             failed++;
         }
+
+        System.out.println("Testing To String (toString)...");
     }
 }
