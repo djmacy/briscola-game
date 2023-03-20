@@ -178,98 +178,356 @@ public class BriscolaGUI extends JFrame {
 
             messageLabel.setVisible(false);
 
-            checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+            if (deck.getDeck().size() > 1) {
 
-            if (whoWon == 1) {
-                discard1.cardsWon(pile1);
-                discard2.cardsWon(pile1);
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
-                player1PlayedCard.setVisible(false);
-                player2PlayedCard.setVisible(false);
+                if (whoWon == 1) {
+                    discard1.cardsWon(pile1);
+                    discard2.cardsWon(pile1);
 
-                Card card1 = deck.dealTopCard(hand1);
-                Card card2 = deck.dealTopCard(hand2);
-                playerCard1 = hand1.getHand().get(0);
-                playerCard2 = hand1.getHand().get(1);
-                playerCard3 = hand1.getHand().get(2);
-                System.out.println("Your new hand" + hand1.getHand());
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
 
-                Icon scaledIconCard1 = scaleImage(playerCard1);
-                Icon scaledIconCard2 = scaleImage(playerCard2);
-                Icon scaledIconCard3 = scaleImage(playerCard3);
+                    Card card1 = deck.dealTopCard(hand1);
+                    Card card2 = deck.dealTopCard(hand2);
+                    playerCard1 = hand1.getHand().get(0);
+                    playerCard2 = hand1.getHand().get(1);
+                    playerCard3 = hand1.getHand().get(2);
+                    System.out.println("Your new hand" + hand1.getHand());
 
-                player1Card1Button.setIcon(scaledIconCard1);
-                player1Card1Button.setVisible(true);
-                player1Card1Button.setEnabled(true);
+                    Icon scaledIconCard1 = scaleImage(playerCard1);
+                    Icon scaledIconCard2 = scaleImage(playerCard2);
+                    Icon scaledIconCard3 = scaleImage(playerCard3);
 
-                player1Card2Button.setIcon(scaledIconCard2);
-                player1Card2Button.setVisible(true);
-                player1Card2Button.setEnabled(true);
+                    player1Card1Button.setIcon(scaledIconCard1);
+                    player1Card1Button.setVisible(true);
+                    player1Card1Button.setEnabled(true);
 
-                player1Card3Button.setIcon(scaledIconCard3);
-                player1Card3Button.setVisible(true);
-                player1Card3Button.setEnabled(true);
+                    player1Card2Button.setIcon(scaledIconCard2);
+                    player1Card2Button.setVisible(true);
+                    player1Card2Button.setEnabled(true);
 
-                cpuCard1.setVisible(true);
-                cpuCard1.setIcon(scaledIcon);
+                    player1Card3Button.setIcon(scaledIconCard3);
+                    player1Card3Button.setVisible(true);
+                    player1Card3Button.setEnabled(true);
 
-                nextRoundButton.setVisible(false);
-                nextRoundButton.setEnabled(false);
+                    cpuCard1.setVisible(true);
+                    cpuCard1.setIcon(scaledIcon);
 
-            } else if (whoWon == 2) {
-                discard1.cardsWon(pile2);
-                discard2.cardsWon(pile2);
+                    nextRoundButton.setVisible(false);
+                    nextRoundButton.setEnabled(false);
 
-                player1PlayedCard.setVisible(false);
-                player2PlayedCard.setVisible(false);
+                } else if (whoWon == 2) {
+                    discard1.cardsWon(pile2);
+                    discard2.cardsWon(pile2);
 
-                deck.dealTopCard(hand2);
-                deck.dealTopCard(hand1);
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
 
-                playerCard1 = hand1.getHand().get(0);
-                playerCard2 = hand1.getHand().get(1);
-                playerCard3 = hand1.getHand().get(2);
+                    deck.dealTopCard(hand2);
+                    deck.dealTopCard(hand1);
 
-                System.out.println("Your new hand" + hand1.getHand());
+                    playerCard1 = hand1.getHand().get(0);
+                    playerCard2 = hand1.getHand().get(1);
+                    playerCard3 = hand1.getHand().get(2);
 
-                Icon scaledIconCard1 = scaleImage(playerCard1);
-                Icon scaledIconCard2 = scaleImage(playerCard2);
-                Icon scaledIconCard3 = scaleImage(playerCard3);
+                    System.out.println("Your new hand" + hand1.getHand());
 
-                player1Card1Button.setIcon(scaledIconCard1);
-                player1Card1Button.setVisible(true);
-                player1Card1Button.setEnabled(true);
+                    Icon scaledIconCard1 = scaleImage(playerCard1);
+                    Icon scaledIconCard2 = scaleImage(playerCard2);
+                    Icon scaledIconCard3 = scaleImage(playerCard3);
 
-                player1Card2Button.setIcon(scaledIconCard2);
-                player1Card2Button.setVisible(true);
-                player1Card2Button.setEnabled(true);
+                    player1Card1Button.setIcon(scaledIconCard1);
+                    player1Card1Button.setVisible(true);
+                    player1Card1Button.setEnabled(true);
 
-                player1Card3Button.setIcon(scaledIconCard3);
-                player1Card3Button.setVisible(true);
-                player1Card3Button.setEnabled(true);
+                    player1Card2Button.setIcon(scaledIconCard2);
+                    player1Card2Button.setVisible(true);
+                    player1Card2Button.setEnabled(true);
 
-                cpuCard1.setVisible(true);
-                cpuCard1.setIcon(scaledIcon);
+                    player1Card3Button.setIcon(scaledIconCard3);
+                    player1Card3Button.setVisible(true);
+                    player1Card3Button.setEnabled(true);
 
-                nextRoundButton.setVisible(false);
-                nextRoundButton.setEnabled(false);
+                    cpuCard1.setVisible(true);
+                    cpuCard1.setIcon(scaledIcon);
 
-                Card player2Card = hand2.getHand().get(0);
+                    nextRoundButton.setVisible(false);
+                    nextRoundButton.setEnabled(false);
 
-                Icon scaledIconPlayer2Card = scaleImage(player2Card);
-                player2PlayedCard.setIcon(scaledIconPlayer2Card);
+                    Card player2Card = hand2.getHand().get(0);
 
-                //method for selecting card for cpu
-                hand2.playFirstCard(discard2);
+                    Icon scaledIconPlayer2Card = scaleImage(player2Card);
+                    player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
-                cpuCard1.setVisible(false);
-                player2PlayedCard.setVisible(true);
+                    //method for selecting card for cpu
+                    hand2.playFirstCard(discard2);
+
+                    cpuCard1.setVisible(false);
+                    player2PlayedCard.setVisible(true);
 
 
+                }
+            } else if (deck.getDeck().size() == 1) {
 
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+
+                if (whoWon == 1) {
+                    discard1.cardsWon(pile1);
+                    discard2.cardsWon(pile1);
+
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
+
+                    deck.dealTopCard(hand1);
+                    hand2.dealTrumpSuitCard(trumpSuitCard);
+                    playerCard1 = hand1.getHand().get(0);
+                    playerCard2 = hand1.getHand().get(1);
+                    playerCard3 = hand1.getHand().get(2);
+                    System.out.println("Your new hand: " + hand1.getHand());
+
+                    Icon scaledIconCard1 = scaleImage(playerCard1);
+                    Icon scaledIconCard2 = scaleImage(playerCard2);
+                    Icon scaledIconCard3 = scaleImage(playerCard3);
+
+                    player1Card1Button.setIcon(scaledIconCard1);
+                    player1Card1Button.setVisible(true);
+                    player1Card1Button.setEnabled(true);
+
+                    player1Card2Button.setIcon(scaledIconCard2);
+                    player1Card2Button.setVisible(true);
+                    player1Card2Button.setEnabled(true);
+
+                    player1Card3Button.setIcon(scaledIconCard3);
+                    player1Card3Button.setVisible(true);
+                    player1Card3Button.setEnabled(true);
+
+                    cpuCard1.setVisible(true);
+                    cpuCard1.setIcon(scaledIcon);
+
+                    nextRoundButton.setVisible(false);
+                    nextRoundButton.setEnabled(false);
+
+                } else if (whoWon == 2) {
+                    discard1.cardsWon(pile2);
+                    discard2.cardsWon(pile2);
+
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
+
+                    deck.dealTopCard(hand2);
+                    hand1.dealTrumpSuitCard(trumpSuitCard);
+
+                    playerCard1 = hand1.getHand().get(0);
+                    playerCard2 = hand1.getHand().get(1);
+                    playerCard3 = hand1.getHand().get(2);
+
+                    System.out.println("Your new hand: " + hand1.getHand());
+
+                    Icon scaledIconCard1 = scaleImage(playerCard1);
+                    Icon scaledIconCard2 = scaleImage(playerCard2);
+                    Icon scaledIconCard3 = scaleImage(playerCard3);
+
+                    player1Card1Button.setIcon(scaledIconCard1);
+                    player1Card1Button.setVisible(true);
+                    player1Card1Button.setEnabled(true);
+
+                    player1Card2Button.setIcon(scaledIconCard2);
+                    player1Card2Button.setVisible(true);
+                    player1Card2Button.setEnabled(true);
+
+                    player1Card3Button.setIcon(scaledIconCard3);
+                    player1Card3Button.setVisible(true);
+                    player1Card3Button.setEnabled(true);
+
+                    cpuCard1.setVisible(true);
+                    cpuCard1.setIcon(scaledIcon);
+
+                    nextRoundButton.setVisible(false);
+                    nextRoundButton.setEnabled(false);
+
+                    Card player2Card = hand2.getHand().get(0);
+
+                    Icon scaledIconPlayer2Card = scaleImage(player2Card);
+                    player2PlayedCard.setIcon(scaledIconPlayer2Card);
+
+                    //method for selecting card for cpu
+                    hand2.playFirstCard(discard2);
+
+                    cpuCard1.setVisible(false);
+                    player2PlayedCard.setVisible(true);
+
+
+                }
+
+            } else if (deck.getDeck().size() == 0 && hand1.getHand().size() == 2){
+
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+
+                if (whoWon == 1) {
+
+                    discard1.cardsWon(pile1);
+                    discard2.cardsWon(pile1);
+
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
+
+
+                    playerCard1 = hand1.getHand().get(0);
+                    playerCard2 = hand1.getHand().get(1);
+                    System.out.println("Your new hand: " + hand1.getHand());
+
+                    Icon scaledIconCard1 = scaleImage(playerCard1);
+                    Icon scaledIconCard2 = scaleImage(playerCard2);
+
+                    player1Card1Button.setIcon(scaledIconCard1);
+                    player1Card1Button.setVisible(true);
+                    player1Card1Button.setEnabled(true);
+
+                    player1Card2Button.setIcon(scaledIconCard2);
+                    player1Card2Button.setVisible(true);
+                    player1Card2Button.setEnabled(true);
+
+                    player1Card3Button.setVisible(false);
+                    player1Card3Button.setEnabled(false);
+
+                    cpuCard1.setVisible(true);
+                    cpuCard1.setIcon(scaledIcon);
+
+                    cpuCard3.setVisible(false);
+
+                    nextRoundButton.setVisible(false);
+                    nextRoundButton.setEnabled(false);
+
+                } else if (whoWon == 2) {
+
+                    discard1.cardsWon(pile2);
+                    discard2.cardsWon(pile2);
+
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
+
+                    playerCard1 = hand1.getHand().get(0);
+                    playerCard2 = hand1.getHand().get(1);
+
+                    System.out.println("Your new hand: " + hand1.getHand());
+
+                    Icon scaledIconCard1 = scaleImage(playerCard1);
+                    Icon scaledIconCard2 = scaleImage(playerCard2);
+
+                    player1Card1Button.setIcon(scaledIconCard1);
+                    player1Card1Button.setVisible(true);
+                    player1Card1Button.setEnabled(true);
+
+                    player1Card2Button.setIcon(scaledIconCard2);
+                    player1Card2Button.setVisible(true);
+                    player1Card2Button.setEnabled(true);
+
+                    player1Card3Button.setVisible(false);
+                    player1Card3Button.setEnabled(false);
+
+                    cpuCard1.setVisible(true);
+                    cpuCard1.setIcon(scaledIcon);
+
+                    nextRoundButton.setVisible(false);
+                    nextRoundButton.setEnabled(false);
+
+                    Card player2Card = hand2.getHand().get(0);
+
+                    Icon scaledIconPlayer2Card = scaleImage(player2Card);
+                    player2PlayedCard.setIcon(scaledIconPlayer2Card);
+
+                    //method for selecting card for cpu
+                    hand2.playFirstCard(discard2);
+
+                    cpuCard1.setVisible(false);
+                    cpuCard3.setVisible(false);
+                    player2PlayedCard.setVisible(true);
+                }
+            } else if (deck.getDeck().size() == 0 && hand1.getHand().size() == 1){
+
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+
+                if (whoWon == 1) {
+
+                    discard1.cardsWon(pile1);
+                    discard2.cardsWon(pile1);
+
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
+
+
+                    playerCard1 = hand1.getHand().get(0);
+                    System.out.println("Your new hand: " + hand1.getHand());
+
+                    Icon scaledIconCard1 = scaleImage(playerCard1);
+
+                    player1Card1Button.setIcon(scaledIconCard1);
+                    player1Card1Button.setVisible(true);
+                    player1Card1Button.setEnabled(true);
+
+                    player1Card2Button.setVisible(false);
+                    player1Card2Button.setEnabled(false);
+
+                    player1Card3Button.setVisible(false);
+                    player1Card3Button.setEnabled(false);
+
+                    cpuCard1.setVisible(true);
+                    cpuCard1.setIcon(scaledIcon);
+
+                    cpuCard2.setVisible(false);
+                    cpuCard3.setVisible(false);
+
+                    nextRoundButton.setVisible(false);
+                    nextRoundButton.setEnabled(false);
+
+                } else if (whoWon == 2) {
+
+                    discard1.cardsWon(pile2);
+                    discard2.cardsWon(pile2);
+
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
+
+                    playerCard1 = hand1.getHand().get(0);
+
+                    System.out.println("Your new hand: " + hand1.getHand());
+
+                    Icon scaledIconCard1 = scaleImage(playerCard1);
+
+                    player1Card1Button.setIcon(scaledIconCard1);
+                    player1Card1Button.setVisible(true);
+                    player1Card1Button.setEnabled(true);
+
+                    player1Card2Button.setVisible(false);
+                    player1Card2Button.setEnabled(false);
+
+                    player1Card3Button.setVisible(false);
+                    player1Card3Button.setEnabled(false);
+
+                    cpuCard1.setVisible(true);
+                    cpuCard1.setIcon(scaledIcon);
+
+                    nextRoundButton.setVisible(false);
+                    nextRoundButton.setEnabled(false);
+
+                    Card player2Card = hand2.getHand().get(0);
+
+                    Icon scaledIconPlayer2Card = scaleImage(player2Card);
+                    player2PlayedCard.setIcon(scaledIconPlayer2Card);
+
+                    //method for selecting card for cpu
+                    hand2.playFirstCard(discard2);
+
+                    cpuCard1.setVisible(false);
+                    cpuCard2.setVisible(false);
+                    cpuCard3.setVisible(false);
+                    player2PlayedCard.setVisible(true);
+                }
+            } else {
+                nextRoundButton.setText("Game Over. Check Score");
             }
-
-
         });
 
         player1Card1Button.addActionListener(e -> {

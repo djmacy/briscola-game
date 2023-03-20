@@ -31,4 +31,8 @@ public class Hand {
         discard.getDiscard().add(thirdCard);
         return thirdCard;
     }
+
+    public void dealTrumpSuitCard (Card trumpSuitCard) {
+        hand.add(trumpSuitCard);
+    }
 }
