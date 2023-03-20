@@ -18,7 +18,8 @@ public class BriscolaGUI extends JFrame {
     private Deck deck;
     private Hand hand1;
     private Hand hand2;
-    private Discard discard;
+    private Discard discard1;
+    private Discard discard2;
     private Pile pile1;
     private Pile pile2;
     private final int gameHeight = 800;
@@ -45,7 +46,8 @@ public class BriscolaGUI extends JFrame {
         deck = new Deck();
         hand1 = new Hand();
         hand2 = new Hand();
-        discard = new Discard();
+        discard1 = new Discard();
+        discard2 = new Discard();
         pile1 = new Pile();
         pile2 = new Pile();
         whoStartsGame();
@@ -176,10 +178,11 @@ public class BriscolaGUI extends JFrame {
 
             messageLabel.setVisible(false);
 
-            checkWhoWins(discard.getDiscard().get(0), discard.getDiscard().get(1));
+            checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
             if (whoWon == 1) {
-                discard.cardsWon(pile1);
+                discard1.cardsWon(pile1);
+                discard2.cardsWon(pile1);
 
                 player1PlayedCard.setVisible(false);
                 player2PlayedCard.setVisible(false);
@@ -214,7 +217,8 @@ public class BriscolaGUI extends JFrame {
                 nextRoundButton.setEnabled(false);
 
             } else if (whoWon == 2) {
-                discard.cardsWon(pile2);
+                discard1.cardsWon(pile2);
+                discard2.cardsWon(pile2);
 
                 player1PlayedCard.setVisible(false);
                 player2PlayedCard.setVisible(false);
@@ -256,7 +260,7 @@ public class BriscolaGUI extends JFrame {
                 player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
                 //method for selecting card for cpu
-                hand2.playFirstCard(discard);
+                hand2.playFirstCard(discard2);
 
                 cpuCard1.setVisible(false);
                 player2PlayedCard.setVisible(true);
@@ -285,8 +289,8 @@ public class BriscolaGUI extends JFrame {
                 contentPane.add(player2PlayedCard);
                 player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
-                hand1.playFirstCard(discard);
-                hand2.playFirstCard(discard);
+                hand1.playFirstCard(discard1);
+                hand2.playFirstCard(discard2);
 
                 player1Card1Button.setVisible(false);
                 player1Card1Button.setEnabled(false);
@@ -303,12 +307,12 @@ public class BriscolaGUI extends JFrame {
                 Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
                 player1Card3Button.setDisabledIcon(scaledIconPlayerCard3);
 
-                System.out.println("Discard Pile: " + discard.getDiscard());
+                System.out.println("Discard Pile: " + discard1.getDiscard() + " " + discard2.getDiscard());
 
                 nextRoundButton.setEnabled(true);
                 nextRoundButton.setVisible(true);
 
-                checkWhoWins(discard.getDiscard().get(0), discard.getDiscard().get(1));
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
                     messageLabel.setText("You Won");
@@ -323,7 +327,7 @@ public class BriscolaGUI extends JFrame {
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard1);
 
-                hand1.playFirstCard(discard);
+                hand1.playFirstCard(discard1);
 
                 player1Card1Button.setVisible(false);
                 player1Card1Button.setEnabled(false);
@@ -342,7 +346,7 @@ public class BriscolaGUI extends JFrame {
                 nextRoundButton.setEnabled(true);
                 nextRoundButton.setVisible(true);
 
-                checkWhoWins(discard.getDiscard().get(0), discard.getDiscard().get(1));
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
                     messageLabel.setText("You Won");
@@ -373,10 +377,10 @@ public class BriscolaGUI extends JFrame {
                 contentPane.add(player2PlayedCard);
                 player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
-                hand1.playSecondCard(discard);
+                hand1.playSecondCard(discard1);
 
                 //method for selecting cpu card
-                hand2.playFirstCard(discard);
+                hand2.playFirstCard(discard2);
 
                 player1Card2Button.setVisible(false);
                 player1Card2Button.setEnabled(false);
@@ -395,12 +399,12 @@ public class BriscolaGUI extends JFrame {
                 Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
                 player1Card3Button.setDisabledIcon(scaledIconPlayerCard3);
 
-                System.out.println("Discard Pile: " + discard.getDiscard());
+                System.out.println("Discard Pile: " + discard1.getDiscard() + " " + discard2.getDiscard());
 
                 nextRoundButton.setEnabled(true);
                 nextRoundButton.setVisible(true);
 
-                checkWhoWins(discard.getDiscard().get(0), discard.getDiscard().get(1));
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
                     messageLabel.setText("You Won");
@@ -415,7 +419,7 @@ public class BriscolaGUI extends JFrame {
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard2);
 
-                hand1.playSecondCard(discard);
+                hand1.playSecondCard(discard1);
 
                 player1Card2Button.setVisible(false);
                 player1Card2Button.setEnabled(false);
@@ -433,7 +437,7 @@ public class BriscolaGUI extends JFrame {
                 nextRoundButton.setEnabled(true);
                 nextRoundButton.setVisible(true);
 
-                checkWhoWins(discard.getDiscard().get(0), discard.getDiscard().get(1));
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
                     messageLabel.setText("You Won");
@@ -461,10 +465,10 @@ public class BriscolaGUI extends JFrame {
                 contentPane.add(player2PlayedCard);
                 player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
-                hand1.playThirdCard(discard);
+                hand1.playThirdCard(discard1);
 
                 //method for selecting cpu card
-                hand2.playFirstCard(discard);
+                hand2.playFirstCard(discard2);
 
                 player1Card3Button.setVisible(false);
                 player1Card3Button.setEnabled(false);
@@ -483,12 +487,12 @@ public class BriscolaGUI extends JFrame {
                 Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
                 player1Card2Button.setDisabledIcon(scaledIconPlayerCard2);
 
-                System.out.println("Discard Pile: " + discard.getDiscard());
+                System.out.println("Discard Pile: " + discard1.getDiscard() + " " + discard2.getDiscard());
 
                 nextRoundButton.setEnabled(true);
                 nextRoundButton.setVisible(true);
 
-                checkWhoWins(discard.getDiscard().get(0), discard.getDiscard().get(1));
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
                     messageLabel.setText("You Won");
@@ -503,7 +507,7 @@ public class BriscolaGUI extends JFrame {
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard3);
 
-                hand1.playThirdCard(discard);
+                hand1.playThirdCard(discard1);
 
                 player1Card3Button.setVisible(false);
                 player1Card3Button.setEnabled(false);
@@ -521,7 +525,7 @@ public class BriscolaGUI extends JFrame {
                 nextRoundButton.setEnabled(true);
                 nextRoundButton.setVisible(true);
 
-                checkWhoWins(discard.getDiscard().get(0), discard.getDiscard().get(1));
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
                     messageLabel.setText("You Won");
