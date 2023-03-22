@@ -357,8 +357,6 @@ public class BriscolaGUI extends JFrame {
 
                     cpuCard1.setVisible(false);
                     player2PlayedCard.setVisible(true);
-
-
                 }
 
             } else if (deck.getDeck().size() == 0 && hand1.getHand().size() == 2){
@@ -481,6 +479,7 @@ public class BriscolaGUI extends JFrame {
 
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
+                    nextRoundButton.setText("Check Score");
 
                 } else if (whoWon == 2) {
 
@@ -524,9 +523,46 @@ public class BriscolaGUI extends JFrame {
                     cpuCard2.setVisible(false);
                     cpuCard3.setVisible(false);
                     player2PlayedCard.setVisible(true);
+                    nextRoundButton.setText("Check Score");
                 }
+            } else if (hand1.getHand().size() == 0 && hand2.getHand().size() == 0 && discard1.getDiscard().size() == 1) {
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+                if (whoWon == 1) {
+                    discard1.cardsWon(pile1);
+                    discard2.cardsWon(pile1);
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
+                    if (pile1.getPoints() > 60) {
+                        messageLabel.setText("You won with " + pile1.getPoints() + " points");
+                    } else if (pile2.getPoints() > 60) {
+                        messageLabel.setText("You lost with " + pile1.getPoints() + " points");
+                    } else {
+                        messageLabel.setText("You tied with " + pile1.getPoints() + " points");
+                    }
+                    messageLabel.setVisible(true);
+                    nextRoundButton.setText("New Game");
+                } else if (whoWon == 2) {
+                    discard2.cardsWon(pile2);
+                    discard2.cardsWon(pile2);
+                    player1PlayedCard.setVisible(false);
+                    player2PlayedCard.setVisible(false);
+                    if (pile1.getPoints() > 60) {
+                        messageLabel.setText("You won with " + pile1.getPoints() + " points");
+                    } else if (pile2.getPoints() > 60) {
+                        messageLabel.setText("You lost with " + pile1.getPoints() + " points");
+                    } else {
+                        messageLabel.setText("You tied with " + pile1.getPoints() + " points");
+                    }
+                    messageLabel.setVisible(true);
+                    nextRoundButton.setText("New Game");
+                }
+
+
+            } else if (hand1.getHand().size() == 0 && hand2.getHand().size() == 0 && pile1.getPile().size() + pile2.getPile().size() == 40){
+                System.out.println("pile size: " + pile1.getPile().size());
+                resetGame();
             } else {
-                nextRoundButton.setText("Game Over. Check Score");
+
             }
         });
 
@@ -844,5 +880,14 @@ public class BriscolaGUI extends JFrame {
 
     private int randomCardPicker() {
         return 0;
+    }
+
+    private void resetGame() {
+        pile1.startOver();
+        pile2.startOver();
+        deck = new Deck();
+        dealButton.setEnabled(true);
+        dealButton.setVisible(true);
+
     }
 }
