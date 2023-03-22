@@ -5,6 +5,7 @@ import classes.Hand;
 import java.util.*;
 
 public class Deck {
+    public static final int DECK_SIZE = 40;
     private final List<Card> deck;
 
     public Deck() {
