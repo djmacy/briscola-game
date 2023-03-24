@@ -31,4 +31,19 @@ public class Hand {
         discard.getDiscard().add(thirdCard);
         return thirdCard;
     }
+
+    public void clear() {
+        for (Card elem : this.hand) {
+            this.hand.remove(elem);
+        }
+    }
+
+    public Card getPlayedCard() {
+        if (hand.size() > 0) {
+            Card topCard = hand.remove(0);
+            return topCard;
+        } else {
+            return null;
+        }
+    }
 }
