@@ -1,6 +1,6 @@
-package runnable;
+package unitTests;
 
-import classes.Card;
+import gameStructure.Card;
 
 import javax.swing.*;
 

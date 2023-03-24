@@ -1,6 +1,4 @@
-package classes;
-
-import classes.Hand;
+package gameStructure;
 
 import java.util.*;
 

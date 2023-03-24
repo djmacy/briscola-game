@@ -1,14 +1,14 @@
-package runnable;
+package unitTests;
 
-public class DiscardTests {
+public class HandTests {
     public static void main(String[] args) {
-        new DiscardTests();
+        new HandTests();
     }
     private int passed = 0;
     private int failed = 0;
 
-    public DiscardTests() {
-        testDiscard();
+    public HandTests() {
+        testHand();
 
         if (failed > 0) {
             System.err.println(failed + " CASE(S) FAILED");
@@ -17,7 +17,7 @@ public class DiscardTests {
         }
     }
 
-    public void testDiscard() {
+    public void testHand() {
 
     }
 }
