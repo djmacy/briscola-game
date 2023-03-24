@@ -24,9 +24,7 @@ public class Pile {
             points = 0;
         } else {
             for (Card card : pile) {
-//still need to make the method
-// getValue() to determine value of cards
-                // points += card.getValue();
+                points += card.getWorth();
 
             }
         }

@@ -46,4 +46,8 @@ public class Hand {
             return null;
         }
     }
+
+    public void dealTrumpSuitCard (Card trumpSuitCard){
+        hand.add(trumpSuitCard);
+    }
 }
