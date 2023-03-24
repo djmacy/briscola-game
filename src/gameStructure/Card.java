@@ -1,4 +1,4 @@
-package classes;
+package gameStructure;
 
 import javax.swing.ImageIcon;
 

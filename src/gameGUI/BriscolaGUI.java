@@ -1,6 +1,6 @@
-package runnable;
+package gameGUI;
 
-import classes.*;
+import gameStructure.*;
 
 import java.awt.*;
 

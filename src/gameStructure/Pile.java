@@ -1,4 +1,4 @@
-package classes;
+package gameStructure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +25,12 @@ public class Pile {
         } else {
             for (Card card : pile) {
                 points += card.getWorth();
-
             }
         }
         return points;
+    }
+
+    public void addCard(Card card) {
+        pile.add(card);
     }
 }

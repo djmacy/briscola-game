@@ -1,8 +1,8 @@
-package runnable;
+package unitTests;
 
-import classes.Deck;
-import classes.Card;
-import classes.Hand;
+import gameStructure.Deck;
+import gameStructure.Card;
+import gameStructure.Hand;
 
 import java.util.List;
 
