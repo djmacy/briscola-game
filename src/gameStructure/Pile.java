@@ -25,7 +25,6 @@ public class Pile {
         } else {
             for (Card card : pile) {
                 points += card.getWorth();
-
             }
         }
         return points;
