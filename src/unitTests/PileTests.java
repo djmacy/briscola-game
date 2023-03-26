@@ -71,5 +71,35 @@ public class PileTests {
             System.err.println("   failed getSize");
             failed++;
         }
+
+        System.out.println("Testing getPoints...");
+        int points = pile.getPoints();
+
+        if (points == 28) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed getPoints");
+            failed++;
+        }
+
+        System.out.println("Testing startOver...");
+        pile.startOver();
+
+        if (pile.getPile().size() == 0) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed startOver");
+            failed++;
+        }
+
+        if (pile.getPoints() == 0) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed getPoints");
+            failed++;
+        }
     }
 }
