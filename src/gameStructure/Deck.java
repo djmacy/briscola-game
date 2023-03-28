@@ -46,21 +46,38 @@ public class Deck {
         return topCard;
     }
 
-    public Card dealCards(Hand hand1, Hand hand2) {
-        Card cardOne = deck.remove(0);
-        Card cardTwo = deck.remove(0);
-        Card cardThree = deck.remove(0);
-        Card cardFour = deck.remove(0);
-        Card cardFive = deck.remove(0);
-        Card cardSix = deck.remove(0);
-        Card trumpSuit = deck.remove(0);
-        hand1.hand.add(cardOne);
-        hand1.hand.add(cardThree);
-        hand1.hand.add(cardFive);
-        hand2.hand.add(cardTwo);
-        hand2.hand.add(cardFour);
-        hand2.hand.add(cardSix);
-        return trumpSuit;
+    public Card dealCards(Hand hand1, Hand hand2, int whoWon) {
+        if (whoWon == 1) {
+            Card cardOne = deck.remove(0);
+            Card cardTwo = deck.remove(0);
+            Card cardThree = deck.remove(0);
+            Card cardFour = deck.remove(0);
+            Card cardFive = deck.remove(0);
+            Card cardSix = deck.remove(0);
+            Card trumpSuit = deck.remove(0);
+            hand1.hand.add(cardOne);
+            hand1.hand.add(cardThree);
+            hand1.hand.add(cardFive);
+            hand2.hand.add(cardTwo);
+            hand2.hand.add(cardFour);
+            hand2.hand.add(cardSix);
+            return trumpSuit;
+        } else {
+            Card cardOne = deck.remove(0);
+            Card cardTwo = deck.remove(0);
+            Card cardThree = deck.remove(0);
+            Card cardFour = deck.remove(0);
+            Card cardFive = deck.remove(0);
+            Card cardSix = deck.remove(0);
+            Card trumpSuit = deck.remove(0);
+            hand2.hand.add(cardOne);
+            hand2.hand.add(cardThree);
+            hand2.hand.add(cardFive);
+            hand1.hand.add(cardTwo);
+            hand1.hand.add(cardFour);
+            hand1.hand.add(cardSix);
+            return trumpSuit;
+        }
     }
 
 }
