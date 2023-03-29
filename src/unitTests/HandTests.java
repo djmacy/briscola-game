@@ -14,7 +14,16 @@ import gameStructure.Card;
 import gameStructure.Discard;
 import gameStructure.Hand;
 
+/**
+ * Class tests the methods within Hand. The methods include clear(), getHand(),
+ * playFirstCard(), playSecondCard(), playThirdCard(), getPlayedCard(), dealTrumpCard().
+ */
 public class HandTests {
+
+    /**
+     * Main method which calls the testing methods. Main will print the number of passed or failed
+     * cases to th user
+     */
     public static void main(String[] args) {
         new HandTests();
     }
