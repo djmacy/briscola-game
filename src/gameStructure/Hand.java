@@ -32,10 +32,12 @@ public class Hand {
         return thirdCard;
     }
 
+    /**
+     * This method ended up being modified to utilize Java's clear method. It will clear
+     * all the cards within a hand.
+     */
     public void clear() {
-        for (Card elem : this.hand) {
-            this.hand.remove(elem);
-        }
+        hand.clear();
     }
 
     public Card getPlayedCard() {
