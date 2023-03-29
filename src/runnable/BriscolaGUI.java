@@ -769,23 +769,15 @@ public class BriscolaGUI extends JFrame {
                 player1PlayedCard.setIcon(scaledIconPlayerCard2);
 
                 //method for selecting card for now just pick first
-                Card player2Card = hand2.getHand().get(0);
-
-                Icon scaledIconPlayer2Card = scaleImage(player2Card);
-                player2PlayedCard.setBounds(405 + scaledWidth, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
-                contentPane.add(player2PlayedCard);
-                player2PlayedCard.setIcon(scaledIconPlayer2Card);
+                hardModePicker(playerCard1);
+                setImagesForCPU(cardChosen);
 
                 hand1.playSecondCard(discard1);
 
-                //method for selecting cpu card
-                hand2.playFirstCard(discard2);
+
 
                 player1Card2Button.setVisible(false);
                 player1Card2Button.setEnabled(false);
-
-                //card selected for cpu
-                cpuCard1.setVisible(false);
 
                 player1PlayedCard.setVisible(true);
                 player2PlayedCard.setVisible(true);
@@ -1001,7 +993,7 @@ public class BriscolaGUI extends JFrame {
             cardChosen = lowestCardWorthIndex(hand2.getHand());
             System.out.println("Card Chosen: " + hand2.getHand().get(cardChosen));
         } else {
-            if (player1Card.getWorth() > 9 && playerHasTrumpSuit(hand2.getHand()) && !player1Card.getSuit().equals(trumpSuitCard.getSuit())) {
+            if (player1Card.getWorth() > 3 && playerHasTrumpSuit(hand2.getHand()) && !player1Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 cardChosen = trumpSuitCardIndex(hand2.getHand());
                 System.out.println("Card Chosen: " + hand2.getHand().get(cardChosen));
 
