@@ -1,19 +1,19 @@
-/**
- * @author David
- * This is the deck class which creates the deck objects and the methods needed to play the game. Among the methods are the deal and dealTopCard Methods.
- * These are used for getting the card objects into a deck where we can put the cards into hands.
- */
-
 package gameStructure;
 
 import java.util.*;
+
+/**
+ * Creates a collection of cards that will represent the deck for the card game Briscola. The functionality for this class will
+ * include dealing and drawing cards from the deck to the players hands.
+ * @author David
+ */
 
 public class Deck {
     public static final int DECK_SIZE = 40;
     private final List<Card> deck;
 
     /**
-     * Creates the deck object. It loops through each suit faceName and image file for each card to put into the deck
+     * Creates the deck object. It creates a deck with 10 unique cards from each of the four suits and then shuffles the deck.
      */
     public Deck() {
         this.deck = new ArrayList<>();
@@ -28,7 +28,7 @@ public class Deck {
     }
 
     /**
-     * Returns the deck object.
+     * Returns a list of cards which represents the deck.
      *
      * @return deck
      */
@@ -39,7 +39,7 @@ public class Deck {
     /**
      * Returns the top card on the deck without removing it.
      *
-     * @return the 0 index of the deck
+     * @return top card of deck
      */
     public Card lookTopCard() {
         if (deck.size() > 0) {
@@ -51,9 +51,9 @@ public class Deck {
     }
 
     /**
-     * Returns the top card on the deck while removing it as well.
+     * Returns the top card on the deck while removing.
      *
-     * @return the 0 index of the deck
+     * @return the top card
      */
     public Card getTopCard() {
         if (deck.size() > 0) {
@@ -68,7 +68,7 @@ public class Deck {
      * Returns the top card while removing it and assigning the card to a hand. Used to draw after every round.
      *
      * @param hand is the hand where the card will go when called
-     * @return the 0 index of the deck
+     * @return the top card
      */
     public Card dealTopCard(Hand hand) {
         Card topCard = deck.remove(0);

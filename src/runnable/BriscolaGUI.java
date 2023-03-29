@@ -281,6 +281,9 @@ public class BriscolaGUI extends JFrame {
         nextRoundButton.addActionListener(e -> {
             messageLabel.setVisible(false);
 
+            System.out.println("Hand1: " + hand1.getHand());
+            System.out.println("Hand2: " + hand2.getHand());
+
             if (deck.getDeck().size() > 1) {
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
@@ -1063,8 +1066,8 @@ public class BriscolaGUI extends JFrame {
 
     private int highestCardWorth(List<Card> hand) {
         int highestCardWorth = hand.get(0).getWorth();
-        int highestCardIndex = -1;
-        for (int i = 1; i < hand.size(); i++) {
+        int highestCardIndex = 0;
+        for (int i = 0; i < hand.size(); i++) {
             int worth = hand.get(i).getWorth();
             if (worth > highestCardWorth) {
                 highestCardWorth = worth;
@@ -1077,7 +1080,7 @@ public class BriscolaGUI extends JFrame {
     private Card highestWorthCard(List<Card> hand) {
         Card highestWorthCard = hand.get(0);
         int highestCardWorth = 0;
-        for (int i = 1; i < hand.size(); i++) {
+        for (int i = 0; i < hand.size(); i++) {
             int worth = hand.get(i).getWorth();
             if (worth > highestCardWorth) {
                 highestCardWorth = worth;
@@ -1089,8 +1092,8 @@ public class BriscolaGUI extends JFrame {
 
     private int highestCardWorthIndex(List<Card> hand) {
         int highestCardWorth = hand.get(0).getWorth();
-        int highestCardIndex = -1;
-        for (int i = 1; i < hand.size(); i++) {
+        int highestCardIndex = 0;
+        for (int i = 0; i < hand.size(); i++) {
             int worth = hand.get(i).getWorth();
             if (worth > highestCardWorth) {
                 highestCardWorth = worth;
@@ -1103,7 +1106,7 @@ public class BriscolaGUI extends JFrame {
     private int lowestCardWorthIndex(List<Card> hand) {
         int lowestCardWorth = hand.get(0).getWorth();
         int lowestCardIndex = 0;
-        for (int i = 1; i < hand.size(); i++) {
+        for (int i = 0; i < hand.size(); i++) {
             int worth = hand.get(i).getWorth();
             if (worth < lowestCardWorth) {
                 lowestCardWorth = worth;
@@ -1114,8 +1117,8 @@ public class BriscolaGUI extends JFrame {
     }
     private int lowestCardWorth(List<Card> hand) {
         int lowestCardWorth = hand.get(0).getWorth();
-        int lowestCardIndex = -1;
-        for (int i = 1; i < hand.size(); i++) {
+        int lowestCardIndex = 0;
+        for (int i = 0; i < hand.size(); i++) {
             int worth = hand.get(i).getWorth();
             if (worth < lowestCardWorth) {
                 lowestCardWorth = worth;
@@ -1136,8 +1139,8 @@ public class BriscolaGUI extends JFrame {
     }
 
     private int trumpSuitCardIndex(List<Card> hand) {
-        int trumpSuitCardIndex = -1;
-        for (int i = 1; i < hand.size(); i++) {
+        int trumpSuitCardIndex = 0;
+        for (int i = 0; i < hand.size(); i++) {
             boolean isTrump = hand.get(i).getSuit().equals(trumpSuitCard.getSuit());
             if (isTrump) {
                 trumpSuitCardIndex = i;
