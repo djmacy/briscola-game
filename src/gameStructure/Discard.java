@@ -20,15 +20,19 @@ public class Discard {
         return cardPlayed;
     }
 
-    public Card.Suit getSuit(Card card) {
-        return card.getSuit();
-    }
-
     public void cardsWon(Pile pile) {
         for (Card cardsPlayed : discard) {
             pile.getPile().add(cardsPlayed);
         }
         discard.clear();
+    }
+
+    public void addCard(Card card) {
+        discard.add(card);
+    }
+
+    public void removeCard(Card card) {
+        discard.remove(card);
     }
 
 }
