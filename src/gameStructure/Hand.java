@@ -70,8 +70,9 @@ public class Hand {
     }
 
     /**
+     * Method for testing purposes that looks at the 0 index of the hand to compare with other 0 index of other hands.
      *
-     * @return
+     * @return 0 index card of the hand object
      */
     public Card getPlayedCard() {
         if (hand.size() > 0) {
