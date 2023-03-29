@@ -10,14 +10,25 @@ public class Pile {
         this.pile = new ArrayList<Card>();
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Card> getPile() {
         return pile;
     }
 
+    /**
+     *
+     */
     public void startOver() {
         pile.clear();
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPoints() {
         int points = 0;
         if (pile.size() == 0) {
