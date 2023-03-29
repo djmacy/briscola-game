@@ -1,18 +1,39 @@
 package unitTests;
 
+/**
+ * @file PileTests.java
+ * @author abbybrown
+ * @date 3/29/23
+ *
+ *      This method tests the methods within Pile.java. Methods tested include getPile(),
+ *      startOver(), getPoints(), addCard(). The program will print the number of passed/failed cases.
+ */
+
 import gameStructure.Card;
 import gameStructure.Pile;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The class will test the methods getPile(), startOver(), getPoints(), addCard(). The program
+ * will print the number of passed/failed cases.
+ */
 public class PileTests {
+
+    /**
+     * Main function will instantiate our class.
+     */
     public static void main(String[] args) {
         new PileTests();
     }
     private int passed = 0;
     private int failed = 0;
 
+    /**
+     * The Constructor will implement the methods within PileTests.java. The Constructor
+     * will print the number of passed/failed cases.
+     */
     public PileTests() {
         testPile();
 
@@ -23,6 +44,10 @@ public class PileTests {
         }
     }
 
+    /**
+     * The testPile method will test all the methods in Pile.java. Methods tested include
+     * getPile(), startOver(), getPoints(), addCard().
+     */
     public void testPile() {
         Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
         Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");

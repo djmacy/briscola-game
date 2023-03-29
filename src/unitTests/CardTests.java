@@ -1,11 +1,25 @@
 package unitTests;
 
+/**
+ * @file CardTests.java
+ * @author abbybrown
+ * @date 03/29/23
+ *
+ *      This class will thoroughly test the methods within Card.java. Methods tested include
+ *      getSuit(), getFaceNAme(), getStrength(), getWorth(), getImage(), and toString(). Program
+ *      will print the number of passed/failed cases.
+ */
+
 import gameStructure.Card;
 
 import javax.swing.*;
 
 public class CardTests {
 
+    /**
+     * Main method will instantiate our constructor, which will ultimately print the number
+     * of passed/failed cases.
+     */
     public static void main(String[] args) {
         new CardTests();
     }
@@ -19,6 +33,10 @@ public class CardTests {
     private int passed = 0;
     private int failed = 0;
 
+    /**
+     * Constructor that implements the testHighestCards and testDuplicateCards methods.
+     * The constructor will print the number of passed and failed cases.
+     */
     public CardTests() {
         testHighestCards(cardOne, cardTwo);
         testDuplicateCards(cardOne, cardThree);
@@ -30,6 +48,13 @@ public class CardTests {
         }
     }
 
+    /**
+     * This method will test two different cards against each other and use methods from Card.java.
+     * Methods include getSuit(), getFaceNAme(), getStrength(), getWorth(), getImage(), and toString().
+     *
+     * @param cardA a card used for testing against
+     * @param cardB a very different card from cardA used for testing
+     */
     public void testHighestCards(Card cardA, Card cardB) {
         System.out.println("Testing High Level Cards (getStrength)...");
         if (cardA.getStrength() == 9 && cardB.getStrength() == 8) {
@@ -101,6 +126,14 @@ public class CardTests {
         }
     }
 
+    /**
+     * This method will test cards that are identical to each other (meaning that they
+     * are equivalent to two identical physical cards). Methods tested include
+     * getSuit(), getFaceNAme(), getStrength(), getWorth(), getImage(), and toString().
+     *
+     * @param cardA a card that is equal to cardB
+     * @param cardB a card that is equal to cardA
+     */
     public void testDuplicateCards(Card cardA, Card cardB) {
         System.out.println("Testing Duplicate Cards (getStrength)...");
         if (cardA.getStrength() == 9 && cardB.getStrength() == 9) {
