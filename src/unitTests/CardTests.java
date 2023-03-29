@@ -1,24 +1,22 @@
 package unitTests;
 
-/**
- * @file CardTests.java
- * @author abbybrown
- * @date 03/29/23
- *
- *      This class will thoroughly test the methods within Card.java. Methods tested include
- *      getSuit(), getFaceNAme(), getStrength(), getWorth(), getImage(), and toString(). Program
- *      will print the number of passed/failed cases.
- */
-
 import gameStructure.Card;
 
 import javax.swing.*;
 
+/**
+ * This class will thoroughly test the methods within Card.java. Testing all the public methods. Program
+ * will print the number of passed/failed cases.
+ *
+ * @author abbybrown
+ * @date 03/29/23
+ * @see gameStructure.Card
+ */
+
 public class CardTests {
 
     /**
-     * Main method will instantiate our constructor, which will ultimately print the number
-     * of passed/failed cases.
+     * Main method will run all of our CardTests.
      */
     public static void main(String[] args) {
         new CardTests();
@@ -34,11 +32,11 @@ public class CardTests {
     private int failed = 0;
 
     /**
-     * Constructor that implements the testHighestCards and testDuplicateCards methods.
+     * Constructor that implements CardTest methods.
      * The constructor will print the number of passed and failed cases.
      */
     public CardTests() {
-        testHighestCards(cardOne, cardTwo);
+        testDifferentCards(cardOne, cardTwo);
         testDuplicateCards(cardOne, cardThree);
 
         if (failed > 0) {
@@ -49,13 +47,12 @@ public class CardTests {
     }
 
     /**
-     * This method will test two different cards against each other and use methods from Card.java.
-     * Methods include getSuit(), getFaceNAme(), getStrength(), getWorth(), getImage(), and toString().
+     * This method will test two different cards against each other.
      *
-     * @param cardA a card used for testing against
-     * @param cardB a very different card from cardA used for testing
+     * @param cardA a card used for testing against a card
+     * @param cardB a different card from cardA used for testing
      */
-    public void testHighestCards(Card cardA, Card cardB) {
+    public void testDifferentCards(Card cardA, Card cardB) {
         System.out.println("Testing High Level Cards (getStrength)...");
         if (cardA.getStrength() == 9 && cardB.getStrength() == 8) {
             System.out.println("   pass");
@@ -128,11 +125,10 @@ public class CardTests {
 
     /**
      * This method will test cards that are identical to each other (meaning that they
-     * are equivalent to two identical physical cards). Methods tested include
-     * getSuit(), getFaceNAme(), getStrength(), getWorth(), getImage(), and toString().
+     * are equivalent to two different decks that are identical physical cards).
      *
-     * @param cardA a card that is equal to cardB
-     * @param cardB a card that is equal to cardA
+     * @param cardA a card that is equivalent to cardB
+     * @param cardB a card that is equivalent to cardA
      */
     public void testDuplicateCards(Card cardA, Card cardB) {
         System.out.println("Testing Duplicate Cards (getStrength)...");
