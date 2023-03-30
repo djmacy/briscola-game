@@ -1,12 +1,9 @@
 /**
+ * Creates a card object that will have a unique suit and faceName associated with it based on the Italian card game
+ * Briscola. Each card can be a Coin, Stick, Sword, or Cup with faceNames 2-7, jack, horse, king, and ace. Each faceName
+ * will have a worth and strength associated with the card. Worth is used to count up points at the end of the game
+ * whereas strength decides which faceName wins when the cards get discarded during the game.
  * @David & Abby
- *
- * This is the Card class which defines the card objects for the
- * rest of the program. The cards objects all have a Suit, Facename,
- * and an ImageIcon associated with them. The suits and facenames
- * are made with enumerations, where the facenames have different
- * values associated with them. Specifically the strength of the
- * facename and the worth of the facename.
  */
 
 package gameStructure;
@@ -18,20 +15,16 @@ public class Card {
     private final ImageIcon image;
 
     /**
-     * Creates the suits for the cards.
-     *
-     * @return Suit (Coins, Sticks, Cups, Swords)
+     * Sets the suits for the cards.
      */
     public enum Suit {
         Coins, Sticks, Cups, Swords
     }
 
     /**
-     * Creates the facenames for the cards. Each facename has a
+     * Sets the facenames for the cards. Each facename has a
      * worth and strength associated with it. The first digit represents
      * the worth, while the second is the strength.
-     *
-     * @return FaceName (Ace, Two, Three, Four, Five, Six, Seven, Jack, Horse, King).
      */
     public enum FaceName {
         Ace(11, 9),

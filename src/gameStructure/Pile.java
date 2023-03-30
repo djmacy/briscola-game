@@ -3,27 +3,33 @@ package gameStructure;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Creates a list of cards that will represent the pile where all cards won will end up. Once the game is finished all
+ * cards values are counted up to see who scores more points. More than 60 points guarantees a win while 60 is a draw.
+ * @author David
+ */
+
 public class Pile {
     List<Card> pile;
 
     /**
-     * Pile constructor method.
+     * Creates the pile object. It creates a list of cards.
      */
     public Pile() {
         this.pile = new ArrayList<Card>();
     }
 
     /**
-     * Returns the pile object used to keep track of all the cards won by each player.
+     * Returns a list of cards which represents the pile used to keep track of all the cards won by each player.
      *
-     * @return pile object
+     * @return list of cards
      */
     public List<Card> getPile() {
         return pile;
     }
 
     /**
-     * clears the pile object of all the cards
+     * Clears the cards in the pile.
      */
     public void startOver() {
         pile.clear();

@@ -30,7 +30,7 @@ public class Deck {
     /**
      * Returns a list of cards which represents the deck.
      *
-     * @return deck
+     * @return list of cards
      */
     public List<Card> getDeck() {
         return this.deck;

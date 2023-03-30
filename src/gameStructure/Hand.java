@@ -1,8 +1,7 @@
 /**
+ * Creates a list of cards that will represent the hand for each player. The functionality of this class will include
+ * playing any of the three cards that can be played per round.
  * @author David
- * Creates the hand objects associated with each player. Each player has their own hand where they can choose what cards
- * to play. The methods include methods for playing each card into the discard piles and a method to get the trumpSuitCard
- * when appropriate.
  */
 package gameStructure;
 import java.util.ArrayList;
@@ -11,12 +10,15 @@ import java.util.List;
 public class Hand {
     List<Card> hand;
 
+    /**
+     * Creates the Hand object. It creates a list of cards.
+     */
     public Hand() {
         this.hand = new ArrayList<Card>();
     }
 
     /**
-     * Returns the hand object as a list of cards.
+     * Returns a list of cards which reppresents the deck.
      *
      * @return hand
      */
@@ -28,7 +30,7 @@ public class Hand {
      * Plays the first card in the hand.
      *
      * @param discard is where the card will be sent. Each player will have their own discard to evaluate which card wins
-     * @return the 0 index card of the hand
+     * @return firstCard
      */
     public Card playFirstCard (Discard discard) {
         Card firstCard = hand.remove(0);
@@ -40,7 +42,7 @@ public class Hand {
      * Plays the second card in the hand.
      *
      * @param discard is where the card will be sent. Each player will have their own discard to evaluate which card wins
-     * @return the 1 index card of the hand
+     * @return secondCard
      */
     public Card playSecondCard (Discard discard) {
         Card secondCard = hand.remove(1);
@@ -52,7 +54,7 @@ public class Hand {
      * Plays the third card in the hand.
      *
      * @param discard is where the card will be sent. Each player will have their own discard to evaluate which card wins
-     * @return the 2 index card of the hand
+     * @return thirdCard
      */
     public Card playThirdCard (Discard discard) {
         Card thirdCard = hand.remove(2);
@@ -61,7 +63,7 @@ public class Hand {
     }
 
     /**
-     * Removes the cards in a hand.
+     * Removes all the cards in a hand.
      */
     public void clear() {
         for (Card elem : this.hand) {
@@ -72,7 +74,7 @@ public class Hand {
     /**
      * Method for testing purposes that looks at the 0 index of the hand to compare with other 0 index of other hands.
      *
-     * @return 0 index card of the hand object
+     * @return firstCard
      */
     public Card getPlayedCard() {
         if (hand.size() > 0) {
@@ -84,9 +86,11 @@ public class Hand {
     }
 
     /**
-     * Deals the trump suit card of the game and adds it to a hand.
+     * Deals the trump suit card of the game and adds it to a hand. This is implemented towards the end of the game when
+     * there is only 1 card left to draw from the deck. The second player to draw will take the trumpSuitCard since there
+     * are no more cards to draw from.
      *
-     * @param trumpSuitCard is the card that is the trumpSuitCard of the game. This is the last card deat before the endgame.
+     * @param trumpSuitCard is the card that is the trumpSuitCard of the game. This is the last card dealt before the endgame.
      */
     public void dealTrumpSuitCard (Card trumpSuitCard){
         hand.add(trumpSuitCard);

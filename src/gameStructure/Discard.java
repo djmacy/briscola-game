@@ -3,6 +3,12 @@ package gameStructure;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Creates a list of cards that will represent the discard for each player. This is used to compare the two cards played
+ * by each player and evaluate who wins the round. Once a winner is determined cards are sent to the winnner's pile.
+ * @author David
+ */
+
 public class Discard {
 
     List<Card> discard;
@@ -12,10 +18,11 @@ public class Discard {
     }
 
     /**
-     * Returns the discard object. Each player has their own discard and will have their cards evaluated to see who wins.
-     * At the end of every round a check is preformed and the cards are sent to the player pile who won.
+     * Returns a list of cards which represents the discard. Each player has their own discard and will have their
+     * cards evaluated to see who wins. At the end of every round a check is preformed and the cards are sent to the
+     * player pile who won.
      *
-     * @return discard
+     * @return list of cards
      */
     public List<Card> getDiscard() {
         return discard;
@@ -34,6 +41,11 @@ public class Discard {
         discard.clear();
     }
 
+    /**
+     * Returns the card played in the discard.
+     *
+     * @return cardPlayed
+     */
     public Card viewCardPlayed() {
         Card cardPlayed = discard.get(0);
         return cardPlayed;
