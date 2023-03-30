@@ -38,6 +38,7 @@ public class BriscolaGUI extends JFrame {
     private Card player2Card1;
     private Card player2Card2;
     private Card player2Card3;
+    private Card playedCard;
     private ImageIcon scaledIcon;
     private ImageIcon backOfCard;
     private JLabel backOfCardPic;
@@ -416,7 +417,8 @@ public class BriscolaGUI extends JFrame {
                     player1Card3Button.setEnabled(true);
 
                     cpuCard1.setVisible(true);
-                    cpuCard1.setIcon(scaledIcon);
+                    cpuCard2.setVisible(true);
+                    cpuCard3.setVisible(true);
 
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
@@ -459,15 +461,9 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    Card player2Card = hand2.getHand().get(0);
+                    hardModePicker(null);
+                    setImagesForCPU(cardChosen);
 
-                    Icon scaledIconPlayer2Card = scaleImage(player2Card);
-                    player2PlayedCard.setIcon(scaledIconPlayer2Card);
-
-                    //method for selecting card for cpu
-                    hand2.playFirstCard(discard2);
-
-                    cpuCard1.setVisible(false);
                     player2PlayedCard.setVisible(true);
                 }
 
@@ -543,16 +539,9 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    Card player2Card = hand2.getHand().get(0);
+                    hardModePicker(null);
+                    setImagesForCPU(cardChosen);
 
-                    Icon scaledIconPlayer2Card = scaleImage(player2Card);
-                    player2PlayedCard.setIcon(scaledIconPlayer2Card);
-
-                    //method for selecting card for cpu
-                    hand2.playFirstCard(discard2);
-
-                    cpuCard1.setVisible(false);
-                    cpuCard3.setVisible(false);
                     player2PlayedCard.setVisible(true);
                 }
             } else if (deck.getDeck().size() == 0 && hand1.getHand().size() == 1){
@@ -623,13 +612,8 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    Card player2Card = hand2.getHand().get(0);
-
-                    Icon scaledIconPlayer2Card = scaleImage(player2Card);
-                    player2PlayedCard.setIcon(scaledIconPlayer2Card);
-
-                    //method for selecting card for cpu
-                    hand2.playFirstCard(discard2);
+                    hardModePicker(null);
+                    setImagesForCPU(cardChosen);
 
                     cpuCard1.setVisible(false);
                     cpuCard2.setVisible(false);
@@ -682,17 +666,17 @@ public class BriscolaGUI extends JFrame {
         player1Card1Button.addActionListener(e -> {
 
             if (whoWon == 1) {
-
                 Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
                 player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard1);
 
+                hand1.playFirstCard(discard1);
+
                 //method for selecting card for now just pick first
+                System.out.println("Card Comparing: " + playerCard1);
                 hardModePicker(playerCard1);
                 setImagesForCPU(cardChosen);
-
-                hand1.playFirstCard(discard1);
 
                 player1Card1Button.setVisible(false);
                 player1Card1Button.setEnabled(false);
@@ -762,19 +746,17 @@ public class BriscolaGUI extends JFrame {
         //
         player1Card2Button.addActionListener(e -> {
             if (whoWon == 1) {
-
                 Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
                 player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard2);
 
-                //method for selecting card for now just pick first
-                hardModePicker(playerCard1);
-                setImagesForCPU(cardChosen);
-
                 hand1.playSecondCard(discard1);
 
-
+                //method for selecting card for now just pick first
+                System.out.println("Card Comparing: " + playerCard2);
+                hardModePicker(playerCard2);
+                setImagesForCPU(cardChosen);
 
                 player1Card2Button.setVisible(false);
                 player1Card2Button.setEnabled(false);
@@ -805,6 +787,8 @@ public class BriscolaGUI extends JFrame {
                     messageLabel.setVisible(true);
                 }
             } else if (whoWon == 2) {
+                playedCard = playerCard1;
+
                 Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
                 player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
@@ -842,30 +826,20 @@ public class BriscolaGUI extends JFrame {
 
         player1Card3Button.addActionListener(e -> {
             if (whoWon == 1) {
-
                 Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
                 player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard3);
 
-                //method for selecting card for now just pick first
-                Card player2Card = hand2.getHand().get(0);
-
-                Icon scaledIconPlayer2Card = scaleImage(player2Card);
-                player2PlayedCard.setBounds(405 + scaledWidth, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
-                contentPane.add(player2PlayedCard);
-                player2PlayedCard.setIcon(scaledIconPlayer2Card);
-
                 hand1.playThirdCard(discard1);
 
-                //method for selecting cpu card
-                hand2.playFirstCard(discard2);
+                //method for selecting card for now just pick first
+                System.out.println("Card Comparing: " + playerCard3);
+                hardModePicker(playerCard3);
+                setImagesForCPU(cardChosen);
 
                 player1Card3Button.setVisible(false);
                 player1Card3Button.setEnabled(false);
-
-                //card selected for cpu
-                cpuCard1.setVisible(false);
 
                 player1PlayedCard.setVisible(true);
                 player2PlayedCard.setVisible(true);
@@ -893,6 +867,8 @@ public class BriscolaGUI extends JFrame {
                     messageLabel.setVisible(true);
                 }
             } else if (whoWon == 2) {
+                playedCard = playerCard1;
+
                 Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
                 player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
@@ -1148,6 +1124,7 @@ public class BriscolaGUI extends JFrame {
         dealButton.setVisible(true);
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
+        nextRoundButton.setText("Next Round");
 
     }
 
