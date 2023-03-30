@@ -3,7 +3,6 @@ package gameGUI;
 
 import gameStructure.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.*;
@@ -15,7 +14,8 @@ public class BriscolaGUI extends JFrame {
         new BriscolaGUI();
     }
 
-    private JFrame frame;
+    private JFrame gameFrame;
+    private JFrame menuFrame;
     private Container contentPane;
     private JButton dealButton;
     private JButton player1Card1Button;
@@ -58,7 +58,25 @@ public class BriscolaGUI extends JFrame {
     private Card trumpSuitCard;
 
     public BriscolaGUI() {
+        menuFrame = new JFrame("Main Menu");
+        menuFrame.setSize(gameWidth,gameHeight);
+        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menuFrame.setVisible(true);
 
+        //making content pane
+        contentPane = menuFrame.getContentPane();
+        contentPane.setLayout(null);
+        contentPane.setBackground(Color.red);
+
+        JButton startButton = new JButton("Start Game");
+        startButton.setBounds(gameWidth/2 - 100, gameHeight/2 - 50, 100,50);
+        startButton.addActionListener(e -> showGameWindow());
+
+        contentPane.add(startButton);
+
+    }
+
+    private void showGameWindow() {
         deck = new Deck();
         hand1 = new Hand();
         hand2 = new Hand();
@@ -72,12 +90,12 @@ public class BriscolaGUI extends JFrame {
         player1Card2Button = new JButton();
         player1Card3Button = new JButton();
 
-        frame = new JFrame("Briscola");
-        frame.setSize(gameWidth, gameHeight);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameFrame = new JFrame("Briscola");
+        gameFrame.setSize(gameWidth, gameHeight);
+        gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //CREATING CONTENT PANE
-        contentPane = frame.getContentPane();
+        //making content pane
+        contentPane = gameFrame.getContentPane();
         contentPane.setLayout(null);
         contentPane.setBackground(Color.red);
 
@@ -275,10 +293,10 @@ public class BriscolaGUI extends JFrame {
         });
 
         newGameButton.addActionListener(e -> {
-           resetGame();
-           messageLabel.setVisible(false);
-           newGameButton.setVisible(false);
-           newGameButton.setEnabled(false);
+            resetGame();
+            messageLabel.setVisible(false);
+            newGameButton.setVisible(false);
+            newGameButton.setEnabled(false);
         });
 
         nextRoundButton.addActionListener(e -> {
@@ -907,7 +925,7 @@ public class BriscolaGUI extends JFrame {
         });
 
         // Set the frame to be visible
-        frame.setVisible(true);
+        gameFrame.setVisible(true);
     }
 
     private ImageIcon scaleImage(Card topCard) {
