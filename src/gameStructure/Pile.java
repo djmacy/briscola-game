@@ -45,4 +45,8 @@ public class Pile {
         }
         return points;
     }
+
+    public void addCard(Card card) {
+        pile.add(card);
+    }
 }

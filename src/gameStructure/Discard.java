@@ -20,17 +20,32 @@ public class Discard {
     public List<Card> getDiscard() {
         return discard;
     }
-
+    
     /**
      * Adds the card in the discard to the player pile that won and clears the card in the discard object.
      *
      * @param pile for the player that won
      */
+
     public void cardsWon(Pile pile) {
         for (Card cardsPlayed : discard) {
             pile.getPile().add(cardsPlayed);
         }
         discard.clear();
+    }
+
+    public Card viewCardPlayed() {
+        Card cardPlayed = discard.get(0);
+        return cardPlayed;
+    }
+
+
+    public void addCard(Card card) {
+        discard.add(card);
+    }
+
+    public void removeCard(Card card) {
+        discard.remove(card);
     }
 
 }

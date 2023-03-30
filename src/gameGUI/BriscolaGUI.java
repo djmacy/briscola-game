@@ -1,4 +1,6 @@
-package runnable;
+
+package gameGUI;
+
 import gameStructure.*;
 import java.awt.*;
 import java.util.ArrayList;
