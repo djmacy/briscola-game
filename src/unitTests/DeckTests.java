@@ -3,8 +3,14 @@ package unitTests;
 import gameStructure.Deck;
 import gameStructure.Card;
 import gameStructure.Hand;
-
 import java.util.List;
+
+/**
+ * This class will test the methods within Deck.java.
+ *
+ * @author abbybrown
+ * @see gameStructure.Deck
+ */
 
 public class DeckTests {
     public static void main(String[] args) {
@@ -14,6 +20,10 @@ public class DeckTests {
     private int failed = 0;
     private int count = 0;
 
+    /**
+     * Constructor will instantiate the testing methods below. The program will count
+     * all the failed/passed cases and print these cases to the user.
+     */
     public DeckTests() {
         testDeck();
         testDealTopCard();
@@ -26,6 +36,11 @@ public class DeckTests {
         }
     }
 
+    /**
+     * TestDeck will test the shuffle order of the deck to ensure that shuffle is truly random.
+     * It will test looking at the first/top card, removing the top card, and ensure that
+     * the size of the deck is what it should be. Counts passed/failed cases.
+     */
     public void testDeck() {
         Deck deckA = new Deck();
         Deck deckB = new Deck();
@@ -100,6 +115,10 @@ public class DeckTests {
         }
     }
 
+    /**
+     * Testing only the DealTopCard method. This method will test to ensure that
+     * the first card being dealt is actually the first card in the deck.
+     */
     public void testDealTopCard() {
         Deck deckA = new Deck();
         Deck deckB = new Deck();
@@ -142,6 +161,11 @@ public class DeckTests {
         }
     }
 
+    /**
+     * This testDealCards method will only look at the dealing order of the cards.
+     * The order needs extensive testing to ensure that there is accurate dealing of cards
+     * to both the CPU hand and the player hand.
+     */
     public void testDealCards() {
         System.out.println("Testing dealCards");
         Deck deck = new Deck();

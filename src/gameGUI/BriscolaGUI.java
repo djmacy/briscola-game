@@ -30,6 +30,7 @@ public class BriscolaGUI extends JFrame {
     private JButton player1Card3Button;
     private JButton nextRoundButton;
     private JButton newGameButton;
+    private JButton startButton;
     private Deck deck;
     private Hand hand1;
     private Hand hand2;
@@ -75,7 +76,7 @@ public class BriscolaGUI extends JFrame {
         contentPane.setLayout(null);
         contentPane.setBackground(Color.red);
 
-        JButton startButton = new JButton("Start Game");
+        startButton = new JButton("Start Game");
         startButton.setBounds(gameWidth/2 - 100, gameHeight/2 - 50, 100,50);
         startButton.addActionListener(e -> showGameWindow());
 
@@ -83,6 +84,7 @@ public class BriscolaGUI extends JFrame {
     }
 
     private void showGameWindow() {
+        startButton.setEnabled(false);
         deck = new Deck();
         hand1 = new Hand();
         hand2 = new Hand();
@@ -154,6 +156,8 @@ public class BriscolaGUI extends JFrame {
         JLabel messageLabel = new JLabel("");
         messageLabel.setBounds(gameWidth/2 - 150, 200, 150, 50);
         contentPane.add(messageLabel);
+
+        menuFrame.setVisible(false);
 
         dealButton.addActionListener(e -> {
             if (deck.getDeck().size() == 40) {

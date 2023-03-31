@@ -63,12 +63,10 @@ public class Hand {
     }
 
     /**
-     * Removes all the cards in a hand.
+     * Removes all the cards in a hand.ga
      */
     public void clear() {
-        for (Card elem : this.hand) {
-            this.hand.remove(elem);
-        }
+        hand.clear();
     }
 
     /**

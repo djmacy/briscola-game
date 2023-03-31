@@ -1,24 +1,16 @@
 package unitTests;
 
-/**
- * @file DiscardTests.java
- * @author abbybrown
- * @date 03/29/23
- *
- *      This package thoroughly tests the Discard.java file.
- *      Methods include testDiscard(), which will test cardsWon(),
- *      removeCard(), addCard(), viewCardPlayed(), getDiscard().
- *      Number of cases passed/failed will appear in terminal.
- */
-
 import gameStructure.Card;
 import gameStructure.Discard;
 import gameStructure.Pile;
 
 /**
- * Our public class containing all the unit tests for the
- * Discard.java file.
+ * This package thoroughly tests the Discard.java file.
+ *
+ * @author abbybrown
+ * @see gameStructure.Discard
  */
+
 public class DiscardTests {
 
     /**
@@ -46,9 +38,9 @@ public class DiscardTests {
     }
 
     /**
-     * Contains all of the main tests for the Discard.java file.
-     * This method tests getDiscard(), viewCardPlayed(), cardsWon(),
-     * addCard(), removeCard().
+     * Thoroughly tests the Discard methods.
+     *
+     * @see gameStructure.Discard
      */
     public void testDiscard() {
         // create an instance of the pile/discard
