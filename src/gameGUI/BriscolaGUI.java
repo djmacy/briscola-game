@@ -2,10 +2,17 @@
 package gameGUI;
 
 import gameStructure.*;
+
 import java.awt.*;
+
 import java.util.List;
 import java.util.Random;
-import javax.swing.*;
+
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.Icon;
 
 // A comment
 public class BriscolaGUI extends JFrame {
@@ -73,7 +80,6 @@ public class BriscolaGUI extends JFrame {
         startButton.addActionListener(e -> showGameWindow());
 
         contentPane.add(startButton);
-
     }
 
     private void showGameWindow() {
@@ -97,7 +103,7 @@ public class BriscolaGUI extends JFrame {
         //making content pane
         contentPane = gameFrame.getContentPane();
         contentPane.setLayout(null);
-        contentPane.setBackground(Color.red);
+        //ImagePanel panel = new ImagePanel(new ImageIcon("images/backgroundImage.png").getImage());
 
         //create draw button
         dealButton = new JButton("Deal Cards");
@@ -1145,7 +1151,8 @@ public class BriscolaGUI extends JFrame {
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
         nextRoundButton.setText("Next Round");
-
     }
+
+
 
 }
