@@ -1,24 +1,17 @@
 package unitTests;
 
-/**
- * @file DeckTests.java
- * @author abbybrown
- * @date 03/29/23
- *
- *      This class will test the methods within Deck.java. Methods tested include
- *      getDeck(), lookTopCard(), getTopCard(), dealTopCard(), dealCards().
- */
-
 import gameStructure.Deck;
 import gameStructure.Card;
 import gameStructure.Hand;
-
 import java.util.List;
 
 /**
- * This class will test the methods within Deck.java. Methods tested include
- * getDeck(), lookTopCard(), getTopCard(), dealTopCard(), dealCards().
+ * This class will test the methods within Deck.java.
+ *
+ * @author abbybrown
+ * @see gameStructure.Deck
  */
+
 public class DeckTests {
     public static void main(String[] args) {
         new DeckTests();
@@ -45,7 +38,7 @@ public class DeckTests {
 
     /**
      * TestDeck will test the shuffle order of the deck to ensure that shuffle is truly random.
-     * It will test looking at the first/top card, removing the top card, and ensuring that
+     * It will test looking at the first/top card, removing the top card, and ensure that
      * the size of the deck is what it should be. Counts passed/failed cases.
      */
     public void testDeck() {

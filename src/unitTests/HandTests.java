@@ -1,28 +1,20 @@
 package unitTests;
 
-/**
- * @file HandTests.java
- * @author abbybrown
- * @date 03/29/23
- *
- *      This file thoroughly tests the methods within Hand.java.
- *      Methods tested include getHand(), playFirstCard(), playSecondCard(),
- *      playThirdCard(), clear(), getPlayedCard(), dealTrumpSuitCard()
- */
-
 import gameStructure.Card;
 import gameStructure.Discard;
 import gameStructure.Hand;
 
 /**
- * Class tests the methods within Hand. The methods include clear(), getHand(),
- * playFirstCard(), playSecondCard(), playThirdCard(), getPlayedCard(), dealTrumpCard().
+ * This file thoroughly tests the methods within Hand.java.
+ *
+ * @author abbybrown
+ * @see gameStructure.Hand
  */
+
 public class HandTests {
 
     /**
-     * Main method which calls the testing methods. Main will print the number of passed or failed
-     * cases to th user
+     * Main method which calls the testing methods.
      */
     public static void main(String[] args) {
         new HandTests();
@@ -50,9 +42,9 @@ public class HandTests {
     }
 
     /**
-     * The testHand method will test various methods within the Hand.java
-     * file. Methods tested include getHand(), playFirstCard(), playSecondCard(),
-     * playThirdCard(), clear(), getPlayedCard
+     * The testHand method will test various methods within the Hand.java file.
+     *
+     * @see gameStructure.Hand
      */
     public void testHand() {
         // create instances of three cards to put into the hand, and trump card
@@ -126,6 +118,11 @@ public class HandTests {
         }
     }
 
+    /**
+     * The testHand method will test specifically the playThirdCard method.
+     *
+     * @see gameStructure.Hand
+     */
     public void testThirdCard() {
         Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
         Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
@@ -167,6 +164,11 @@ public class HandTests {
         }
     }
 
+    /**
+     * The testHand method will test specifically the playSecondCard method.
+     *
+     * @see gameStructure.Hand
+     */
     public void testSecondCard() {
         Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
         Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");

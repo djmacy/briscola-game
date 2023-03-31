@@ -9,7 +9,6 @@ import javax.swing.*;
  * will print the number of passed/failed cases.
  *
  * @author abbybrown
- * @date 03/29/23
  * @see gameStructure.Card
  */
 

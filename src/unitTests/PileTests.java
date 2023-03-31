@@ -1,24 +1,17 @@
 package unitTests;
 
-/**
- * @file PileTests.java
- * @author abbybrown
- * @date 3/29/23
- *
- *      This method tests the methods within Pile.java. Methods tested include getPile(),
- *      startOver(), getPoints(), addCard(). The program will print the number of passed/failed cases.
- */
-
 import gameStructure.Card;
 import gameStructure.Pile;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class will test the methods getPile(), startOver(), getPoints(), addCard(). The program
- * will print the number of passed/failed cases.
+ * This method tests the methods within Pile.java. The program will print the number of passed/failed cases.
+ *
+ * @author abbybrown
+ * @see gameStructure.Pile
  */
+
 public class PileTests {
 
     /**
@@ -45,10 +38,12 @@ public class PileTests {
     }
 
     /**
-     * The testPile method will test all the methods in Pile.java. Methods tested include
-     * getPile(), startOver(), getPoints(), addCard().
+     * The testPile method will test all the methods in Pile.java.
+     *
+     * @see gameStructure.Pile
      */
     public void testPile() {
+        // instantiate the cards
         Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
         Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
         Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
@@ -56,6 +51,7 @@ public class PileTests {
         Card cardE = new Card(Card.Suit.Coins, Card.FaceName.Six, "test.png");
         Card cardF = new Card(Card.Suit.Cups, Card.FaceName.King, "test2.png");
 
+        // create a pile and array to compare pile to array
         System.out.println("Testing addCard...");
         Pile pile = new Pile();
         List<Card> testArr = new ArrayList<>();
@@ -75,12 +71,14 @@ public class PileTests {
         testArr.add(cardE);
         testArr.add(cardF);
 
+        // check that card in arr and pile are the same
         for (int i = 0; i < pile.getPile().size(); i++) {
             if (pile.getPile().get(i) == testArr.get(i)) {
                 count++;
             }
         }
 
+        // all 6 cards should match
         if (count == 6) {
             System.out.println("   pass");
             passed++;
@@ -89,6 +87,7 @@ public class PileTests {
             failed++;
         }
 
+        // check that the size is accurate
         if (pile.getPile().size() == 6) {
             System.out.println("   pass");
             passed++;
@@ -100,6 +99,7 @@ public class PileTests {
         System.out.println("Testing getPoints...");
         int points = pile.getPoints();
 
+        // the point values should add up to 28
         if (points == 28) {
             System.out.println("   pass");
             passed++;
@@ -111,6 +111,7 @@ public class PileTests {
         System.out.println("Testing startOver...");
         pile.startOver();
 
+        // start over should delete the cards in pile
         if (pile.getPile().size() == 0) {
             System.out.println("   pass");
             passed++;
@@ -119,6 +120,7 @@ public class PileTests {
             failed++;
         }
 
+        // pile points should be zero
         if (pile.getPoints() == 0) {
             System.out.println("   pass");
             passed++;

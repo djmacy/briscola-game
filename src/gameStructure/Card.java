@@ -1,13 +1,13 @@
+package gameStructure;
+import javax.swing.ImageIcon;
+
 /**
  * Creates a card object that will have a unique suit and faceName associated with it based on the Italian card game
  * Briscola. Each card can be a Coin, Stick, Sword, or Cup with faceNames 2-7, jack, horse, king, and ace. Each faceName
  * will have a worth and strength associated with the card. Worth is used to count up points at the end of the game
- * whereas strength decides which faceName wins when the cards get discarded during the game.
- * @David & Abby
+ * whereas strength decides which card wins when the cards are played during the game.
+ * @author David & Abby
  */
-
-package gameStructure;
-import javax.swing.ImageIcon;
 
 public class Card {
     private final Suit suit;
@@ -15,14 +15,14 @@ public class Card {
     private final ImageIcon image;
 
     /**
-     * Sets the suits for the cards.
+     * Describes the possible suits for the cards.
      */
     public enum Suit {
         Coins, Sticks, Cups, Swords
     }
 
     /**
-     * Sets the facenames for the cards. Each facename has a
+     * Describes the possible facenames for the cards. Each facename has a
      * worth and strength associated with it. The first digit represents
      * the worth, while the second is the strength.
      */
@@ -43,12 +43,11 @@ public class Card {
         private final int cardStrength;
 
         /**
-         * Constructor for the FaceName enum. Allows us to create a getCardWorth or getCardStrength method for cards.
+         * Constructor for the FaceName enum.
          *
          * @param cardWorth
          * @param cardStrength
          */
-
         FaceName(int cardWorth, int cardStrength) {
             this.cardWorth = cardWorth;
             this.cardStrength = cardStrength;
@@ -57,7 +56,7 @@ public class Card {
         /**
          * Returns the worth of a given FaceName.
          *
-         * @return the cardWorth of the FaceName
+         * @return the worth of the FaceName
          */
         public int getWorth() {
             return cardWorth;
@@ -66,7 +65,7 @@ public class Card {
         /**
          * Returns the strength of a given FaceName.
          *
-         * @return the cardStrength of the FaceName
+         * @return the strength of the FaceName
          */
         public int getStrength() {
             return cardStrength;
@@ -76,7 +75,7 @@ public class Card {
     /**
      * Constructor for the card.
      *
-     * @param suit
+     * @param suit the associated  {@link Suit suit} of the card
      * @param faceName
      * @param imagePath
      */
@@ -89,7 +88,7 @@ public class Card {
     /**
      * Returns the suit of a card.
      *
-     * @return suit of card
+     * @return {@link Suit suit} of card
      */
     public Suit getSuit() {
         return suit;
@@ -134,7 +133,7 @@ public class Card {
     /**
      * A toString method for cards.
      *
-     * @return the faceName and suit of a card
+     * @return unique string description of a card
      */
     public String toString() {
         return this.faceName + " of " + this.suit;
