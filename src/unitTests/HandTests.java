@@ -38,6 +38,8 @@ public class HandTests {
     public HandTests() {
         // call the testHand method
         testHand();
+        testThirdCard();
+        testSecondCard();
 
         // print the number of failed/passed cases for the user to see
         if (failed > 0) {
@@ -57,10 +59,7 @@ public class HandTests {
         Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
         Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
         Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
-        Card trump = new Card(Card.Suit.Cups, Card.FaceName.King, "test2.png");
 
-        // create an instance of discard so the cards in hand have a container to go to
-        Discard discard = new Discard();
         // create an instance of hand so the cards have a hand to go to
         Hand hand = new Hand();
 
@@ -124,6 +123,88 @@ public class HandTests {
             System.out.println("   failed getPlayedCard");
             failed++;
             System.out.println(hand.getHand().size());
+        }
+    }
+
+    public void testThirdCard() {
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
+
+        // create an instance of discard so the cards in hand have a container to go to
+        Discard discard = new Discard();
+        // create an instance of hand so the cards have a hand to go to
+        Hand hand = new Hand();
+
+        hand.getHand().add(cardA);
+        hand.getHand().add(cardB);
+        hand.getHand().add(cardC);
+
+        System.out.println("Testing playThirdCard...");
+        Card third = hand.playThirdCard(discard);
+        if (third == cardC) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed playThirdCard");
+            failed++;
+        }
+
+        if (hand.getHand().size() == 2) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed playThirdCard");
+            failed++;
+        }
+
+        if (discard.getDiscard().size() == 1) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed playThirdCard");
+            failed++;
+        }
+    }
+
+    public void testSecondCard() {
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
+
+        // create an instance of discard so the cards in hand have a container to go to
+        Discard discard = new Discard();
+        // create an instance of hand so the cards have a hand to go to
+        Hand hand = new Hand();
+
+        hand.getHand().add(cardA);
+        hand.getHand().add(cardB);
+        hand.getHand().add(cardC);
+
+        System.out.println("Testing playSecondCard...");
+        Card second = hand.playSecondCard(discard);
+        if (second == cardB) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed playThirdCard");
+            failed++;
+        }
+
+        if (hand.getHand().size() == 2) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed playThirdCard");
+            failed++;
+        }
+
+        if (discard.getDiscard().size() == 1) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed playThirdCard");
+            failed++;
         }
     }
 }
