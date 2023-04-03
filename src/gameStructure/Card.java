@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
  * Briscola. Each card can be a Coin, Stick, Sword, or Cup with faceNames 2-7, jack, horse, king, and ace. Each faceName
  * will have a worth and strength associated with the card. Worth is used to count up points at the end of the game
  * whereas strength decides which card wins when the cards are played during the game.
- * @author David & Abby
+ * @author David and Abby
  */
 
 public class Card {
@@ -76,8 +76,8 @@ public class Card {
      * Constructor for the card.
      *
      * @param suit the associated  {@link Suit suit} of the card
-     * @param faceName
-     * @param imagePath
+     * @param faceName the associated {@link FaceName face name} of the card
+     * @param imagePath the associated image of the card
      */
     public Card(Suit suit, FaceName faceName, String imagePath) {
         this.suit = suit;
