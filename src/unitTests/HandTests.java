@@ -32,6 +32,8 @@ public class HandTests {
         testHand();
         testThirdCard();
         testSecondCard();
+        testFirstCard();
+        testPlayedAndTrump();
 
         // print the number of failed/passed cases for the user to see
         if (failed > 0) {
@@ -189,7 +191,7 @@ public class HandTests {
             System.out.println("   pass");
             passed++;
         } else {
-            System.err.println("   failed playThirdCard");
+            System.err.println("   failed playSecondCard");
             failed++;
         }
 
@@ -197,7 +199,7 @@ public class HandTests {
             System.out.println("   pass");
             passed++;
         } else {
-            System.err.println("   failed playThirdCard");
+            System.err.println("   failed playSecondCard");
             failed++;
         }
 
@@ -205,7 +207,95 @@ public class HandTests {
             System.out.println("   pass");
             passed++;
         } else {
-            System.err.println("   failed playThirdCard");
+            System.err.println("   failed playSecondCard");
+            failed++;
+        }
+    }
+
+    /**
+     * The testHand method will test specifically the playSecondCard method.
+     *
+     * @see gameStructure.Hand
+     */
+    public void testFirstCard() {
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
+
+        // create an instance of discard so the cards in hand have a container to go to
+        Discard discard = new Discard();
+        // create an instance of hand so the cards have a hand to go to
+        Hand hand = new Hand();
+
+        hand.getHand().add(cardA);
+        hand.getHand().add(cardB);
+        hand.getHand().add(cardC);
+
+        System.out.println("Testing playFirstCard...");
+        Card first = hand.playFirstCard(discard);
+        if (first == cardA) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed playFirstCard");
+            failed++;
+        }
+
+        if (hand.getHand().size() == 2) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed playFirstCard");
+            failed++;
+        }
+
+        if (discard.getDiscard().size() == 1) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed playFirstCard");
+            failed++;
+        }
+    }
+
+    /**
+     * Method for testing the getPlayedCard and dealTrumpSuitCard methods
+     * in Hand.java.
+     *
+     * @see gameStructure.Hand
+     */
+    public void testPlayedAndTrump() {
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
+        Card trump = new Card(Card.Suit.Swords, Card.FaceName.Horse, "test2.png");
+
+        // create an instance of discard so the cards in hand have a container to go to
+        Discard discard = new Discard();
+        // create an instance of hand so the cards have a hand to go to
+        Hand hand = new Hand();
+
+        hand.getHand().add(cardA);
+        hand.getHand().add(cardB);
+        hand.getHand().add(cardC);
+
+        System.out.println("Testing getPlayedCard...");
+        Card cardPlayed = hand.getPlayedCard();
+        if (cardPlayed == cardA) {
+            System.out.println("   passed");
+            passed++;
+        } else {
+            System.err.println("   failed getPlayedCard");
+            failed++;
+        }
+
+        System.out.println("Testing trumpSuitCard...");
+        hand.dealTrumpSuitCard(trump);
+        if (hand.getHand().contains(trump)) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed trumpSuitCard");
             failed++;
         }
     }
