@@ -8,11 +8,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.Icon;
+import javax.swing.*;
 
 // A comment
 public class BriscolaGUI extends JFrame {
@@ -56,10 +52,11 @@ public class BriscolaGUI extends JFrame {
     private JLabel cpuCard1;
     private JLabel cpuCard2;
     private JLabel cpuCard3;
+    private JLabel player1PlayedCard;
     private JLabel player2PlayedCard;
     private JLabel messageLabel;
     private JLabel topCardPic;
-
+    private JLabel backgroundImage;
     private int whoWon;
     private int rand;
     private int cardChosen;
@@ -102,25 +99,35 @@ public class BriscolaGUI extends JFrame {
         gameFrame.setSize(gameWidth, gameHeight);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //https://stackoverflow.com/questions/26698975/how-to-deal-with-public-void-paint-method-in-jframe
+        JPanel gamePanel = new JPanel() {
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image img = new ImageIcon("src/images/backgroundImage.png").getImage();
+                Dimension size = getSize();
+                g.drawImage(img,0,0,size.width,size.height,null);
+            }
+        };
+        gameFrame.setContentPane(gamePanel);
+
         //making content pane
         contentPane = gameFrame.getContentPane();
         contentPane.setLayout(null);
-        //ImagePanel panel = new ImagePanel(new ImageIcon("images/backgroundImage.png").getImage());
 
-        //create draw button
+        //create deal button
         dealButton = new JButton("Deal Cards");
-        dealButton.setBounds(((gameWidth / 2) / 2) - 150 / 2, 700, 150, 50);
+        dealButton.setBounds((gameWidth / 2) - 160, 570, 150, 50);
         contentPane.add(dealButton);
 
         //create next round button
         nextRoundButton = new JButton("Next Round");
-        nextRoundButton.setBounds(gameWidth/2 - 200, 555, 150, 50);
+        nextRoundButton.setBounds(gameWidth/2 - 160, 570, 150, 50);
         contentPane.add(nextRoundButton);
         nextRoundButton.setVisible(false);
 
         //create new game button
         newGameButton = new JButton("New Game");
-        newGameButton.setBounds(gameWidth/2 - 200, 555, 150, 50);
+        newGameButton.setBounds(gameWidth/2 - 160, 570, 150, 50);
         contentPane.add(newGameButton);
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
@@ -137,8 +144,10 @@ public class BriscolaGUI extends JFrame {
 
         //Add where we put the played cards
         JLabel player1PlayedCard = new JLabel();
+        player1PlayedCard.setBounds(500, scaledHeight / 2 - 150, scaledWidth, scaledHeight);
         contentPane.add(player1PlayedCard);
         player2PlayedCard = new JLabel();
+        player2PlayedCard.setBounds(405 + scaledWidth, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
         contentPane.add(player2PlayedCard);
 
         //making back of card image
@@ -149,12 +158,12 @@ public class BriscolaGUI extends JFrame {
 
         //add the back of card image to the screen
         JLabel backOfCardPic = new JLabel(scaledIcon);
-        backOfCardPic.setBounds( 100, gameHeight / 2 - scaledHeight / 2, scaledWidth,scaledHeight);
+        backOfCardPic.setBounds( 50, gameHeight / 2 - scaledHeight / 2  - 40, scaledWidth,scaledHeight);
         contentPane.add(backOfCardPic);
 
         //add message on who won after every round
         JLabel messageLabel = new JLabel("");
-        messageLabel.setBounds(gameWidth/2 - 150, 200, 150, 50);
+        messageLabel.setBounds(gameWidth - 150, gameHeight - 100, 150, 50);
         contentPane.add(messageLabel);
 
         menuFrame.setVisible(false);
@@ -175,12 +184,12 @@ public class BriscolaGUI extends JFrame {
                     Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
                     Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
 
-                    player1Card1Button.setBounds(750, 500, scaledWidth, 250);
+                    player1Card1Button.setBounds(840, 400, scaledWidth, 250);
                     contentPane.add(player1Card1Button);
-                    player1Card2Button.setBounds(755 + scaledWidth, 500, scaledWidth, 250);
-                    contentPane.add(player1Card2Button);
-                    player1Card3Button.setBounds(760 + scaledWidth + scaledWidth, 500, scaledWidth, 250);
-                    contentPane.add(player1Card3Button);
+                    player1Card2Button.setBounds(845 + scaledWidth, 400, scaledWidth, 250);
+                    contentPane.add(player1Card2Button,1);
+                    player1Card3Button.setBounds(850 + scaledWidth + scaledWidth, 400, scaledWidth, 250);
+                    contentPane.add(player1Card3Button,1);
 
                     player1Card1Button.setVisible(true);
                     player1Card1Button.setEnabled(true);
@@ -196,15 +205,15 @@ public class BriscolaGUI extends JFrame {
                     scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
 
                     cpuCard1.setIcon(scaledIcon);
-                    cpuCard1.setBounds(750, 20, scaledWidth, scaledHeight);
+                    cpuCard1.setBounds(840, 30, scaledWidth, scaledHeight);
                     contentPane.add(cpuCard1);
 
                     cpuCard2.setIcon(scaledIcon);
-                    cpuCard2.setBounds(755 + scaledWidth, 20, scaledWidth, scaledHeight);
+                    cpuCard2.setBounds(845 + scaledWidth, 30, scaledWidth, scaledHeight);
                     contentPane.add(cpuCard2);
 
                     cpuCard3.setIcon(scaledIcon);
-                    cpuCard3.setBounds(760 + scaledWidth + scaledWidth, 20, scaledWidth, scaledHeight);
+                    cpuCard3.setBounds(850 + scaledWidth + scaledWidth, 30, scaledWidth, scaledHeight);
                     contentPane.add(cpuCard3);
 
                     cpuCard1.setVisible(true);
@@ -213,7 +222,7 @@ public class BriscolaGUI extends JFrame {
 
 
                     topCardPic.setIcon(new ImageIcon(scaleImage(trumpSuitCard).getImage()));
-                    topCardPic.setBounds(105 + scaledWidth, gameHeight / 2 - scaledHeight / 2, scaledWidth, scaledHeight);
+                    topCardPic.setBounds(105 + scaledWidth - 50, gameHeight / 2 - scaledHeight / 2 - 40, scaledWidth, scaledHeight);
                     contentPane.add(topCardPic);
                     topCardPic.setVisible(true);
                     backOfCardPic.setVisible(true);
@@ -297,6 +306,8 @@ public class BriscolaGUI extends JFrame {
                     cpuCard1.setVisible(false);
                     player2PlayedCard.setVisible(true);
                     System.out.println("CPU: Card played: " + discard2.getDiscard());
+
+
 
                 }
             }
@@ -697,7 +708,7 @@ public class BriscolaGUI extends JFrame {
 
             if (whoWon == 1) {
                 Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
-                player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard1);
 
@@ -738,7 +749,7 @@ public class BriscolaGUI extends JFrame {
                 }
             } else if (whoWon == 2) {
                 Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
-                player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard1);
 
@@ -777,7 +788,7 @@ public class BriscolaGUI extends JFrame {
         player1Card2Button.addActionListener(e -> {
             if (whoWon == 1) {
                 Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
-                player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard2);
 
@@ -820,7 +831,7 @@ public class BriscolaGUI extends JFrame {
                 playedCard = playerCard1;
 
                 Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
-                player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard2);
 
@@ -857,7 +868,7 @@ public class BriscolaGUI extends JFrame {
         player1Card3Button.addActionListener(e -> {
             if (whoWon == 1) {
                 Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
-                player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard3);
 
@@ -900,7 +911,7 @@ public class BriscolaGUI extends JFrame {
                 playedCard = playerCard1;
 
                 Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
-                player1PlayedCard.setBounds(400, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
                 contentPane.add(player1PlayedCard);
                 player1PlayedCard.setIcon(scaledIconPlayerCard3);
 
@@ -1025,7 +1036,7 @@ public class BriscolaGUI extends JFrame {
             Card player2Card = hand2.getHand().get(0);
 
             Icon scaledIconPlayer2Card = scaleImage(player2Card);
-            player2PlayedCard.setBounds(405 + scaledWidth, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+            player2PlayedCard.setBounds(455 + scaledWidth, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
             contentPane.add(player2PlayedCard);
             player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
@@ -1038,7 +1049,7 @@ public class BriscolaGUI extends JFrame {
             Card player2Card = hand2.getHand().get(1);
 
             Icon scaledIconPlayer2Card = scaleImage(player2Card);
-            player2PlayedCard.setBounds(405 + scaledWidth, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+            player2PlayedCard.setBounds(445 + scaledWidth, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
             contentPane.add(player2PlayedCard);
             player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
@@ -1051,7 +1062,7 @@ public class BriscolaGUI extends JFrame {
             Card player2Card = hand2.getHand().get(2);
 
             Icon scaledIconPlayer2Card = scaleImage(player2Card);
-            player2PlayedCard.setBounds(405 + scaledWidth, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
+            player2PlayedCard.setBounds(445 + scaledWidth, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
             contentPane.add(player2PlayedCard);
             player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
