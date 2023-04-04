@@ -71,13 +71,21 @@ public class BriscolaGUI extends JFrame {
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuFrame.setVisible(true);
 
-        //making content pane
-        contentPane = menuFrame.getContentPane();
+        JPanel gamePanel = new JPanel() {
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image img = new ImageIcon("src/images/BriCenMenu.png").getImage();
+                Dimension size = getSize();
+                g.drawImage(img,0,0,size.width,size.height,null);
+            }
+        };
+        menuFrame.setContentPane(gamePanel);
+
+        Container contentPane = menuFrame.getContentPane();
         contentPane.setLayout(null);
-        contentPane.setBackground(Color.red);
 
         startButton = new JButton("Start Game");
-        startButton.setBounds(gameWidth/2 - 100, gameHeight/2 - 50, 100,50);
+        startButton.setBounds(gameWidth/2 - 50, gameHeight - 100, 100,50);
         startButton.addActionListener(e -> showGameWindow());
 
         contentPane.add(startButton);
