@@ -2,12 +2,11 @@
 package gameGUI;
 
 import gameStructure.*;
-
 import java.awt.*;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Random;
-
 import javax.swing.*;
 
 // A comment
@@ -57,6 +56,10 @@ public class BriscolaGUI extends JFrame {
     private JLabel messageLabel;
     private JLabel topCardPic;
     private JLabel backgroundImage;
+    private JLabel userPointsLabel;
+    private JLabel cpuPointsLabel;
+    private JLabel trumpSuitLabel;
+    private JLabel deckSizeLabel;
     private int whoWon;
     private int rand;
     private int cardChosen;
@@ -162,9 +165,35 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(backOfCardPic);
 
         //add message on who won after every round
-        JLabel messageLabel = new JLabel("");
-        messageLabel.setBounds(gameWidth - 150, gameHeight - 100, 150, 50);
+        JLabel messageLabel = new JLabel("Who Won: ");
+        messageLabel.setBounds(gameWidth - 400, gameHeight - 100, 150, 50);
         contentPane.add(messageLabel);
+
+        //add message for what card is being hovered
+        JLabel infoLabel = new JLabel("Card: ");
+        infoLabel.setBounds(gameWidth - 200, gameHeight - 100, 150, 50);
+        contentPane.add(infoLabel);
+
+        //add message for Player One points
+        userPointsLabel = new JLabel("User Points: ");
+        userPointsLabel.setBounds(gameWidth - 600, gameHeight - 100, 150, 50);
+        contentPane.add(userPointsLabel);
+
+        //add message for player two points
+        cpuPointsLabel = new JLabel("CPU Points:");
+        cpuPointsLabel.setBounds(gameWidth - 800, gameHeight - 100, 150, 50);
+        contentPane.add(cpuPointsLabel);
+
+        //add message for Trump Suit
+        trumpSuitLabel = new JLabel("TrumpSuit: ");
+        trumpSuitLabel.setBounds(gameWidth - 1000, gameHeight - 100, 150, 50);
+        contentPane.add(trumpSuitLabel);
+
+        //add message for how many cards left in the deck
+        deckSizeLabel = new JLabel("Cards Left: ");
+        deckSizeLabel.setBounds(gameWidth - 1200, gameHeight - 100, 150, 50);
+        contentPane.add(deckSizeLabel);
+
 
         menuFrame.setVisible(false);
 
@@ -173,6 +202,8 @@ public class BriscolaGUI extends JFrame {
                 System.out.println("Who's starting: " + whoWon);
                 if (whoWon == 1) {
                     trumpSuitCard = deck.dealCards(hand1, hand2, whoWon);
+                    deckSizeLabel.setText("Cards Left: " + deck.getDeck().size());
+                    trumpSuitLabel.setText("Trump Suit: " + trumpSuitCard.getSuit());
                     playerCard1 = hand1.getHand().get(0);
                     playerCard2 = hand1.getHand().get(1);
                     playerCard3 = hand1.getHand().get(2);
@@ -283,7 +314,6 @@ public class BriscolaGUI extends JFrame {
                     cpuCard2.setVisible(true);
                     cpuCard3.setVisible(true);
 
-
                     topCardPic.setIcon(new ImageIcon(scaleImage(trumpSuitCard).getImage()));
                     topCardPic.setBounds(105 + scaledWidth, gameHeight / 2 - scaledHeight / 2, scaledWidth, scaledHeight);
                     contentPane.add(topCardPic);
@@ -307,15 +337,13 @@ public class BriscolaGUI extends JFrame {
                     player2PlayedCard.setVisible(true);
                     System.out.println("CPU: Card played: " + discard2.getDiscard());
 
-
-
                 }
             }
         });
 
         newGameButton.addActionListener(e -> {
             resetGame();
-            messageLabel.setVisible(false);
+            messageLabel.setText("Who Won: ");
             newGameButton.setVisible(false);
             newGameButton.setEnabled(false);
         });
@@ -407,19 +435,7 @@ public class BriscolaGUI extends JFrame {
 
                     hardModePicker(null);
                     setImagesForCPU(cardChosen);
-                    /*
-                    Card player2Card = hand2.getHand().get(0);
 
-                    Icon scaledIconPlayer2Card = scaleImage(player2Card);
-                    player2PlayedCard.setIcon(scaledIconPlayer2Card);
-
-                    //method for selecting card for cpu
-                    hand2.playFirstCard(discard2);
-
-                    cpuCard1.setVisible(false);
-                    player2PlayedCard.setVisible(true);
-
-                     */
                 }
             } else if (deck.getDeck().size() == 1) {
 
@@ -541,6 +557,7 @@ public class BriscolaGUI extends JFrame {
 
                     cpuCard1.setVisible(true);
                     cpuCard1.setIcon(scaledIcon);
+                    cpuCard2.setVisible(true);
 
                     cpuCard3.setVisible(false);
 
@@ -576,6 +593,7 @@ public class BriscolaGUI extends JFrame {
 
                     cpuCard1.setVisible(true);
                     cpuCard1.setIcon(scaledIcon);
+                    cpuCard2.setVisible(true);
 
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
@@ -702,6 +720,11 @@ public class BriscolaGUI extends JFrame {
 
                 }
             }
+            userPointsLabel.setText("User Points: " + pile1.getPoints());
+            cpuPointsLabel.setText("CPU Points: " + pile2.getPoints());
+            messageLabel.setText("Who Won: ");
+            messageLabel.setVisible(true);
+            deckSizeLabel.setText("Cards Left: " + deck.getDeck().size());
         });
 
         player1Card1Button.addActionListener(e -> {
@@ -741,10 +764,10 @@ public class BriscolaGUI extends JFrame {
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
-                    messageLabel.setText("You Won");
+                    messageLabel.setText("Who Won: You Won");
                     messageLabel.setVisible(true);
                 } else if (whoWon == 2) {
-                    messageLabel.setText("You Lost");
+                    messageLabel.setText("Who Won: You Lost");
                     messageLabel.setVisible(true);
                 }
             } else if (whoWon == 2) {
@@ -775,14 +798,24 @@ public class BriscolaGUI extends JFrame {
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
-                    messageLabel.setText("You Won");
+                    messageLabel.setText("Who Won: You Won");
                     messageLabel.setVisible(true);
                 } else if (whoWon == 2) {
-                    messageLabel.setText("You Lost");
+                    messageLabel.setText("Who Won: You Lost");
                     messageLabel.setVisible(true);
                 }
             }
         });
+
+        player1Card1Button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
+            }
+            public void mouseExited(MouseEvent e) {
+                infoLabel.setText("Card: ");
+            }
+        }
+        );
 
         //
         player1Card2Button.addActionListener(e -> {
@@ -821,10 +854,10 @@ public class BriscolaGUI extends JFrame {
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
-                    messageLabel.setText("You Won");
+                    messageLabel.setText("Who Won: You Won");
                     messageLabel.setVisible(true);
                 } else if (whoWon == 2) {
-                    messageLabel.setText("You Lost");
+                    messageLabel.setText("Who Won: You Lost");
                     messageLabel.setVisible(true);
                 }
             } else if (whoWon == 2) {
@@ -856,12 +889,21 @@ public class BriscolaGUI extends JFrame {
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
-                    messageLabel.setText("You Won");
+                    messageLabel.setText("Who Won: You Won");
                     messageLabel.setVisible(true);
                 } else if (whoWon == 2) {
-                    messageLabel.setText("You Lost");
+                    messageLabel.setText("Who Won: You Lost");
                     messageLabel.setVisible(true);
                 }
+            }
+        });
+
+        player1Card2Button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
+            }
+            public void mouseExited(MouseEvent e) {
+                infoLabel.setText("Card: ");
             }
         });
 
@@ -901,10 +943,10 @@ public class BriscolaGUI extends JFrame {
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
-                    messageLabel.setText("You Won");
+                    messageLabel.setText("Who Won: You Won");
                     messageLabel.setVisible(true);
                 } else if (whoWon == 2) {
-                    messageLabel.setText("You Lost");
+                    messageLabel.setText("Who Won: You Lost");
                     messageLabel.setVisible(true);
                 }
             } else if (whoWon == 2) {
@@ -936,14 +978,24 @@ public class BriscolaGUI extends JFrame {
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
                 if (whoWon == 1) {
-                    messageLabel.setText("You Won");
+                    messageLabel.setText("Who Won: You Won");
                     messageLabel.setVisible(true);
                 } else if (whoWon == 2) {
-                    messageLabel.setText("You Lost");
+                    messageLabel.setText("Who Won: You Lost");
                     messageLabel.setVisible(true);
                 }
             }
         });
+
+        player1Card3Button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(2)));
+            }
+            public void mouseExited(MouseEvent e) {
+                infoLabel.setText("Card: ");
+            }
+        }
+        );
 
         // Set the frame to be visible
         gameFrame.setVisible(true);
@@ -1166,8 +1218,8 @@ public class BriscolaGUI extends JFrame {
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
         nextRoundButton.setText("Next Round");
+        userPointsLabel.setText("User Points: ");
+        cpuPointsLabel.setText("CPU Points: ");
+        trumpSuitLabel.setText("Trump Suit: ");
     }
-
-
-
 }
