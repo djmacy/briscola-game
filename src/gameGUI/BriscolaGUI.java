@@ -26,6 +26,7 @@ public class BriscolaGUI extends JFrame {
     private JButton nextRoundButton;
     private JButton newGameButton;
     private JButton startButton;
+    private ButtonGroup bg;
     private Deck deck;
     private Hand hand1;
     private Hand hand2;
@@ -87,8 +88,23 @@ public class BriscolaGUI extends JFrame {
         startButton = new JButton("Start Game");
         startButton.setBounds(gameWidth/2 - 50, gameHeight - 100, 100,50);
         startButton.addActionListener(e -> showGameWindow());
-
         contentPane.add(startButton);
+
+        JRadioButton easyButton = new JRadioButton("Easy");
+        easyButton.setBounds(gameWidth - 300, gameHeight - 100, 100, 50);
+        contentPane.add(easyButton);
+        easyButton.setOpaque(false);
+        easyButton.setSelected(true);
+
+        JRadioButton normalButton = new JRadioButton("Normal");
+        normalButton.setBounds(gameWidth - 200, gameHeight - 100, 100, 50);
+        contentPane.add(normalButton);
+        normalButton.setOpaque(false);
+
+        bg = new ButtonGroup();
+        bg.add(easyButton);
+        bg.add(normalButton);
+
     }
 
     private void showGameWindow() {
