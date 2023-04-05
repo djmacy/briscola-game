@@ -65,6 +65,7 @@ public class BriscolaGUI extends JFrame {
     private int rand;
     private int cardChosen;
     private Card trumpSuitCard;
+    private Boolean easyMode;
 
     public BriscolaGUI() {
         menuFrame = new JFrame("Main Menu");
@@ -105,9 +106,16 @@ public class BriscolaGUI extends JFrame {
         bg.add(easyButton);
         bg.add(normalButton);
 
+        if (bg.getSelection() == easyButton) {
+            easyMode = true;
+        } else {
+            easyMode = false;
+        }
+
     }
 
     private void showGameWindow() {
+        System.out.println(easyMode);
         startButton.setEnabled(false);
         deck = new Deck();
         hand1 = new Hand();
@@ -457,7 +465,11 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    hardModePicker(null);
+                    if (easyMode) {
+                        randomCardPicker();
+                    } else {
+                        hardModePicker(null);
+                    }
                     setImagesForCPU(cardChosen);
 
                 }
@@ -542,7 +554,11 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    hardModePicker(null);
+                    if (easyMode) {
+                        randomCardPicker();
+                    } else {
+                        hardModePicker(null);
+                    }
                     setImagesForCPU(cardChosen);
 
                     player2PlayedCard.setVisible(true);
@@ -622,7 +638,11 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    hardModePicker(null);
+                    if (easyMode) {
+                        randomCardPicker();
+                    } else {
+                        hardModePicker(null);
+                    }
                     setImagesForCPU(cardChosen);
 
                     player2PlayedCard.setVisible(true);
@@ -695,7 +715,11 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    hardModePicker(null);
+                    if (easyMode) {
+                        randomCardPicker();
+                    } else {
+                        hardModePicker(null);
+                    }
                     setImagesForCPU(cardChosen);
 
                     cpuCard1.setVisible(false);
@@ -763,7 +787,12 @@ public class BriscolaGUI extends JFrame {
 
                 //method for selecting card for now just pick first
                 System.out.println("Card Comparing: " + playerCard1);
-                hardModePicker(playerCard1);
+
+                if (easyMode) {
+                    randomCardPicker();
+                } else {
+                    hardModePicker(playerCard1);
+                }
                 setImagesForCPU(cardChosen);
 
                 player1Card1Button.setVisible(false);
@@ -843,7 +872,12 @@ public class BriscolaGUI extends JFrame {
 
                 //method for selecting card for now just pick first
                 System.out.println("Card Comparing: " + playerCard2);
-                hardModePicker(playerCard2);
+
+                if (easyMode) {
+                    randomCardPicker();
+                } else {
+                    hardModePicker(playerCard2);
+                }
                 setImagesForCPU(cardChosen);
 
                 player1Card2Button.setVisible(false);
@@ -923,7 +957,13 @@ public class BriscolaGUI extends JFrame {
 
                 //method for selecting card for now just pick first
                 System.out.println("Card Comparing: " + playerCard3);
-                hardModePicker(playerCard3);
+
+                if (easyMode) {
+                    randomCardPicker();
+                } else {
+                    hardModePicker(playerCard3);
+                }
+
                 setImagesForCPU(cardChosen);
 
                 player1Card3Button.setVisible(false);
@@ -1075,16 +1115,16 @@ public class BriscolaGUI extends JFrame {
 
     private void randomCardPicker() {
         if (hand2.getHand().size() == 1) {
-            rand = 1;
+            cardChosen = 0;
         }
         if (hand2.getHand().size() == 2) {
             Random random = new Random();
-            rand = random.nextInt(2) + 1;
+            cardChosen = random.nextInt(2);
 
         }
         if (hand2.getHand().size() == 3) {
             Random random = new Random();
-            rand = random.nextInt(3) + 1;
+            cardChosen = random.nextInt(3);
         }
     }
 
