@@ -199,12 +199,12 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(infoLabel);
 
         //add message for Player One points
-        userPointsLabel = new JLabel("User Points: ");
+        userPointsLabel = new JLabel("User Points: 0");
         userPointsLabel.setBounds(gameWidth - 600, gameHeight - 100, 150, 50);
         contentPane.add(userPointsLabel);
 
         //add message for player two points
-        cpuPointsLabel = new JLabel("CPU Points:");
+        cpuPointsLabel = new JLabel("CPU Points: 0");
         cpuPointsLabel.setBounds(gameWidth - 800, gameHeight - 100, 150, 50);
         contentPane.add(cpuPointsLabel);
 
@@ -831,16 +831,6 @@ public class BriscolaGUI extends JFrame {
             }
         });
 
-        player1Card1Button.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) {
-                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
-            }
-            public void mouseExited(MouseEvent e) {
-                infoLabel.setText("Card: ");
-            }
-        }
-        );
-
         //
         player1Card2Button.addActionListener(e -> {
             if (whoWon == 1) {
@@ -919,15 +909,6 @@ public class BriscolaGUI extends JFrame {
                     messageLabel.setText("Who Won: You Lost");
                     messageLabel.setVisible(true);
                 }
-            }
-        });
-
-        player1Card2Button.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) {
-                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
-            }
-            public void mouseExited(MouseEvent e) {
-                infoLabel.setText("Card: ");
             }
         });
 
@@ -1011,15 +992,41 @@ public class BriscolaGUI extends JFrame {
             }
         });
 
-        player1Card3Button.addMouseListener(new MouseAdapter() {
+        player1Card1Button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
-                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(2)));
+                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
             }
             public void mouseExited(MouseEvent e) {
                 infoLabel.setText("Card: ");
             }
-        }
-        );
+        });
+
+        player1Card2Button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (player1Card1Button.isVisible() == false) {
+                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
+                } else {
+                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
+                }
+            }
+            public void mouseExited(MouseEvent e) {
+                infoLabel.setText("Card: ");
+            }
+        });
+
+
+        player1Card3Button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (player1Card1Button.isVisible() == false || player1Card2Button.isVisible() == false) {
+                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
+                } else {
+                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(2)));
+                }
+            }
+            public void mouseExited(MouseEvent e) {
+                infoLabel.setText("Card: ");
+            }
+        });
 
         // Set the frame to be visible
         gameFrame.setVisible(true);
@@ -1242,8 +1249,8 @@ public class BriscolaGUI extends JFrame {
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
         nextRoundButton.setText("Next Round");
-        userPointsLabel.setText("User Points: ");
-        cpuPointsLabel.setText("CPU Points: ");
+        userPointsLabel.setText("User Points: 0");
+        cpuPointsLabel.setText("CPU Points: 0");
         trumpSuitLabel.setText("Trump Suit: ");
     }
 }
