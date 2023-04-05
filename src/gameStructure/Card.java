@@ -85,6 +85,13 @@ public class Card {
         this.image = new ImageIcon(imagePath);
     }
 
+    public Card(Suit suit, FaceName faceName) {
+        String imagePath = "src/images/" + faceName.name().toLowerCase() + "_of_" + suit.name().toLowerCase() + ".png";
+        this.suit = suit;
+        this.faceName = faceName;
+        this.image = new ImageIcon(imagePath);
+    }
+
     /**
      * Returns the suit of a card.
      *
