@@ -65,58 +65,72 @@ public class BriscolaGUI extends JFrame {
     private int rand;
     private int cardChosen;
     private Card trumpSuitCard;
-    private Boolean easyMode;
+    private Boolean easyMode = true;
 
     public BriscolaGUI() {
+        //creating the main menu frame. This inlcude a way for the user to choose a difficulty and look at instructions
+        // on how to play
         menuFrame = new JFrame("Main Menu");
         menuFrame.setSize(gameWidth,gameHeight);
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuFrame.setVisible(true);
 
-        JPanel gamePanel = new JPanel() {
+        //Method that I found for painting images for the background.
+        //https://stackoverflow.com/questions/26698975/how-to-deal-with-public-void-paint-method-in-jframe
+        JPanel menuPanel = new JPanel() {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Image img = new ImageIcon("src/images/BriCenMenu.png").getImage();
                 Dimension size = getSize();
-                g.drawImage(img,0,0,size.width,size.height,null);
+                g.drawImage(img,0,0,size.width,size.height, null);
             }
         };
-        menuFrame.setContentPane(gamePanel);
+        menuFrame.setContentPane(menuPanel);
 
         Container contentPane = menuFrame.getContentPane();
         contentPane.setLayout(null);
 
+        //creating the start game button
         startButton = new JButton("Start Game");
         startButton.setBounds(gameWidth/2 - 50, gameHeight - 100, 100,50);
         startButton.addActionListener(e -> showGameWindow());
         contentPane.add(startButton);
 
+        //creating the easymode radio button
         JRadioButton easyButton = new JRadioButton("Easy");
         easyButton.setBounds(gameWidth - 300, gameHeight - 100, 100, 50);
         contentPane.add(easyButton);
         easyButton.setOpaque(false);
         easyButton.setSelected(true);
 
+        //easy mode is set by default to true since easy button is selected by default. If it gets pressed to normal mode
+        //and then back to easyMode the boolean will switch back to true.
+        easyButton.addActionListener(e -> {
+            easyMode = true;
+        });
+
+        //creating the normalButton radio button
         JRadioButton normalButton = new JRadioButton("Normal");
         normalButton.setBounds(gameWidth - 200, gameHeight - 100, 100, 50);
         contentPane.add(normalButton);
         normalButton.setOpaque(false);
 
+        //setting the boolean to false whenever normal mode is pressed
+        normalButton.addActionListener(e -> {
+            easyMode = false;
+        });
+
+        //adding the buttons to a button group that way only one can get selected at a time
         bg = new ButtonGroup();
         bg.add(easyButton);
         bg.add(normalButton);
 
-        if (bg.getSelection() == easyButton) {
-            easyMode = true;
-        } else {
-            easyMode = false;
-        }
-
     }
 
     private void showGameWindow() {
-        System.out.println(easyMode);
+
         startButton.setEnabled(false);
+        //objects that need to be created for the game to start
         deck = new Deck();
         hand1 = new Hand();
         hand2 = new Hand();
@@ -124,6 +138,8 @@ public class BriscolaGUI extends JFrame {
         discard2 = new Discard();
         pile1 = new Pile();
         pile2 = new Pile();
+
+        //This would change who goes first but this does not work yet. We may disregard it.
         whoStartsGame();
 
         player1Card1Button = new JButton();
@@ -143,6 +159,7 @@ public class BriscolaGUI extends JFrame {
                 g.drawImage(img,0,0,size.width,size.height,null);
             }
         };
+
         gameFrame.setContentPane(gamePanel);
 
         //making content pane
@@ -1279,6 +1296,10 @@ public class BriscolaGUI extends JFrame {
             }
         }
         return trumpSuitCardIndex;
+    }
+
+    private void startGame() {
+
     }
     private void resetGame() {
         pile1.startOver();
