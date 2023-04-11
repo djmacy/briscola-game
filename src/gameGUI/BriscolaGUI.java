@@ -120,11 +120,23 @@ public class BriscolaGUI extends JFrame {
             easyMode = false;
         });
 
+        JButton instructionsButton = new JButton("How To Play");
+        instructionsButton.setBounds(gameWidth - 1125, gameHeight - 100, 125, 50);
+        contentPane.add(instructionsButton);
+
+        instructionsButton.addActionListener(e -> showInstructionsWindow());
+
         //adding the buttons to a button group that way only one can get selected at a time
         bg = new ButtonGroup();
         bg.add(easyButton);
         bg.add(normalButton);
 
+    }
+
+    private void showInstructionsWindow() {
+        JFrame instructionsFrame = new JFrame("Instructions");
+        instructionsFrame.setSize(gameWidth, gameHeight);
+        instructionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void showGameWindow() {
