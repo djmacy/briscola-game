@@ -32,15 +32,15 @@ public class BriscolaCards extends Sprite {
                 break;
 
             case "King":
-                value = 13;
+                value = 10;
                 break;
 
             case "Horse":
-                value = 12;
+                value = 9;
                 break;
 
             case "Jack":
-                value = 11;
+                value = 8;
                 break;
 
             case "Seven":
