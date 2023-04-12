@@ -120,7 +120,7 @@ public class TestGUI extends JFrame {
 
         public DrawingPanel() {
             // THIS IS NEW!!!
-            BriscolaCards s = new BriscolaCards("Four", "Swords");
+            BriscolaCards s = new BriscolaCards("King", "Swords");
             BriscolaCards t = new BriscolaCards("Ace", "Cups");
             t.setCoords(50, 1);
             t.setHeight(290);
