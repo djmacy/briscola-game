@@ -99,7 +99,7 @@ public class BriscolaGUI extends JFrame {
 
         //display point label after a game has been played
         wonOrLostLabel = new JLabel("");
-        wonOrLostLabel.setBounds(gameWidth/2 - 50, gameHeight - 500, 150, 50);
+        wonOrLostLabel.setBounds(gameWidth/2 - 125, gameHeight - 700, 300, 100);
         contentPane.add(wonOrLostLabel);
 
 
@@ -1086,6 +1086,8 @@ public class BriscolaGUI extends JFrame {
         gameFrame.setVisible(false);
         menuFrame.setVisible(true);
         startButton.setEnabled(true);
+        startButton.setText("Play Again");
+        wonOrLostLabel.setFont(new Font("Serif", Font.PLAIN, 22));
         if (pile1.getPoints() > 60) {
             wonOrLostLabel.setText("You won with " + pile1.getPoints() + " points");
         } else if (pile2.getPoints() > 60) {
