@@ -18,6 +18,7 @@ public class BriscolaGUI extends JFrame {
 
     private JFrame gameFrame;
     private JFrame menuFrame;
+    private JFrame instructionsFrame;
     private Container contentPane;
     private JButton dealButton;
     private JButton player1Card1Button;
@@ -36,7 +37,7 @@ public class BriscolaGUI extends JFrame {
     private Pile pile2;
     private final int gameHeight = 800;
     private final int gameWidth = 1300;
-    private int scaledWidth = 125;
+    private final int scaledWidth = 125;
     private int scaledHeight;
     private Card playerCard1;
     private Card playerCard2;
@@ -102,7 +103,6 @@ public class BriscolaGUI extends JFrame {
         wonOrLostLabel.setBounds(gameWidth/2 - 125, gameHeight - 700, 300, 100);
         contentPane.add(wonOrLostLabel);
 
-
         //creating the easymode radio button
         JRadioButton easyButton = new JRadioButton("Easy");
         easyButton.setBounds(gameWidth - 300, gameHeight - 100, 100, 50);
@@ -127,25 +127,26 @@ public class BriscolaGUI extends JFrame {
             easyMode = false;
         });
 
-        JButton instructionsButton = new JButton("How To Play");
-        instructionsButton.setBounds(gameWidth - 1125, gameHeight - 100, 110, 50);
-        contentPane.add(instructionsButton);
-
-        instructionsButton.addActionListener(e -> showInstructionsWindow());
-
-        //adding the buttons to a button group that way only one can get selected at a time
+        //adding the radio buttons to a button group that way only one can get selected at a time
         bg = new ButtonGroup();
         bg.add(easyButton);
         bg.add(normalButton);
 
+        //creating the button for the instructions on how to play. Once pressed the user will open another window with
+        //instructions
+        JButton instructionsButton = new JButton("How To Play");
+        instructionsButton.setBounds(gameWidth - 1125, gameHeight - 100, 110, 50);
+        contentPane.add(instructionsButton);
+
+        //This calls the method which opens the other window
+        instructionsButton.addActionListener(e -> showInstructionsWindow());
     }
 
     private void showInstructionsWindow() {
-        JFrame instructionsFrame = new JFrame("Instructions");
+        menuFrame.setVisible(false);
+        instructionsFrame = new JFrame("Instructions");
         instructionsFrame.setSize(gameWidth, gameHeight);
         instructionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container contentPane = instructionsFrame.getContentPane();
-
 
         JPanel instructionsPanel = new JPanel() {
             public void paintComponent(Graphics g) {
@@ -158,15 +159,21 @@ public class BriscolaGUI extends JFrame {
 
         instructionsFrame.setContentPane(instructionsPanel);
         instructionsFrame.setVisible(true);
+        Container contentPane = instructionsFrame.getContentPane();
 
         JLabel howToPlay = new JLabel();
         howToPlay.setText("How To Play");
         howToPlay.setBounds(100,100,100,100);
         contentPane.add(howToPlay);
+
+        //creating the back to main menu button
+        JButton startButton = new JButton("Main Menu");
+        startButton.setBounds(gameWidth/2 - 50, 500, 110,50);
+        startButton.addActionListener(e -> showMainMenuFrameFromInstrucions());
+        contentPane.add(startButton);
     }
 
     private void showGameWindow() {
-        System.out.println(easyMode);
         startButton.setEnabled(false);
         //objects that need to be created for the game to start
         deck = new Deck();
@@ -176,10 +183,10 @@ public class BriscolaGUI extends JFrame {
         discard2 = new Discard();
         pile1 = new Pile();
         pile2 = new Pile();
-
-        //This would change who goes first but this does not work yet. We may disregard it.
+        //lets the game know that the user starts
         whoStartsGame();
 
+        //create the card buttons. Each button will get the image of the card it's associated with.
         player1Card1Button = new JButton();
         player1Card2Button = new JButton();
         player1Card3Button = new JButton();
@@ -222,7 +229,7 @@ public class BriscolaGUI extends JFrame {
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
 
-        //creating  and adding the cpu cards to the screen
+        //creating and adding the cpu cards to the screen
         JLabel topCardPic = new JLabel();
         contentPane.add(topCardPic);
         cpuCard1 = new JLabel();
@@ -775,7 +782,7 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     newGameButton.setVisible(true);
                     newGameButton.setEnabled(true);
-                    showWonOrLostFrame();
+                    showMainMenuFrame();
                 } else if (whoWon == 2) {
                     discard1.cardsWon(pile2);
                     discard2.cardsWon(pile2);
@@ -787,7 +794,7 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setEnabled(false);
                     newGameButton.setVisible(true);
                     newGameButton.setEnabled(true);
-                    showWonOrLostFrame();
+                    showMainMenuFrame();
                 }
             }
             userPointsLabel.setText("User Points: " + pile1.getPoints());
@@ -1077,12 +1084,17 @@ public class BriscolaGUI extends JFrame {
                 infoLabel.setText("Card: ");
             }
         });
-
-        // Set the frame to be visible
+        // Set the frame to be visible after the window has been called
         gameFrame.setVisible(true);
     }
+    private void showMainMenuFrameFromInstrucions() {
+        instructionsFrame.setVisible(false);
+        menuFrame.setVisible(true);
+        startButton.setEnabled(true);
+        startButton.setText("Play Again");
+    }
 
-    private void showWonOrLostFrame() {
+    private void showMainMenuFrame() {
         gameFrame.setVisible(false);
         menuFrame.setVisible(true);
         startButton.setEnabled(true);
@@ -1095,40 +1107,6 @@ public class BriscolaGUI extends JFrame {
         } else {
             wonOrLostLabel.setText("You tied with " + pile1.getPoints() + " points");
         }
-
-        /*
-        JFrame wonOrLostFrame = new JFrame("Instructions");
-        wonOrLostFrame.setSize(500, 500);
-        wonOrLostFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JPanel instructionsPanel = new JPanel() {
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Image img = new ImageIcon("src/images/BriCenMenu.png").getImage();
-                Dimension size = getSize();
-                g.drawImage(img,0,0,size.width,size.height,null);
-            }
-        };
-
-        wonOrLostFrame.setContentPane(instructionsPanel);
-        Container contentPane = wonOrLostFrame.getContentPane();
-
-
-        JLabel wonOrLostLabel = new JLabel();
-        if (pile1.getPoints() > 60) {
-            wonOrLostLabel.setText("You won with " + pile1.getPoints() + " points");
-        } else if (pile2.getPoints() > 60) {
-            wonOrLostLabel.setText("You lost with " + pile1.getPoints() + " points");
-        } else {
-            wonOrLostLabel.setText("You tied with " + pile1.getPoints() + " points");
-        }
-        wonOrLostLabel.setBounds(500 / 2, 500 / 2, 150, 50);
-        contentPane.add(wonOrLostLabel);
-
-
-        wonOrLostFrame.setVisible(true);
-
-         */
     }
 
     private ImageIcon scaleImage(Card topCard) {
@@ -1200,13 +1178,11 @@ public class BriscolaGUI extends JFrame {
 
             } else {
                 cardChosen = lowestCardWorthIndex(hand2.getHand());
-
             }
         }
     }
 
     private void setImagesForCPU(int cardChosen) {
-
         if (cardChosen == 0) {
             Card player2Card = hand2.getHand().get(0);
 
