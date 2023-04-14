@@ -120,8 +120,6 @@ public class TestGUI extends JFrame {
             BriscolaCard s = new BriscolaCard("King", "Swords");
             BriscolaCard t = new BriscolaCard("Ace", "Cups");
             t.setCoords(50, 1);
-            t.setHeight(290);
-            t.setWidth(150);
             System.out.println("Card t's Value: " + t.getValue());
             System.out.println("Card s's Value: " + s.getValue());
 

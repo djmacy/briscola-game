@@ -48,8 +48,8 @@ public class DiscardTests {
         Discard discard = new Discard();
 
         // create some card instances to add to discard
-        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
-        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace);
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four);
 
         // add the cards to the discard pile
         discard.addCard(cardA);

@@ -50,9 +50,9 @@ public class HandTests {
      */
     public void testHand() {
         // create instances of three cards to put into the hand, and trump card
-        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
-        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
-        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace);
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four);
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse);
 
         // create an instance of hand so the cards have a hand to go to
         Hand hand = new Hand();
@@ -126,9 +126,9 @@ public class HandTests {
      * @see gameStructure.Hand
      */
     public void testThirdCard() {
-        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
-        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
-        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace);
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four);
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse);
 
         // create an instance of discard so the cards in hand have a container to go to
         Discard discard = new Discard();
@@ -172,9 +172,9 @@ public class HandTests {
      * @see gameStructure.Hand
      */
     public void testSecondCard() {
-        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
-        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
-        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace);
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four);
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse);
 
         // create an instance of discard so the cards in hand have a container to go to
         Discard discard = new Discard();
@@ -218,9 +218,9 @@ public class HandTests {
      * @see gameStructure.Hand
      */
     public void testFirstCard() {
-        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
-        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
-        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace);
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four);
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse);
 
         // create an instance of discard so the cards in hand have a container to go to
         Discard discard = new Discard();
@@ -265,10 +265,10 @@ public class HandTests {
      * @see gameStructure.Hand
      */
     public void testPlayedAndTrump() {
-        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
-        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
-        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
-        Card trump = new Card(Card.Suit.Swords, Card.FaceName.Horse, "test2.png");
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace);
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four);
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse);
+        Card trump = new Card(Card.Suit.Swords, Card.FaceName.Horse);
 
         // create an instance of discard so the cards in hand have a container to go to
         Discard discard = new Discard();

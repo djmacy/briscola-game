@@ -206,4 +206,8 @@ public class Card extends Sprite {
     public String toString() {
         return this.faceName + " of " + this.suit;
     }
+
+    public ImageIcon getImage(Card card) {
+        return new ImageIcon(card.getImage());
+    }
 }

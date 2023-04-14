@@ -44,12 +44,12 @@ public class PileTests {
      */
     public void testPile() {
         // instantiate the cards
-        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
-        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four, "test.png");
-        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse, "test2.png");
-        Card cardD = new Card(Card.Suit.Cups, Card.FaceName.Three, "test2.png");
-        Card cardE = new Card(Card.Suit.Coins, Card.FaceName.Six, "test.png");
-        Card cardF = new Card(Card.Suit.Cups, Card.FaceName.King, "test2.png");
+        Card cardA = new Card(Card.Suit.Coins, Card.FaceName.Ace);
+        Card cardB = new Card(Card.Suit.Swords, Card.FaceName.Four);
+        Card cardC = new Card(Card.Suit.Sticks, Card.FaceName.Horse);
+        Card cardD = new Card(Card.Suit.Cups, Card.FaceName.Three);
+        Card cardE = new Card(Card.Suit.Coins, Card.FaceName.Six);
+        Card cardF = new Card(Card.Suit.Cups, Card.FaceName.King);
 
         // create a pile and array to compare pile to array
         System.out.println("Testing addCard...");

@@ -1,10 +1,10 @@
-
 package gameGUI;
 
 import gameStructure.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.*;
@@ -16,6 +16,7 @@ public class BriscolaGUI extends JFrame {
         new BriscolaGUI();
     }
 
+    private List<Sprite> drawList = new ArrayList<>();
     private JFrame gameFrame;
     private JFrame menuFrame;
     private Container contentPane;
@@ -27,6 +28,7 @@ public class BriscolaGUI extends JFrame {
     private JButton newGameButton;
     private JButton startButton;
     private ButtonGroup bg;
+    private Graphics cardGraphic;
     private Deck deck;
     private Hand hand1;
     private Hand hand2;
@@ -46,7 +48,7 @@ public class BriscolaGUI extends JFrame {
     private Card player2Card3;
     private Card playedCard;
     private ImageIcon scaledIcon;
-    private ImageIcon backOfCard;
+    private Card backOfCard;
     private JLabel backOfCardPic;
 
     private JLabel cpuCard1;
@@ -104,7 +106,6 @@ public class BriscolaGUI extends JFrame {
         bg = new ButtonGroup();
         bg.add(easyButton);
         bg.add(normalButton);
-
     }
 
     private void showGameWindow() {
@@ -126,16 +127,16 @@ public class BriscolaGUI extends JFrame {
         gameFrame.setSize(gameWidth, gameHeight);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //https://stackoverflow.com/questions/26698975/how-to-deal-with-public-void-paint-method-in-jframe
-        JPanel gamePanel = new JPanel() {
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Image img = new ImageIcon("src/images/backgroundImage.png").getImage();
-                Dimension size = getSize();
-                g.drawImage(img,0,0,size.width,size.height,null);
-            }
-        };
-        gameFrame.setContentPane(gamePanel);
+//        //https://stackoverflow.com/questions/26698975/how-to-deal-with-public-void-paint-method-in-jframe
+//        JPanel gamePanel = new JPanel() {
+//            public void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                Image img = new ImageIcon("src/images/backgroundImage.png").getImage();
+//                Dimension size = getSize();
+//                g.drawImage(img,0,0,size.width,size.height,null);
+//            }
+//        };
+//        gameFrame.setContentPane(gamePanel);
 
         //making content pane
         contentPane = gameFrame.getContentPane();
@@ -178,15 +179,14 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(player2PlayedCard);
 
         //making back of card image
-        backOfCard = new ImageIcon("src/images/backOfCard.png");
-        scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
-        Image scaledImage = backOfCard.getImage().getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
-        scaledIcon = new ImageIcon(scaledImage);
+        backOfCard = new Card(Card.Suit.Coins,Card.FaceName.Back);
 
         //add the back of card image to the screen
-        JLabel backOfCardPic = new JLabel(scaledIcon);
-        backOfCardPic.setBounds( 50, gameHeight / 2 - scaledHeight / 2  - 40, scaledWidth,scaledHeight);
-        contentPane.add(backOfCardPic);
+        backOfCard.setCoords( 50, gameHeight / 2 - scaledHeight / 2  - 40);
+        drawList.add(backOfCard);
+        for (Sprite s : drawList) {
+            s.draw(cardGraphic);
+        }
 
         //add message on who won after every round
         JLabel messageLabel = new JLabel("Who Won: ");
@@ -222,7 +222,7 @@ public class BriscolaGUI extends JFrame {
         menuFrame.setVisible(false);
 
         dealButton.addActionListener(e -> {
-            if (deck.getDeck().size() == 40) {
+            if (deck.getDeck().size() < 39) {
                 System.out.println("Who's starting: " + whoWon);
                 if (whoWon == 1) {
                     trumpSuitCard = deck.dealCards(hand1, hand2, whoWon);
@@ -257,7 +257,7 @@ public class BriscolaGUI extends JFrame {
                     player1Card2Button.setIcon(scaledIconPlayerCard2);
                     player1Card3Button.setIcon(scaledIconPlayerCard3);
 
-                    scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
+//                    scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
 
                     cpuCard1.setIcon(scaledIcon);
                     cpuCard1.setBounds(840, 30, scaledWidth, scaledHeight);
@@ -320,7 +320,7 @@ public class BriscolaGUI extends JFrame {
                     player1Card2Button.setIcon(scaledIconPlayerCard2);
                     player1Card3Button.setIcon(scaledIconPlayerCard3);
 
-                    scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
+//                    scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
 
                     cpuCard1.setIcon(scaledIcon);
                     cpuCard1.setBounds(750, 20, scaledWidth, scaledHeight);
@@ -1026,7 +1026,7 @@ public class BriscolaGUI extends JFrame {
     }
 
     private ImageIcon scaleImage(Card topCard) {
-        ImageIcon originalImage = new ImageIcon(topCard.getImage().getImage());
+        ImageIcon originalImage = new ImageIcon(topCard.getImage(topCard).getImage());
         // Scale the image to a smaller size
         scaledHeight = (int) ((double) scaledWidth / originalImage.getIconWidth() * originalImage.getIconHeight());
         Image scaledImage = originalImage.getImage().getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
@@ -1247,3 +1247,4 @@ public class BriscolaGUI extends JFrame {
         trumpSuitLabel.setText("Trump Suit: ");
     }
 }
+

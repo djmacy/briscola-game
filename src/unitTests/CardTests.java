@@ -21,10 +21,10 @@ public class CardTests {
         new CardTests();
     }
 
-    private Card cardOne = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
-    private Card cardTwo = new Card(Card.Suit.Sticks, Card.FaceName.Three, "test2.png");
+    private Card cardOne = new Card(Card.Suit.Coins, Card.FaceName.Ace);
+    private Card cardTwo = new Card(Card.Suit.Sticks, Card.FaceName.Three);
     //    cardThree is a duplicate of cardOne to see how the program behaves with identical card types
-    private Card cardThree = new Card(Card.Suit.Coins, Card.FaceName.Ace, "test.png");
+    private Card cardThree = new Card(Card.Suit.Coins, Card.FaceName.Ace);
     private ImageIcon testIcon = new ImageIcon("test.png");
     private ImageIcon testIconTwo = new ImageIcon("test2.png");
     private int passed = 0;
@@ -87,22 +87,22 @@ public class CardTests {
             failed++;
         }
 
-        System.out.println("Testing Get Image Path (getImage)...");
-        if (cardA.getImage().getImage().equals(testIcon.getImage())) {
-            System.out.println("   pass");
-            passed++;
-        } else {
-            System.err.println("   failed getImage");
-            failed++;
-        }
-
-        if (!cardA.getImage().getImage().equals(testIconTwo.getImage())) {
-            System.out.println("   pass");
-            passed++;
-        } else {
-            System.err.println("   failed getImage");
-            failed++;
-        }
+//        System.out.println("Testing Get Image Path (getImage)...");
+//        if (cardA.getImage().getImage().equals(testIcon.getImage())) {
+//            System.out.println("   pass");
+//            passed++;
+//        } else {
+//            System.err.println("   failed getImage");
+//            failed++;
+//        }
+//
+//        if (!cardA.getImage().getImage().equals(testIconTwo.getImage())) {
+//            System.out.println("   pass");
+//            passed++;
+//        } else {
+//            System.err.println("   failed getImage");
+//            failed++;
+//        }
 
         System.out.println("Testing To String (toString)...");
         if (cardA.toString().equals("Ace of Coins")) {
@@ -165,26 +165,26 @@ public class CardTests {
             failed++;
         }
 
-        System.out.println("Testing Duplicate Image Path (getImage)...");
-        if (cardA.getImage().getImage().equals(testIcon.getImage())) {
-            if (cardB.getImage().getImage().equals(testIcon.getImage())) {
-                System.out.println("   pass");
-                passed++;
-            }
-        } else {
-            System.err.println("   failed getImage");
-            failed++;
-        }
-
-        if (!cardA.getImage().getImage().equals(testIconTwo.getImage())) {
-            if (!cardB.getImage().getImage().equals(testIconTwo.getImage())) {
-                System.out.println("   pass");
-                passed++;
-            }
-        } else {
-            System.err.println("   failed getImage");
-            failed++;
-        }
+//        System.out.println("Testing Duplicate Image Path (getImage)...");
+//        if (cardA.getImage().getImage().equals(testIcon.getImage())) {
+//            if (cardB.getImage().getImage().equals(testIcon.getImage())) {
+//                System.out.println("   pass");
+//                passed++;
+//            }
+//        } else {
+//            System.err.println("   failed getImage");
+//            failed++;
+//        }
+//
+//        if (!cardA.getImage().getImage().equals(testIconTwo.getImage())) {
+//            if (!cardB.getImage().getImage().equals(testIconTwo.getImage())) {
+//                System.out.println("   pass");
+//                passed++;
+//            }
+//        } else {
+//            System.err.println("   failed getImage");
+//            failed++;
+//        }
 
         System.out.println("Testing Duplicate To String (toString)...");
         if (cardA.toString().equals("Ace of Coins")) {
