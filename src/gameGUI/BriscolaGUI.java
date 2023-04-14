@@ -19,6 +19,7 @@ public class BriscolaGUI extends JFrame {
     private List<Sprite> drawList = new ArrayList<>();
     private JFrame gameFrame;
     private JFrame menuFrame;
+    private JFrame instructionsFrame;
     private Container contentPane;
     private JButton dealButton;
     private JButton player1Card1Button;
@@ -38,7 +39,7 @@ public class BriscolaGUI extends JFrame {
     private Pile pile2;
     private final int gameHeight = 800;
     private final int gameWidth = 1300;
-    private int scaledWidth = 125;
+    private final int scaledWidth = 125;
     private int scaledHeight;
     private Card playerCard1;
     private Card playerCard2;
@@ -63,18 +64,93 @@ public class BriscolaGUI extends JFrame {
     private JLabel cpuPointsLabel;
     private JLabel trumpSuitLabel;
     private JLabel deckSizeLabel;
+    private JLabel wonOrLostLabel;
     private int whoWon;
     private int rand;
     private int cardChosen;
     private Card trumpSuitCard;
+    private Boolean easyMode = true;
 
     public BriscolaGUI() {
+        //creating the main menu frame. This inlcude a way for the user to choose a difficulty and look at instructions
+        // on how to play
         menuFrame = new JFrame("Main Menu");
         menuFrame.setSize(gameWidth,gameHeight);
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuFrame.setVisible(true);
 
-        JPanel gamePanel = new JPanel() {
+        //Method that I found for painting images for the background.
+        //https://stackoverflow.com/questions/26698975/how-to-deal-with-public-void-paint-method-in-jframe
+        JPanel menuPanel = new JPanel() {
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image img = new ImageIcon("src/images/BriCenMenu.png").getImage();
+                Dimension size = getSize();
+                g.drawImage(img,0,0,size.width,size.height, null);
+            }
+        };
+        menuFrame.setContentPane(menuPanel);
+
+        Container contentPane = menuFrame.getContentPane();
+        contentPane.setLayout(null);
+
+        //creating the start game button
+        startButton = new JButton("Start Game");
+        startButton.setBounds(gameWidth/2 - 50, gameHeight - 100, 110,50);
+        startButton.addActionListener(e -> showGameWindow());
+        contentPane.add(startButton);
+
+        //display point label after a game has been played
+        wonOrLostLabel = new JLabel("");
+        wonOrLostLabel.setBounds(gameWidth/2 - 125, gameHeight - 700, 300, 100);
+        contentPane.add(wonOrLostLabel);
+
+        //creating the easymode radio button
+        JRadioButton easyButton = new JRadioButton("Easy");
+        easyButton.setBounds(gameWidth - 300, gameHeight - 100, 100, 50);
+        contentPane.add(easyButton);
+        easyButton.setOpaque(false);
+        easyButton.setSelected(true);
+
+        //easy mode is set by default to true since easy button is selected by default. If it gets pressed to normal mode
+        //and then back to easyMode the boolean will switch back to true.
+        easyButton.addActionListener(e -> {
+            easyMode = true;
+        });
+
+        //creating the normalButton radio button
+        JRadioButton normalButton = new JRadioButton("Normal");
+        normalButton.setBounds(gameWidth - 200, gameHeight - 100, 100, 50);
+        contentPane.add(normalButton);
+        normalButton.setOpaque(false);
+
+        //setting the boolean to false whenever normal mode is pressed
+        normalButton.addActionListener(e -> {
+            easyMode = false;
+        });
+
+        //adding the radio buttons to a button group that way only one can get selected at a time
+        bg = new ButtonGroup();
+        bg.add(easyButton);
+        bg.add(normalButton);
+
+        //creating the button for the instructions on how to play. Once pressed the user will open another window with
+        //instructions
+        JButton instructionsButton = new JButton("How To Play");
+        instructionsButton.setBounds(gameWidth - 1125, gameHeight - 100, 110, 50);
+        contentPane.add(instructionsButton);
+
+        //This calls the method which opens the other window
+        instructionsButton.addActionListener(e -> showInstructionsWindow());
+    }
+
+    private void showInstructionsWindow() {
+        menuFrame.setVisible(false);
+        instructionsFrame = new JFrame("Instructions");
+        instructionsFrame.setSize(gameWidth, gameHeight);
+        instructionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel instructionsPanel = new JPanel() {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Image img = new ImageIcon("src/images/BriCenMenu.png").getImage();
@@ -82,14 +158,20 @@ public class BriscolaGUI extends JFrame {
                 g.drawImage(img,0,0,size.width,size.height,null);
             }
         };
-        menuFrame.setContentPane(gamePanel);
 
-        Container contentPane = menuFrame.getContentPane();
-        contentPane.setLayout(null);
+        instructionsFrame.setContentPane(instructionsPanel);
+        instructionsFrame.setVisible(true);
+        Container contentPane = instructionsFrame.getContentPane();
 
-        startButton = new JButton("Start Game");
-        startButton.setBounds(gameWidth/2 - 50, gameHeight - 100, 100,50);
-        startButton.addActionListener(e -> showGameWindow());
+        JLabel howToPlay = new JLabel();
+        howToPlay.setText("How To Play");
+        howToPlay.setBounds(100,100,100,100);
+        contentPane.add(howToPlay);
+
+        //creating the back to main menu button
+        JButton startButton = new JButton("Main Menu");
+        startButton.setBounds(gameWidth/2 - 50, 500, 110,50);
+        startButton.addActionListener(e -> showMainMenuFrameFromInstrucions());
         contentPane.add(startButton);
 
         JRadioButton easyButton = new JRadioButton("Easy");
@@ -110,6 +192,7 @@ public class BriscolaGUI extends JFrame {
 
     private void showGameWindow() {
         startButton.setEnabled(false);
+        //objects that need to be created for the game to start
         deck = new Deck();
         hand1 = new Hand();
         hand2 = new Hand();
@@ -117,8 +200,10 @@ public class BriscolaGUI extends JFrame {
         discard2 = new Discard();
         pile1 = new Pile();
         pile2 = new Pile();
+        //lets the game know that the user starts
         whoStartsGame();
 
+        //create the card buttons. Each button will get the image of the card it's associated with.
         player1Card1Button = new JButton();
         player1Card2Button = new JButton();
         player1Card3Button = new JButton();
@@ -160,7 +245,7 @@ public class BriscolaGUI extends JFrame {
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
 
-        //creating  and adding the cpu cards to the screen
+        //creating and adding the cpu cards to the screen
         JLabel topCardPic = new JLabel();
         contentPane.add(topCardPic);
         cpuCard1 = new JLabel();
@@ -199,12 +284,12 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(infoLabel);
 
         //add message for Player One points
-        userPointsLabel = new JLabel("User Points: ");
+        userPointsLabel = new JLabel("User Points: 0");
         userPointsLabel.setBounds(gameWidth - 600, gameHeight - 100, 150, 50);
         contentPane.add(userPointsLabel);
 
         //add message for player two points
-        cpuPointsLabel = new JLabel("CPU Points:");
+        cpuPointsLabel = new JLabel("CPU Points: 0");
         cpuPointsLabel.setBounds(gameWidth - 800, gameHeight - 100, 150, 50);
         contentPane.add(cpuPointsLabel);
 
@@ -282,13 +367,9 @@ public class BriscolaGUI extends JFrame {
                     topCardPic.setVisible(true);
                     backOfCardPic.setVisible(true);
 
-                    System.out.println(deck.getDeck().size());
-                    System.out.println("Player 1: " + hand1.getHand());
-                    System.out.println("Player 2: " + hand2.getHand());
 
                     dealButton.setEnabled(false);
                     dealButton.setVisible(false);
-                    System.out.println(trumpSuitCard.toString());
                 } else {
                     trumpSuitCard = deck.dealCards(hand1, hand2, whoWon);
                     playerCard1 = hand1.getHand().get(0);
@@ -353,13 +434,11 @@ public class BriscolaGUI extends JFrame {
                     player2PlayedCard.setIcon(scaledIconPlayer2Card);
 
 
-                    System.out.println("First Card: " + hand2.getHand().get(0));
                     //method for selecting card for cpu
                     hand2.playFirstCard(discard2);
 
                     cpuCard1.setVisible(false);
                     player2PlayedCard.setVisible(true);
-                    System.out.println("CPU: Card played: " + discard2.getDiscard());
 
                 }
             }
@@ -375,8 +454,6 @@ public class BriscolaGUI extends JFrame {
         nextRoundButton.addActionListener(e -> {
             messageLabel.setVisible(false);
 
-            System.out.println("Hand1: " + hand1.getHand());
-            System.out.println("Hand2: " + hand2.getHand());
 
             if (deck.getDeck().size() > 1) {
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
@@ -393,7 +470,6 @@ public class BriscolaGUI extends JFrame {
                     playerCard1 = hand1.getHand().get(0);
                     playerCard2 = hand1.getHand().get(1);
                     playerCard3 = hand1.getHand().get(2);
-                    System.out.println("Your new hand" + hand1.getHand());
 
                     Icon scaledIconCard1 = scaleImage(playerCard1);
                     Icon scaledIconCard2 = scaleImage(playerCard2);
@@ -432,8 +508,6 @@ public class BriscolaGUI extends JFrame {
                     playerCard2 = hand1.getHand().get(1);
                     playerCard3 = hand1.getHand().get(2);
 
-                    System.out.println("Your new hand" + hand1.getHand());
-
                     Icon scaledIconCard1 = scaleImage(playerCard1);
                     Icon scaledIconCard2 = scaleImage(playerCard2);
                     Icon scaledIconCard3 = scaleImage(playerCard3);
@@ -457,7 +531,11 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    hardModePicker(null);
+                    if (easyMode) {
+                        randomCardPicker();
+                    } else {
+                        hardModePicker(null);
+                    }
                     setImagesForCPU(cardChosen);
 
                 }
@@ -479,7 +557,6 @@ public class BriscolaGUI extends JFrame {
                     playerCard1 = hand1.getHand().get(0);
                     playerCard2 = hand1.getHand().get(1);
                     playerCard3 = hand1.getHand().get(2);
-                    System.out.println("Your new hand: " + hand1.getHand());
 
                     Icon scaledIconCard1 = scaleImage(playerCard1);
                     Icon scaledIconCard2 = scaleImage(playerCard2);
@@ -518,8 +595,6 @@ public class BriscolaGUI extends JFrame {
                     playerCard2 = hand1.getHand().get(1);
                     playerCard3 = hand1.getHand().get(2);
 
-                    System.out.println("Your new hand: " + hand1.getHand());
-
                     Icon scaledIconCard1 = scaleImage(playerCard1);
                     Icon scaledIconCard2 = scaleImage(playerCard2);
                     Icon scaledIconCard3 = scaleImage(playerCard3);
@@ -542,7 +617,11 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    hardModePicker(null);
+                    if (easyMode) {
+                        randomCardPicker();
+                    } else {
+                        hardModePicker(null);
+                    }
                     setImagesForCPU(cardChosen);
 
                     player2PlayedCard.setVisible(true);
@@ -563,7 +642,6 @@ public class BriscolaGUI extends JFrame {
 
                     playerCard1 = hand1.getHand().get(0);
                     playerCard2 = hand1.getHand().get(1);
-                    System.out.println("Your new hand: " + hand1.getHand());
 
                     Icon scaledIconCard1 = scaleImage(playerCard1);
                     Icon scaledIconCard2 = scaleImage(playerCard2);
@@ -599,8 +677,6 @@ public class BriscolaGUI extends JFrame {
                     playerCard1 = hand1.getHand().get(0);
                     playerCard2 = hand1.getHand().get(1);
 
-                    System.out.println("Your new hand: " + hand1.getHand());
-
                     Icon scaledIconCard1 = scaleImage(playerCard1);
                     Icon scaledIconCard2 = scaleImage(playerCard2);
 
@@ -622,7 +698,11 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    hardModePicker(null);
+                    if (easyMode) {
+                        randomCardPicker();
+                    } else {
+                        hardModePicker(null);
+                    }
                     setImagesForCPU(cardChosen);
 
                     player2PlayedCard.setVisible(true);
@@ -641,7 +721,6 @@ public class BriscolaGUI extends JFrame {
 
 
                     playerCard1 = hand1.getHand().get(0);
-                    System.out.println("Your new hand: " + hand1.getHand());
 
                     Icon scaledIconCard1 = scaleImage(playerCard1);
 
@@ -675,8 +754,6 @@ public class BriscolaGUI extends JFrame {
 
                     playerCard1 = hand1.getHand().get(0);
 
-                    System.out.println("Your new hand: " + hand1.getHand());
-
                     Icon scaledIconCard1 = scaleImage(playerCard1);
 
                     player1Card1Button.setIcon(scaledIconCard1);
@@ -695,7 +772,11 @@ public class BriscolaGUI extends JFrame {
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
-                    hardModePicker(null);
+                    if (easyMode) {
+                        randomCardPicker();
+                    } else {
+                        hardModePicker(null);
+                    }
                     setImagesForCPU(cardChosen);
 
                     cpuCard1.setVisible(false);
@@ -711,37 +792,25 @@ public class BriscolaGUI extends JFrame {
                     discard2.cardsWon(pile1);
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(false);
-                    if (pile1.getPoints() > 60) {
-                        messageLabel.setText("You won with " + pile1.getPoints() + " points");
-                    } else if (pile2.getPoints() > 60) {
-                        messageLabel.setText("You lost with " + pile1.getPoints() + " points");
-                    } else {
-                        messageLabel.setText("You tied with " + pile1.getPoints() + " points");
-                    }
+
                     messageLabel.setVisible(true);
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setVisible(false);
                     newGameButton.setVisible(true);
                     newGameButton.setEnabled(true);
-
+                    showMainMenuFrame();
                 } else if (whoWon == 2) {
                     discard1.cardsWon(pile2);
                     discard2.cardsWon(pile2);
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(false);
-                    if (pile1.getPoints() > 60) {
-                        messageLabel.setText("You won with " + pile1.getPoints() + " points");
-                    } else if (pile2.getPoints() > 60) {
-                        messageLabel.setText("You lost with " + pile1.getPoints() + " points");
-                    } else {
-                        messageLabel.setText("You tied with " + pile1.getPoints() + " points");
-                    }
+
                     messageLabel.setVisible(true);
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
                     newGameButton.setVisible(true);
                     newGameButton.setEnabled(true);
-
+                    showMainMenuFrame();
                 }
             }
             userPointsLabel.setText("User Points: " + pile1.getPoints());
@@ -762,8 +831,11 @@ public class BriscolaGUI extends JFrame {
                 hand1.playFirstCard(discard1);
 
                 //method for selecting card for now just pick first
-                System.out.println("Card Comparing: " + playerCard1);
-                hardModePicker(playerCard1);
+                if (easyMode) {
+                    randomCardPicker();
+                } else {
+                    hardModePicker(playerCard1);
+                }
                 setImagesForCPU(cardChosen);
 
                 player1Card1Button.setVisible(false);
@@ -779,8 +851,6 @@ public class BriscolaGUI extends JFrame {
                 player1Card3Button.setEnabled(false);
                 Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
                 player1Card3Button.setDisabledIcon(scaledIconPlayerCard3);
-
-                System.out.println("Discard Pile: " + discard1.getDiscard() + " " + discard2.getDiscard());
 
                 nextRoundButton.setEnabled(true);
                 nextRoundButton.setVisible(true);
@@ -815,6 +885,170 @@ public class BriscolaGUI extends JFrame {
                 Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
                 player1Card3Button.setDisabledIcon(scaledIconPlayerCard3);
 
+
+                nextRoundButton.setEnabled(true);
+                nextRoundButton.setVisible(true);
+
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+
+                if (whoWon == 1) {
+                    messageLabel.setText("Who Won: You Won");
+                    messageLabel.setVisible(true);
+                } else if (whoWon == 2) {
+                    messageLabel.setText("Who Won: You Lost");
+                    messageLabel.setVisible(true);
+                }
+            }
+        });
+
+        //
+        player1Card2Button.addActionListener(e -> {
+            if (whoWon == 1) {
+                Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
+                contentPane.add(player1PlayedCard);
+                player1PlayedCard.setIcon(scaledIconPlayerCard2);
+
+                hand1.playSecondCard(discard1);
+
+                //method for selecting card for now just pick first
+                if (easyMode) {
+                    randomCardPicker();
+                } else {
+                    hardModePicker(playerCard2);
+                }
+                setImagesForCPU(cardChosen);
+
+                player1Card2Button.setVisible(false);
+                player1Card2Button.setEnabled(false);
+
+                player1PlayedCard.setVisible(true);
+                player2PlayedCard.setVisible(true);
+
+                player1Card1Button.setEnabled(false);
+                Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
+                player1Card1Button.setDisabledIcon(scaledIconPlayerCard1);
+
+                player1Card3Button.setEnabled(false);
+                Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
+                player1Card3Button.setDisabledIcon(scaledIconPlayerCard3);
+
+                nextRoundButton.setEnabled(true);
+                nextRoundButton.setVisible(true);
+
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+
+                if (whoWon == 1) {
+                    messageLabel.setText("Who Won: You Won");
+                    messageLabel.setVisible(true);
+                } else if (whoWon == 2) {
+                    messageLabel.setText("Who Won: You Lost");
+                    messageLabel.setVisible(true);
+                }
+            } else if (whoWon == 2) {
+                playedCard = playerCard1;
+
+                Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
+                contentPane.add(player1PlayedCard);
+                player1PlayedCard.setIcon(scaledIconPlayerCard2);
+
+                hand1.playSecondCard(discard1);
+
+                player1Card2Button.setVisible(false);
+                player1Card2Button.setEnabled(false);
+
+                player1PlayedCard.setVisible(true);
+
+                player1Card1Button.setEnabled(false);
+                Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
+                player1Card1Button.setDisabledIcon(scaledIconPlayerCard1);
+
+                player1Card3Button.setEnabled(false);
+                Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
+                player1Card3Button.setDisabledIcon(scaledIconPlayerCard3);
+
+                nextRoundButton.setEnabled(true);
+                nextRoundButton.setVisible(true);
+
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+
+                if (whoWon == 1) {
+                    messageLabel.setText("Who Won: You Won");
+                    messageLabel.setVisible(true);
+                } else if (whoWon == 2) {
+                    messageLabel.setText("Who Won: You Lost");
+                    messageLabel.setVisible(true);
+                }
+            }
+        });
+
+        player1Card3Button.addActionListener(e -> {
+            if (whoWon == 1) {
+                Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
+                contentPane.add(player1PlayedCard);
+                player1PlayedCard.setIcon(scaledIconPlayerCard3);
+
+                hand1.playThirdCard(discard1);
+
+                //method for selecting card for now just pick first
+                if (easyMode) {
+                    randomCardPicker();
+                } else {
+                    hardModePicker(playerCard3);
+                }
+
+                setImagesForCPU(cardChosen);
+
+                player1Card3Button.setVisible(false);
+                player1Card3Button.setEnabled(false);
+
+                player1PlayedCard.setVisible(true);
+                player2PlayedCard.setVisible(true);
+
+                player1Card1Button.setEnabled(false);
+                Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
+                player1Card1Button.setDisabledIcon(scaledIconPlayerCard1);
+
+                player1Card2Button.setEnabled(false);
+                Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
+                player1Card2Button.setDisabledIcon(scaledIconPlayerCard2);
+
+                nextRoundButton.setEnabled(true);
+                nextRoundButton.setVisible(true);
+
+                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+
+                if (whoWon == 1) {
+                    messageLabel.setText("Who Won: You Won");
+                    messageLabel.setVisible(true);
+                } else if (whoWon == 2) {
+                    messageLabel.setText("Who Won: You Lost");
+                    messageLabel.setVisible(true);
+                }
+            } else if (whoWon == 2) {
+                playedCard = playerCard1;
+
+                Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
+                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
+                contentPane.add(player1PlayedCard);
+                player1PlayedCard.setIcon(scaledIconPlayerCard3);
+
+                hand1.playThirdCard(discard1);
+
+                player1Card3Button.setVisible(false);
+                player1Card3Button.setEnabled(false);
+
+                player1PlayedCard.setVisible(true);
+
+                player1Card1Button.setEnabled(false);
+                Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
+                player1Card1Button.setDisabledIcon(scaledIconPlayerCard1);
+
+                player1Card2Button.setEnabled(false);
+                Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
+                player1Card2Button.setDisabledIcon(scaledIconPlayerCard2);
 
                 nextRoundButton.setEnabled(true);
                 nextRoundButton.setVisible(true);
@@ -838,191 +1072,57 @@ public class BriscolaGUI extends JFrame {
             public void mouseExited(MouseEvent e) {
                 infoLabel.setText("Card: ");
             }
-        }
-        );
-
-        //
-        player1Card2Button.addActionListener(e -> {
-            if (whoWon == 1) {
-                Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
-                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
-                contentPane.add(player1PlayedCard);
-                player1PlayedCard.setIcon(scaledIconPlayerCard2);
-
-                hand1.playSecondCard(discard1);
-
-                //method for selecting card for now just pick first
-                System.out.println("Card Comparing: " + playerCard2);
-                hardModePicker(playerCard2);
-                setImagesForCPU(cardChosen);
-
-                player1Card2Button.setVisible(false);
-                player1Card2Button.setEnabled(false);
-
-                player1PlayedCard.setVisible(true);
-                player2PlayedCard.setVisible(true);
-
-                player1Card1Button.setEnabled(false);
-                Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
-                player1Card1Button.setDisabledIcon(scaledIconPlayerCard1);
-
-                player1Card3Button.setEnabled(false);
-                Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
-                player1Card3Button.setDisabledIcon(scaledIconPlayerCard3);
-
-                System.out.println("Discard Pile: " + discard1.getDiscard() + " " + discard2.getDiscard());
-
-                nextRoundButton.setEnabled(true);
-                nextRoundButton.setVisible(true);
-
-                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
-
-                if (whoWon == 1) {
-                    messageLabel.setText("Who Won: You Won");
-                    messageLabel.setVisible(true);
-                } else if (whoWon == 2) {
-                    messageLabel.setText("Who Won: You Lost");
-                    messageLabel.setVisible(true);
-                }
-            } else if (whoWon == 2) {
-                playedCard = playerCard1;
-
-                Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
-                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
-                contentPane.add(player1PlayedCard);
-                player1PlayedCard.setIcon(scaledIconPlayerCard2);
-
-                hand1.playSecondCard(discard1);
-
-                player1Card2Button.setVisible(false);
-                player1Card2Button.setEnabled(false);
-
-                player1PlayedCard.setVisible(true);
-
-                player1Card1Button.setEnabled(false);
-                Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
-                player1Card1Button.setDisabledIcon(scaledIconPlayerCard1);
-
-                player1Card3Button.setEnabled(false);
-                Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
-                player1Card3Button.setDisabledIcon(scaledIconPlayerCard3);
-
-                nextRoundButton.setEnabled(true);
-                nextRoundButton.setVisible(true);
-
-                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
-
-                if (whoWon == 1) {
-                    messageLabel.setText("Who Won: You Won");
-                    messageLabel.setVisible(true);
-                } else if (whoWon == 2) {
-                    messageLabel.setText("Who Won: You Lost");
-                    messageLabel.setVisible(true);
-                }
-            }
         });
 
         player1Card2Button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
-                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
+                if (player1Card1Button.isVisible() == false) {
+                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
+                } else {
+                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
+                }
             }
             public void mouseExited(MouseEvent e) {
                 infoLabel.setText("Card: ");
             }
         });
 
-        player1Card3Button.addActionListener(e -> {
-            if (whoWon == 1) {
-                Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
-                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
-                contentPane.add(player1PlayedCard);
-                player1PlayedCard.setIcon(scaledIconPlayerCard3);
-
-                hand1.playThirdCard(discard1);
-
-                //method for selecting card for now just pick first
-                System.out.println("Card Comparing: " + playerCard3);
-                hardModePicker(playerCard3);
-                setImagesForCPU(cardChosen);
-
-                player1Card3Button.setVisible(false);
-                player1Card3Button.setEnabled(false);
-
-                player1PlayedCard.setVisible(true);
-                player2PlayedCard.setVisible(true);
-
-                player1Card1Button.setEnabled(false);
-                Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
-                player1Card1Button.setDisabledIcon(scaledIconPlayerCard1);
-
-                player1Card2Button.setEnabled(false);
-                Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
-                player1Card2Button.setDisabledIcon(scaledIconPlayerCard2);
-
-                System.out.println("Discard Pile: " + discard1.getDiscard() + " " + discard2.getDiscard());
-
-                nextRoundButton.setEnabled(true);
-                nextRoundButton.setVisible(true);
-
-                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
-
-                if (whoWon == 1) {
-                    messageLabel.setText("Who Won: You Won");
-                    messageLabel.setVisible(true);
-                } else if (whoWon == 2) {
-                    messageLabel.setText("Who Won: You Lost");
-                    messageLabel.setVisible(true);
-                }
-            } else if (whoWon == 2) {
-                playedCard = playerCard1;
-
-                Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
-                player1PlayedCard.setBounds(439, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
-                contentPane.add(player1PlayedCard);
-                player1PlayedCard.setIcon(scaledIconPlayerCard3);
-
-                hand1.playThirdCard(discard1);
-
-                player1Card3Button.setVisible(false);
-                player1Card3Button.setEnabled(false);
-
-                player1PlayedCard.setVisible(true);
-
-                player1Card1Button.setEnabled(false);
-                Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
-                player1Card1Button.setDisabledIcon(scaledIconPlayerCard1);
-
-                player1Card2Button.setEnabled(false);
-                Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
-                player1Card2Button.setDisabledIcon(scaledIconPlayerCard2);
-
-                nextRoundButton.setEnabled(true);
-                nextRoundButton.setVisible(true);
-
-                checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
-
-                if (whoWon == 1) {
-                    messageLabel.setText("Who Won: You Won");
-                    messageLabel.setVisible(true);
-                } else if (whoWon == 2) {
-                    messageLabel.setText("Who Won: You Lost");
-                    messageLabel.setVisible(true);
-                }
-            }
-        });
 
         player1Card3Button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
-                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(2)));
+                if (player1Card1Button.isVisible() == false || player1Card2Button.isVisible() == false) {
+                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
+                } else {
+                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(2)));
+                }
             }
             public void mouseExited(MouseEvent e) {
                 infoLabel.setText("Card: ");
             }
-        }
-        );
-
-        // Set the frame to be visible
+        });
+        // Set the frame to be visible after the window has been called
         gameFrame.setVisible(true);
+    }
+    private void showMainMenuFrameFromInstrucions() {
+        instructionsFrame.setVisible(false);
+        menuFrame.setVisible(true);
+        startButton.setEnabled(true);
+        startButton.setText("Play Again");
+    }
+
+    private void showMainMenuFrame() {
+        gameFrame.setVisible(false);
+        menuFrame.setVisible(true);
+        startButton.setEnabled(true);
+        startButton.setText("Play Again");
+        wonOrLostLabel.setFont(new Font("Serif", Font.PLAIN, 22));
+        if (pile1.getPoints() > 60) {
+            wonOrLostLabel.setText("You won with " + pile1.getPoints() + " points");
+        } else if (pile2.getPoints() > 60) {
+            wonOrLostLabel.setText("You lost with " + pile1.getPoints() + " points");
+        } else {
+            wonOrLostLabel.setText("You tied with " + pile1.getPoints() + " points");
+        }
     }
 
     private ImageIcon scaleImage(Card topCard) {
@@ -1062,52 +1162,43 @@ public class BriscolaGUI extends JFrame {
 
     private void whoStartsGame() {
         whoWon = 1;
-        //Random random = new Random();
-        //whoWon = random.nextInt(2) + 1;
     }
 
     private void randomCardPicker() {
         if (hand2.getHand().size() == 1) {
-            rand = 1;
+            cardChosen = 0;
         }
         if (hand2.getHand().size() == 2) {
             Random random = new Random();
-            rand = random.nextInt(2) + 1;
+            cardChosen = random.nextInt(2);
 
         }
         if (hand2.getHand().size() == 3) {
             Random random = new Random();
-            rand = random.nextInt(3) + 1;
+            cardChosen = random.nextInt(3);
         }
     }
 
     private void hardModePicker(Card player1Card) {
         if (player1Card == null) {
             cardChosen = lowestCardWorthIndex(hand2.getHand());
-            System.out.println("Card Chosen: " + hand2.getHand().get(cardChosen));
         } else {
             if (player1Card.getWorth() > 3 && playerHasTrumpSuit(hand2.getHand()) && !player1Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 cardChosen = trumpSuitCardIndex(hand2.getHand());
-                System.out.println("Card Chosen: " + hand2.getHand().get(cardChosen));
 
             } else if (player1Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 cardChosen = lowestCardWorthIndex(hand2.getHand());
-                System.out.println("Card Chosen: " + hand2.getHand().get(cardChosen));
 
             } else if (player1Card.getSuit().equals(highestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < highestWorthCard(hand2.getHand()).getStrength()) {
                 cardChosen = highestCardWorthIndex(hand2.getHand());
-                System.out.println("Card Chosen: " + hand2.getHand().get(cardChosen));
 
             } else {
                 cardChosen = lowestCardWorthIndex(hand2.getHand());
-                System.out.println("Card Chosen: " + hand2.getHand().get(cardChosen));
-
             }
         }
     }
 
     private void setImagesForCPU(int cardChosen) {
-
         if (cardChosen == 0) {
             Card player2Card = hand2.getHand().get(0);
 
@@ -1149,19 +1240,6 @@ public class BriscolaGUI extends JFrame {
         }
     }
 
-    private int highestCardWorth(List<Card> hand) {
-        int highestCardWorth = hand.get(0).getWorth();
-        int highestCardIndex = 0;
-        for (int i = 0; i < hand.size(); i++) {
-            int worth = hand.get(i).getWorth();
-            if (worth > highestCardWorth) {
-                highestCardWorth = worth;
-                highestCardIndex = i;
-            }
-        }
-        return highestCardWorth;
-    }
-
     private Card highestWorthCard(List<Card> hand) {
         Card highestWorthCard = hand.get(0);
         int highestCardWorth = 0;
@@ -1200,18 +1278,6 @@ public class BriscolaGUI extends JFrame {
         }
         return lowestCardIndex;
     }
-    private int lowestCardWorth(List<Card> hand) {
-        int lowestCardWorth = hand.get(0).getWorth();
-        int lowestCardIndex = 0;
-        for (int i = 0; i < hand.size(); i++) {
-            int worth = hand.get(i).getWorth();
-            if (worth < lowestCardWorth) {
-                lowestCardWorth = worth;
-                lowestCardIndex = i;
-            }
-        }
-        return lowestCardWorth;
-    }
 
     private boolean playerHasTrumpSuit(List<Card> hand) {
         boolean hasTrump = false;
@@ -1233,6 +1299,7 @@ public class BriscolaGUI extends JFrame {
         }
         return trumpSuitCardIndex;
     }
+
     private void resetGame() {
         pile1.startOver();
         pile2.startOver();
@@ -1242,8 +1309,8 @@ public class BriscolaGUI extends JFrame {
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
         nextRoundButton.setText("Next Round");
-        userPointsLabel.setText("User Points: ");
-        cpuPointsLabel.setText("CPU Points: ");
+        userPointsLabel.setText("User Points: 0");
+        cpuPointsLabel.setText("CPU Points: 0");
         trumpSuitLabel.setText("Trump Suit: ");
     }
 }
