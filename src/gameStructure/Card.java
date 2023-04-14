@@ -1,5 +1,6 @@
 package gameStructure;
 import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
 
 /**
  * Creates a card object that will have a unique suit and faceName associated with it based on the Italian card game
@@ -9,10 +10,10 @@ import javax.swing.ImageIcon;
  * @author David & Abby
  */
 
-public class Card {
+public class Card extends Sprite {
+    private static final String SPRITE_SHEET_IMAGE = "/images/sprite.png";
     private final Suit suit;
     private final FaceName faceName;
-    private final ImageIcon image;
 
     /**
      * Describes the possible suits for the cards.
@@ -36,8 +37,8 @@ public class Card {
         Seven(0, 4),
         Jack(2, 5),
         Horse(3, 6),
-
-        King(4, 7);
+        King(4, 7),
+        Back(0, 0);
 
         private final int cardWorth;
         private final int cardStrength;
@@ -77,12 +78,88 @@ public class Card {
      *
      * @param suit the associated  {@link Suit suit} of the card
      * @param faceName
-     * @param imagePath
      */
-    public Card(Suit suit, FaceName faceName, String imagePath) {
+    public Card(Suit suit, FaceName faceName) {
         this.suit = suit;
         this.faceName = faceName;
-        this.image = new ImageIcon(imagePath);
+
+        int col;
+
+        switch (faceName) {
+            case Ace:
+                col = 0;
+                break;
+
+            case King:
+                col = 12;
+                break;
+
+            case Horse:
+                col = 11;
+                break;
+
+            case Jack:
+                col = 10;
+                break;
+
+            case Seven:
+                col = 6;
+                break;
+
+            case Six:
+                col = 5;
+                break;
+
+            case Five:
+                col = 4;
+                break;
+
+            case Four:
+                col = 3;
+                break;
+
+            case Three:
+                col = 2;
+                break;
+
+            case Two:
+                col = 1;
+                break;
+
+            case Back:
+            default:
+                col = 13;
+                break;
+        }
+
+        loadImage(SPRITE_SHEET_IMAGE);
+        BufferedImage img = getImage();
+        setHeight(img.getHeight() / 4);
+        setWidth(img.getWidth() / 14);
+
+        int row;
+
+        switch (suit) {
+            case Coins:
+                row = 0;
+                break;
+
+            case Sticks:
+                row = 1;
+                break;
+
+            case Cups:
+                row = 2;
+                break;
+
+            case Swords:
+            default:
+                row = 3;
+                break;
+        }
+
+        setXOffset(col * getWidth());
+        setYOffset(row * getHeight());
     }
 
     /**
@@ -119,15 +196,6 @@ public class Card {
      */
     public int getWorth() {
         return faceName.getWorth();
-    }
-
-    /**
-     * Returns image of a card.
-     *
-     * @return image of card
-     */
-    public ImageIcon getImage() {
-        return image;
     }
 
     /**

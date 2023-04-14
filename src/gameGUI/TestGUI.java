@@ -1,9 +1,8 @@
 package gameGUI;
 
-import gameStructure.BriscolaCards;
+import gameStructure.BriscolaCard;
 import gameStructure.Sprite;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -114,17 +113,17 @@ public class TestGUI extends JFrame {
     }
 
     private class DrawingPanel extends JPanel {
-        private static final long serialVersionUID = -6338277515751657307L;
-
         public List<Sprite> drawList = new ArrayList<>();
 
         public DrawingPanel() {
             // THIS IS NEW!!!
-            BriscolaCards s = new BriscolaCards("King", "Swords");
-            BriscolaCards t = new BriscolaCards("Ace", "Cups");
+            BriscolaCard s = new BriscolaCard("King", "Swords");
+            BriscolaCard t = new BriscolaCard("Ace", "Cups");
             t.setCoords(50, 1);
             t.setHeight(290);
             t.setWidth(150);
+            System.out.println("Card t's Value: " + t.getValue());
+            System.out.println("Card s's Value: " + s.getValue());
 
             drawList.add(s);
             drawList.add(t);
@@ -146,7 +145,7 @@ public class TestGUI extends JFrame {
 
     private class JFrame003_MouseListener implements MouseListener, MouseMotionListener, MouseWheelListener {
         // THESE ARE NEW!!!
-        private BriscolaCards dragging;
+        private BriscolaCard dragging;
         private int[] oldCoords;
 
         @Override
@@ -190,8 +189,8 @@ public class TestGUI extends JFrame {
             oldCoords[1] = e.getY();
             boolean foundFirst = false;
             for (Sprite s : drawing.drawList) {
-                if (s instanceof BriscolaCards) {
-                    final BriscolaCards card = (BriscolaCards) s;
+                if (s instanceof BriscolaCard) {
+                    final BriscolaCard card = (BriscolaCard) s;
                     if (card.contains(e.getPoint()) && !foundFirst) {
                         foundFirst = true;
                         dragging = card;

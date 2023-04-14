@@ -1,7 +1,6 @@
 package gameStructure;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -23,16 +22,20 @@ public class Sprite {
     private String name;
     private int xCoord;
     private int yCoord;
+    private int xOffset;
+    private int yOffset;
     private int width;
     private int height;
     private BufferedImage img;
     private Color currentColor;
+    private Rectangle boundingBox;
+
 
     /**
      * Default constructor.  Set position to (1,1), the width and height to 10, and the color to BLACK.
      */
     public Sprite() {
-        this(1, 1, 10, 10, "UnnamedSprite", Color.BLACK, null);
+        this(1, 1, 0, 0, 10, 10, "UnnamedSprite", Color.BLACK, null);
     }
 
     /**
@@ -41,7 +44,7 @@ public class Sprite {
      * @param y
      */
     public Sprite(int x, int y) {
-        this(x, y, 10, 10, "Unnamed Sprite", Color.BLUE, null);
+        this(x, y, 0, 0, 10, 10, "Unnamed Sprite", Color.BLUE, null);
     }
 
     /**
@@ -51,7 +54,7 @@ public class Sprite {
      * @param name
      */
     public Sprite(int x, int y, String name) {
-        this(x, y, 10, 10, name, Color.RED, null);
+        this(x, y, 0, 0, 10, 10, name, Color.RED, null);
     }
 
     /**
@@ -64,10 +67,12 @@ public class Sprite {
      * @param c
      * @param imageName
      */
-    public Sprite(int x, int y, int w, int h, String name, Color c, String imageName) {
+    public Sprite(int x, int y, int xo, int yo, int w, int h, String name, Color c, String imageName) {
         this.name = name;
         this.xCoord = x;
         this.yCoord = y;
+        this.xOffset = xo;
+        this.yOffset = yo;
         this.height = h;
         this.width = w;
         this.loadImage(imageName);
@@ -130,9 +135,21 @@ public class Sprite {
         return img;
     }
 
+    public void setImage(BufferedImage img) {
+        this.img = img;
+    }
+
+    public void setXOffset(int xo) {
+        this.xOffset = xo;
+    }
+
+    public void setYOffset(int yo) {
+        this.yOffset = yo;
+    }
+
     public void loadImage(String fileName) {
         if (fileName != null) {
-            final String resource = "/data/" + fileName;
+            final String resource = fileName;
             try {
                 img = ImageIO.read(this.getClass().getResource(resource));
             } catch (IOException e) {
@@ -175,7 +192,22 @@ public class Sprite {
         if (img == null)
             g.fillRect(xCoord, yCoord, width, height);
         else
-            g.drawImage(img, xCoord, yCoord, width, height, null);
-        g.drawString(name, xCoord - 10,  yCoord - 10);
+            g.drawImage(img, xCoord, yCoord, xCoord + width, yCoord + height,
+                xOffset, yOffset, xOffset + width, yOffset + height, null);
     }
+
+    public void moveTo(int x, int y) {
+        this.xCoord = x;
+        this.yCoord = y;
+    }
+
+    public void moveBy(int deltaX, int deltaY) {
+        moveTo(xCoord + deltaX, yCoord + deltaY);
+    }
+
+    public boolean contains(Point p) {
+        Rectangle boundingBox = new Rectangle(xCoord, yCoord, width, height);
+        return boundingBox.contains(p);
+    }
+
 }

@@ -15,14 +15,14 @@ public class DeckOfCards {
     private static final SecureRandom randomNumbers = new SecureRandom();
 
     // instance variables
-    private final BriscolaCards[] deck;
+    private final BriscolaCard[] deck;
     private int currentCard;
 
     //default constructor
     public DeckOfCards() {
-        deck = new BriscolaCards[40];
+        deck = new BriscolaCard[40];
         for (int i = 0; i < deck.length; i++) {
-            deck[i] = new BriscolaCards(FACES[i % 10], SUITS[i / 10]);
+            deck[i] = new BriscolaCard(FACES[i % 10], SUITS[i / 10]);
         }
         currentCard = 0;
     }
@@ -31,7 +31,7 @@ public class DeckOfCards {
         return deck.length;
     }
 
-    public BriscolaCards dealCard() {
+    public BriscolaCard dealCard() {
         if (currentCard >= deck.length)
             return null;
 
@@ -41,7 +41,7 @@ public class DeckOfCards {
     public void shuffle() {
         for (int index = 0; index < deck.length; index++) {
             final int swapIndex = randomNumbers.nextInt(NUMBER_OF_CARDS);
-            BriscolaCards swap = deck[index];
+            BriscolaCard swap = deck[index];
             deck[index] = deck[swapIndex];
             deck[swapIndex] = swap;
         }

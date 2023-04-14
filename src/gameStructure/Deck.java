@@ -19,8 +19,7 @@ public class Deck {
         this.deck = new ArrayList<>();
         for (Card.Suit suit : Card.Suit.values()) {
             for (Card.FaceName faceName : Card.FaceName.values()) {
-                String imagePath = "src/images/" + faceName.name().toLowerCase() + "_of_" + suit.name().toLowerCase() + ".png";
-                Card card = new Card(suit, faceName, imagePath);
+                Card card = new Card(suit, faceName);
                 this.deck.add(card);
             }
         }
