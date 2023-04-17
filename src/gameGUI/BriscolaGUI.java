@@ -70,7 +70,7 @@ public class BriscolaGUI extends JFrame {
     private Boolean easyMode = true;
 
     public BriscolaGUI() {
-        //creating the main menu frame. This inlcude a way for the user to choose a difficulty and look at instructions
+        //creating the main menu frame. This inlcudes a way for the user to choose a difficulty and look at instructions
         // on how to play
         menuFrame = new JFrame("Main Menu");
         menuFrame.setSize(gameWidth,gameHeight);
@@ -292,140 +292,64 @@ public class BriscolaGUI extends JFrame {
         menuFrame.setVisible(false);
 
         dealButton.addActionListener(e -> {
-            if (deck.getDeck().size() == 40) {
-                if (whoWon == 1) {
-                    trumpSuitCard = deck.dealCards(hand1, hand2, whoWon);
-                    deckSizeLabel.setText("Cards Left: " + deck.getDeck().size());
-                    trumpSuitLabel.setText("Trump Suit: " + trumpSuitCard.getSuit());
-                    playerCard1 = hand1.getHand().get(0);
-                    playerCard2 = hand1.getHand().get(1);
-                    playerCard3 = hand1.getHand().get(2);
-                    player2Card1 = hand2.getHand().get(0);
-                    player2Card2 = hand2.getHand().get(1);
-                    player2Card3 = hand2.getHand().get(2);
+            trumpSuitCard = deck.dealCards(hand1, hand2, whoWon);
+            deckSizeLabel.setText("Cards Left: " + deck.getDeck().size());
+            trumpSuitLabel.setText("Trump Suit: " + trumpSuitCard.getSuit());
+            playerCard1 = hand1.getHand().get(0);
+            playerCard2 = hand1.getHand().get(1);
+            playerCard3 = hand1.getHand().get(2);
+            player2Card1 = hand2.getHand().get(0);
+            player2Card2 = hand2.getHand().get(1);
+            player2Card3 = hand2.getHand().get(2);
 
-                    Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
-                    Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
-                    Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
+            Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
+            Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
+            Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
 
-                    player1Card1Button.setBounds(840, 400, scaledWidth, 250);
-                    contentPane.add(player1Card1Button);
-                    player1Card2Button.setBounds(845 + scaledWidth, 400, scaledWidth, 250);
-                    contentPane.add(player1Card2Button,1);
-                    player1Card3Button.setBounds(850 + scaledWidth + scaledWidth, 400, scaledWidth, 250);
-                    contentPane.add(player1Card3Button,1);
+            player1Card1Button.setBounds(840, 400, scaledWidth, 250);
+            contentPane.add(player1Card1Button);
+            player1Card2Button.setBounds(845 + scaledWidth, 400, scaledWidth, 250);
+            contentPane.add(player1Card2Button,1);
+            player1Card3Button.setBounds(850 + scaledWidth + scaledWidth, 400, scaledWidth, 250);
+            contentPane.add(player1Card3Button,1);
 
-                    player1Card1Button.setVisible(true);
-                    player1Card1Button.setEnabled(true);
-                    player1Card2Button.setVisible(true);
-                    player1Card2Button.setEnabled(true);
-                    player1Card3Button.setVisible(true);
-                    player1Card3Button.setEnabled(true);
+            player1Card1Button.setVisible(true);
+            player1Card1Button.setEnabled(true);
+            player1Card2Button.setVisible(true);
+            player1Card2Button.setEnabled(true);
+            player1Card3Button.setVisible(true);
+            player1Card3Button.setEnabled(true);
 
-                    player1Card1Button.setIcon(scaledIconPlayerCard1);
-                    player1Card2Button.setIcon(scaledIconPlayerCard2);
-                    player1Card3Button.setIcon(scaledIconPlayerCard3);
+            player1Card1Button.setIcon(scaledIconPlayerCard1);
+            player1Card2Button.setIcon(scaledIconPlayerCard2);
+            player1Card3Button.setIcon(scaledIconPlayerCard3);
 
-                    scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
+            scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
 
-                    cpuCard1.setIcon(scaledIcon);
-                    cpuCard1.setBounds(840, 30, scaledWidth, scaledHeight);
-                    contentPane.add(cpuCard1);
+            cpuCard1.setIcon(scaledIcon);
+            cpuCard1.setBounds(840, 30, scaledWidth, scaledHeight);
+            contentPane.add(cpuCard1);
 
-                    cpuCard2.setIcon(scaledIcon);
-                    cpuCard2.setBounds(845 + scaledWidth, 30, scaledWidth, scaledHeight);
-                    contentPane.add(cpuCard2);
+            cpuCard2.setIcon(scaledIcon);
+            cpuCard2.setBounds(845 + scaledWidth, 30, scaledWidth, scaledHeight);
+            contentPane.add(cpuCard2);
 
-                    cpuCard3.setIcon(scaledIcon);
-                    cpuCard3.setBounds(850 + scaledWidth + scaledWidth, 30, scaledWidth, scaledHeight);
-                    contentPane.add(cpuCard3);
+            cpuCard3.setIcon(scaledIcon);
+            cpuCard3.setBounds(850 + scaledWidth + scaledWidth, 30, scaledWidth, scaledHeight);
+            contentPane.add(cpuCard3);
 
-                    cpuCard1.setVisible(true);
-                    cpuCard2.setVisible(true);
-                    cpuCard3.setVisible(true);
+            cpuCard1.setVisible(true);
+            cpuCard2.setVisible(true);
+            cpuCard3.setVisible(true);
 
+            topCardPic.setIcon(new ImageIcon(scaleImage(trumpSuitCard).getImage()));
+            topCardPic.setBounds(105 + scaledWidth - 50, gameHeight / 2 - scaledHeight / 2 - 40, scaledWidth, scaledHeight);
+            contentPane.add(topCardPic);
+            topCardPic.setVisible(true);
+            backOfCardPic.setVisible(true);
 
-                    topCardPic.setIcon(new ImageIcon(scaleImage(trumpSuitCard).getImage()));
-                    topCardPic.setBounds(105 + scaledWidth - 50, gameHeight / 2 - scaledHeight / 2 - 40, scaledWidth, scaledHeight);
-                    contentPane.add(topCardPic);
-                    topCardPic.setVisible(true);
-                    backOfCardPic.setVisible(true);
-
-
-                    dealButton.setEnabled(false);
-                    dealButton.setVisible(false);
-                } else {
-                    trumpSuitCard = deck.dealCards(hand1, hand2, whoWon);
-                    playerCard1 = hand1.getHand().get(0);
-                    playerCard2 = hand1.getHand().get(1);
-                    playerCard3 = hand1.getHand().get(2);
-                    player2Card1 = hand2.getHand().get(0);
-                    player2Card2 = hand2.getHand().get(1);
-                    player2Card3 = hand2.getHand().get(2);
-
-                    Icon scaledIconPlayerCard1 = scaleImage(playerCard1);
-                    Icon scaledIconPlayerCard2 = scaleImage(playerCard2);
-                    Icon scaledIconPlayerCard3 = scaleImage(playerCard3);
-
-                    player1Card1Button.setBounds(750, 500, scaledWidth, 250);
-                    contentPane.add(player1Card1Button);
-                    player1Card2Button.setBounds(755 + scaledWidth, 500, scaledWidth, 250);
-                    contentPane.add(player1Card2Button);
-                    player1Card3Button.setBounds(760 + scaledWidth + scaledWidth, 500, scaledWidth, 250);
-                    contentPane.add(player1Card3Button);
-
-                    player1Card1Button.setVisible(true);
-                    player1Card1Button.setEnabled(true);
-                    player1Card2Button.setVisible(true);
-                    player1Card2Button.setEnabled(true);
-                    player1Card3Button.setVisible(true);
-                    player1Card3Button.setEnabled(true);
-
-                    player1Card1Button.setIcon(scaledIconPlayerCard1);
-                    player1Card2Button.setIcon(scaledIconPlayerCard2);
-                    player1Card3Button.setIcon(scaledIconPlayerCard3);
-
-                    scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
-
-                    cpuCard1.setIcon(scaledIcon);
-                    cpuCard1.setBounds(750, 20, scaledWidth, scaledHeight);
-                    contentPane.add(cpuCard1);
-
-                    cpuCard2.setIcon(scaledIcon);
-                    cpuCard2.setBounds(755 + scaledWidth, 20, scaledWidth, scaledHeight);
-                    contentPane.add(cpuCard2);
-
-                    cpuCard3.setIcon(scaledIcon);
-                    cpuCard3.setBounds(760 + scaledWidth + scaledWidth, 20, scaledWidth, scaledHeight);
-                    contentPane.add(cpuCard3);
-
-                    cpuCard1.setVisible(true);
-                    cpuCard2.setVisible(true);
-                    cpuCard3.setVisible(true);
-
-                    topCardPic.setIcon(new ImageIcon(scaleImage(trumpSuitCard).getImage()));
-                    topCardPic.setBounds(105 + scaledWidth, gameHeight / 2 - scaledHeight / 2, scaledWidth, scaledHeight);
-                    contentPane.add(topCardPic);
-                    topCardPic.setVisible(true);
-                    backOfCardPic.setVisible(true);
-
-                    dealButton.setEnabled(false);
-                    dealButton.setVisible(false);
-
-                    Card player2Card = hand2.getHand().get(0);
-
-                    Icon scaledIconPlayer2Card = scaleImage(player2Card);
-                    player2PlayedCard.setIcon(scaledIconPlayer2Card);
-
-
-                    //method for selecting card for cpu
-                    hand2.playFirstCard(discard2);
-
-                    cpuCard1.setVisible(false);
-                    player2PlayedCard.setVisible(true);
-
-                }
-            }
+            dealButton.setEnabled(false);
+            dealButton.setVisible(false);
         });
 
         newGameButton.addActionListener(e -> {
@@ -437,7 +361,6 @@ public class BriscolaGUI extends JFrame {
 
         nextRoundButton.addActionListener(e -> {
             messageLabel.setVisible(false);
-
 
             if (deck.getDeck().size() > 1) {
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
@@ -841,6 +764,7 @@ public class BriscolaGUI extends JFrame {
 
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
 
+                /////// add this to checkwhoWins method
                 if (whoWon == 1) {
                     messageLabel.setText("Who Won: You Won");
                     messageLabel.setVisible(true);
