@@ -75,6 +75,7 @@ public class BriscolaGUI extends JFrame {
         menuFrame = new JFrame("Main Menu");
         menuFrame.setSize(gameWidth, gameHeight);
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         menuFrame.setLayout(null);
 
         // set the content pane's background to the image
@@ -83,7 +84,7 @@ public class BriscolaGUI extends JFrame {
                 super.paintComponent(g);
                 Image img = new ImageIcon("src/images/BriCenMenu.png").getImage();
                 Dimension size = getSize();
-                g.drawImage(img, 0, 0, size.width, size.height, null);
+               g.drawImage(img,0,0,size.width,size.height, this);
             }
         });
         //creating the start game button
@@ -131,6 +132,8 @@ public class BriscolaGUI extends JFrame {
         JButton instructionsButton = new JButton("How To Play");
         instructionsButton.setBounds(gameWidth - 1125, gameHeight - 100, 110, 50);
         menuFrame.add(instructionsButton);
+
+        menuFrame.setVisible(true);
 
         //This calls the method which opens the other window
         instructionsButton.addActionListener(e -> showInstructionsWindow());
