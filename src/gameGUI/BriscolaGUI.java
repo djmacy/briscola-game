@@ -73,40 +73,34 @@ public class BriscolaGUI extends JFrame {
         //creating the main menu frame. This inlcudes a way for the user to choose a difficulty and look at instructions
         // on how to play
         menuFrame = new JFrame("Main Menu");
-        menuFrame.setSize(gameWidth,gameHeight);
+        menuFrame.setSize(gameWidth, gameHeight);
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        menuFrame.setVisible(true);
+        menuFrame.setLayout(null);
 
-        //Method that I found for painting images for the background.
-        //https://stackoverflow.com/questions/26698975/how-to-deal-with-public-void-paint-method-in-jframe
-        JPanel menuPanel = new JPanel() {
+        // set the content pane's background to the image
+        menuFrame.setContentPane(new JPanel() {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Image img = new ImageIcon("src/images/BriCenMenu.png").getImage();
                 Dimension size = getSize();
-                g.drawImage(img,0,0,size.width,size.height, null);
+                g.drawImage(img, 0, 0, size.width, size.height, null);
             }
-        };
-        menuFrame.setContentPane(menuPanel);
-
-        Container contentPane = menuFrame.getContentPane();
-        contentPane.setLayout(null);
-
+        });
         //creating the start game button
         startButton = new JButton("Start Game");
-        startButton.setBounds(gameWidth/2 - 50, gameHeight - 100, 110,50);
+        startButton.setBounds(gameWidth / 2 - 50, gameHeight - 100, 110, 50);
         startButton.addActionListener(e -> showGameWindow());
-        contentPane.add(startButton);
+        menuFrame.add(startButton);
 
         //display point label after a game has been played
         wonOrLostLabel = new JLabel("");
-        wonOrLostLabel.setBounds(gameWidth/2 - 125, gameHeight - 700, 300, 100);
-        contentPane.add(wonOrLostLabel);
+        wonOrLostLabel.setBounds(gameWidth / 2 - 125, gameHeight - 700, 300, 100);
+        menuFrame.add(wonOrLostLabel);
 
         //creating the easymode radio button
         JRadioButton easyButton = new JRadioButton("Easy");
         easyButton.setBounds(gameWidth - 300, gameHeight - 100, 100, 50);
-        contentPane.add(easyButton);
+        menuFrame.add(easyButton);
         easyButton.setOpaque(false);
         easyButton.setSelected(true);
 
@@ -119,7 +113,7 @@ public class BriscolaGUI extends JFrame {
         //creating the normalButton radio button
         JRadioButton normalButton = new JRadioButton("Normal");
         normalButton.setBounds(gameWidth - 200, gameHeight - 100, 100, 50);
-        contentPane.add(normalButton);
+        menuFrame.add(normalButton);
         normalButton.setOpaque(false);
 
         //setting the boolean to false whenever normal mode is pressed
@@ -136,11 +130,14 @@ public class BriscolaGUI extends JFrame {
         //instructions
         JButton instructionsButton = new JButton("How To Play");
         instructionsButton.setBounds(gameWidth - 1125, gameHeight - 100, 110, 50);
-        contentPane.add(instructionsButton);
+        menuFrame.add(instructionsButton);
 
         //This calls the method which opens the other window
         instructionsButton.addActionListener(e -> showInstructionsWindow());
+
+        menuFrame.setVisible(true);
     }
+
 
     private void showInstructionsWindow() {
         menuFrame.setVisible(false);
@@ -1015,7 +1012,8 @@ public class BriscolaGUI extends JFrame {
         instructionsFrame.setVisible(false);
         menuFrame.setVisible(true);
         startButton.setEnabled(true);
-        startButton.setText("Play Again");
+        startButton.setText("Play");
+        wonOrLostLabel.setText("");
     }
 
     private void showMainMenuFrame() {
