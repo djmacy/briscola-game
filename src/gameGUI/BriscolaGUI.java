@@ -154,7 +154,7 @@ public class BriscolaGUI extends JFrame {
         JPanel instructionsPanel = new JPanel() {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Image img = new ImageIcon("src/images/BriCenMenu.png").getImage();
+                Image img = new ImageIcon("src/images/instructions.png").getImage();
                 Dimension size = getSize();
                 g.drawImage(img,0,0,size.width,size.height,null);
             }
