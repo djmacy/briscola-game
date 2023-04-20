@@ -46,6 +46,7 @@ public class BriscolaGUI extends JFrame {
     private Card player2Card2;
     private Card player2Card3;
     private Card playedCard;
+    private Card player2Card;
     private ImageIcon scaledIcon;
     private ImageIcon backOfCard;
     private JLabel backOfCardPic;
@@ -63,6 +64,7 @@ public class BriscolaGUI extends JFrame {
     private JLabel trumpSuitLabel;
     private JLabel deckSizeLabel;
     private JLabel wonOrLostLabel;
+    private JLabel hints;
     private int whoWon;
     private int rand;
     private int cardChosen;
@@ -298,6 +300,10 @@ public class BriscolaGUI extends JFrame {
         deckSizeLabel.setBounds(gameWidth - 1200, gameHeight - 100, 150, 50);
         contentPane.add(deckSizeLabel);
 
+        //add message for hints
+        hints = new JLabel("");
+        hints.setBounds(gameWidth - 820, gameHeight - 700, 200, 50);
+        contentPane.add(hints);
 
         menuFrame.setVisible(false);
 
@@ -360,6 +366,9 @@ public class BriscolaGUI extends JFrame {
 
             dealButton.setEnabled(false);
             dealButton.setVisible(false);
+            if (easyMode) {
+                hints.setText("Try playing the card worth least");
+            }
         });
 
         newGameButton.addActionListener(e -> {
@@ -410,6 +419,9 @@ public class BriscolaGUI extends JFrame {
 
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
+                    if (easyMode) {
+                        hints.setText("Try playing the card worth least");
+                    }
 
                 } else if (whoWon == 2) {
                     discard1.cardsWon(pile2);
@@ -450,6 +462,8 @@ public class BriscolaGUI extends JFrame {
 
                     if (easyMode) {
                         randomCardPicker();
+                        player2Card = hand2.getHand().get(cardChosen);
+                        hints();
                     } else {
                         hardModePicker(null);
                     }
@@ -536,6 +550,8 @@ public class BriscolaGUI extends JFrame {
 
                     if (easyMode) {
                         randomCardPicker();
+                        player2Card = hand2.getHand().get(cardChosen);
+                        hints();
                     } else {
                         hardModePicker(null);
                     }
@@ -610,13 +626,16 @@ public class BriscolaGUI extends JFrame {
 
                     cpuCard1.setVisible(true);
                     cpuCard1.setIcon(scaledIcon);
-                    cpuCard2.setVisible(true);
+                    cpuCard2.setVisible(false);
+                    cpuCard3.setVisible(false);
 
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
 
                     if (easyMode) {
                         randomCardPicker();
+                        player2Card = hand2.getHand().get(cardChosen);
+                        hints();
                     } else {
                         hardModePicker(null);
                     }
@@ -683,7 +702,7 @@ public class BriscolaGUI extends JFrame {
                     player1Card3Button.setVisible(false);
                     player1Card3Button.setEnabled(false);
 
-                    cpuCard1.setVisible(true);
+                    cpuCard1.setVisible(false);
                     cpuCard1.setIcon(scaledIcon);
 
                     nextRoundButton.setVisible(false);
@@ -691,6 +710,8 @@ public class BriscolaGUI extends JFrame {
 
                     if (easyMode) {
                         randomCardPicker();
+                        player2Card = hand2.getHand().get(cardChosen);
+                        hints();
                     } else {
                         hardModePicker(null);
                     }
@@ -750,6 +771,8 @@ public class BriscolaGUI extends JFrame {
                 //method for selecting card for now just pick first
                 if (easyMode) {
                     randomCardPicker();
+                    hints.setText("Try playing the card worth least");
+                    player2Card = hand2.getHand().get(cardChosen);
                 } else {
                     hardModePicker(playerCard1);
                 }
@@ -832,6 +855,8 @@ public class BriscolaGUI extends JFrame {
                 //method for selecting card for now just pick first
                 if (easyMode) {
                     randomCardPicker();
+                    player2Card = hand2.getHand().get(cardChosen);
+                    hints.setText("Try playing the card worth least");
                 } else {
                     hardModePicker(playerCard2);
                 }
@@ -913,6 +938,8 @@ public class BriscolaGUI extends JFrame {
                 //method for selecting card for now just pick first
                 if (easyMode) {
                     randomCardPicker();
+                    player2Card = hand2.getHand().get(cardChosen);
+                    hints.setText("Try playing the card worth least");
                 } else {
                     hardModePicker(playerCard3);
                 }
@@ -1117,9 +1144,26 @@ public class BriscolaGUI extends JFrame {
         }
     }
 
+    private void hints() {
+        System.out.println(player2Card);
+        if (player2Card == null) {
+            hints.setText("Try playing the card worth least");
+        } else {
+            if (player2Card.getWorth() > 3 && playerHasTrumpSuit(hand1.getHand()) && !player2Card.getSuit().equals(trumpSuitCard.getSuit())) {
+                hints.setText("Try playing your trump suit card");
+            } else if (player2Card.getSuit().equals(trumpSuitCard.getSuit())) {
+                hints.setText("Try playing the card worth least");
+            } else if (player2Card.getSuit().equals(highestWorthCard(hand1.getHand()).getSuit()) && player2Card.getStrength() < highestWorthCard(hand1.getHand()).getStrength()) {
+                hints.setText("Try playing the " + hand1.getHand().get(highestCardWorthIndex(hand1.getHand())));
+            } else {
+                hints.setText("Try playing the card worth least");
+            }
+        }
+    }
+
     private void setImagesForCPU(int cardChosen) {
         if (cardChosen == 0) {
-            Card player2Card = hand2.getHand().get(0);
+            player2Card = hand2.getHand().get(0);
 
             Icon scaledIconPlayer2Card = scaleImage(player2Card);
             player2PlayedCard.setBounds(455 + scaledWidth, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
@@ -1132,7 +1176,7 @@ public class BriscolaGUI extends JFrame {
             cpuCard1.setVisible(false);
 
         } else if (cardChosen == 1) {
-            Card player2Card = hand2.getHand().get(1);
+            player2Card = hand2.getHand().get(1);
 
             Icon scaledIconPlayer2Card = scaleImage(player2Card);
             player2PlayedCard.setBounds(445 + scaledWidth, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
@@ -1145,7 +1189,7 @@ public class BriscolaGUI extends JFrame {
             cpuCard2.setVisible(false);
 
         } else {
-            Card player2Card = hand2.getHand().get(2);
+            player2Card = hand2.getHand().get(2);
 
             Icon scaledIconPlayer2Card = scaleImage(player2Card);
             player2PlayedCard.setBounds(445 + scaledWidth, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
