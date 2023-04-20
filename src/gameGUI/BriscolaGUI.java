@@ -479,92 +479,91 @@ public class BriscolaGUI extends JFrame {
             //This logic indicates the round right before the end game. In this scenario one of the players will end up
             //drawing the trumpSuitCard that has been shown for the entire game as the last card drawn of the game.
             } else if (deck.getDeck().size() == 1) {
-
+                //again checking to see who wins this round
                 checkWhoWins(discard1.getDiscard().get(0), discard2.getDiscard().get(0));
+                //making both the deck and trumpSuitCard invisible since these cards will end up being drawn
                 topCardPic.setVisible(false);
                 backOfCardPic.setVisible(false);
-
+                //if player 1 just won the following logic will apply
                 if (whoWon == 1) {
+                    //cards will  be added to player ones pile
                     discard1.cardsWon(pile1);
                     discard2.cardsWon(pile1);
-
+                    //setting both cards that were previously played to invisible
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(false);
-
+                    //deal the topcard to player 1 and give the trump suit card to player two
                     deck.dealTopCard(hand1);
                     hand2.dealTrumpSuitCard(trumpSuitCard);
+                    //reassigning the variables of player ones cards
                     playerCard1 = hand1.getHand().get(0);
                     playerCard2 = hand1.getHand().get(1);
                     playerCard3 = hand1.getHand().get(2);
-
                     Icon scaledIconCard1 = scaleImage(playerCard1);
                     Icon scaledIconCard2 = scaleImage(playerCard2);
                     Icon scaledIconCard3 = scaleImage(playerCard3);
-
+                    //reasigning the images for player 1's buttons
                     player1Card1Button.setIcon(scaledIconCard1);
                     player1Card1Button.setVisible(true);
                     player1Card1Button.setEnabled(true);
-
                     player1Card2Button.setIcon(scaledIconCard2);
                     player1Card2Button.setVisible(true);
                     player1Card2Button.setEnabled(true);
-
                     player1Card3Button.setIcon(scaledIconCard3);
                     player1Card3Button.setVisible(true);
                     player1Card3Button.setEnabled(true);
-
+                    //making all of CPU's back of cards visible again
                     cpuCard1.setVisible(true);
                     cpuCard2.setVisible(true);
                     cpuCard3.setVisible(true);
-
+                    //disabling next round button until the next time
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
-
+                //if player two won the round
                 } else if (whoWon == 2) {
+                    //give the cards to CPU's pile
                     discard1.cardsWon(pile2);
                     discard2.cardsWon(pile2);
-
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(false);
-
+                    //give the top card to the CPU and give the trumpSuitCard to the user
                     deck.dealTopCard(hand2);
                     hand1.dealTrumpSuitCard(trumpSuitCard);
-
+                    //reassign the player card variables to get the proper cards after new cards drawn
                     playerCard1 = hand1.getHand().get(0);
                     playerCard2 = hand1.getHand().get(1);
                     playerCard3 = hand1.getHand().get(2);
-
                     Icon scaledIconCard1 = scaleImage(playerCard1);
                     Icon scaledIconCard2 = scaleImage(playerCard2);
                     Icon scaledIconCard3 = scaleImage(playerCard3);
-
+                    //reassign the images to each button
                     player1Card1Button.setIcon(scaledIconCard1);
                     player1Card1Button.setVisible(true);
                     player1Card1Button.setEnabled(true);
-
                     player1Card2Button.setIcon(scaledIconCard2);
                     player1Card2Button.setVisible(true);
                     player1Card2Button.setEnabled(true);
-
                     player1Card3Button.setIcon(scaledIconCard3);
                     player1Card3Button.setVisible(true);
                     player1Card3Button.setEnabled(true);
-
+                    //only make two cards visible because the cpu will have to play a card
                     cpuCard1.setVisible(true);
-                    cpuCard1.setIcon(scaledIcon);
-
+                    cpuCard2.setVisible(true);
+                    //make the next round button disabled until the next time
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
-
+                    //if on easy mode randomly pick a card to play and give hints
                     if (easyMode) {
                         randomCardPicker();
                         player2Card = hand2.getHand().get(cardChosen);
                         hints();
+                    //if not on easy mode use the logic for hard mode which is picking the card with least worth
                     } else {
                         hardModePicker(null);
                     }
+                    //reassign the image for the player 2 played card
                     setImagesForCPU(cardChosen);
-
+                    //make it visible to user can see what card has been played
                     player2PlayedCard.setVisible(true);
                 }
 
