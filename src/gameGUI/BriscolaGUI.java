@@ -81,7 +81,7 @@ public class BriscolaGUI extends JFrame {
         JPanel menuPanel = new JPanel() {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Image img = new ImageIcon("src/images/BriCenMenu.png").getImage();
+                Image img = new ImageIcon("src/images/briscola_center_menu.png").getImage();
                 Dimension size = getSize();
                 g.drawImage(img,0,0,size.width,size.height, null);
             }
@@ -202,7 +202,7 @@ public class BriscolaGUI extends JFrame {
         JPanel gamePanel = new JPanel() {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Image img = new ImageIcon("src/images/backgroundImage.png").getImage();
+                Image img = new ImageIcon("src/images/background_image.png").getImage();
                 Dimension size = getSize();
                 g.drawImage(img,0,0,size.width,size.height,null);
             }
@@ -251,7 +251,7 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(player2PlayedCard);
 
         //making back of card image
-        backOfCard = new ImageIcon("src/images/backOfCard.png");
+        backOfCard = new ImageIcon("src/images/back_of_card.png");
         scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
         Image scaledImage = backOfCard.getImage().getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
         scaledIcon = new ImageIcon(scaledImage);
