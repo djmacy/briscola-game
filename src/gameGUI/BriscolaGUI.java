@@ -26,6 +26,7 @@ public class BriscolaGUI extends JFrame {
     private JButton player1Card3Button;
     private JButton nextRoundButton;
     private JButton newGameButton;
+    private JButton instructionsButton;
     private JButton startButton;
     private ButtonGroup bg;
     private Deck deck;
@@ -65,7 +66,7 @@ public class BriscolaGUI extends JFrame {
     private JLabel deckSizeLabel;
     private JLabel wonOrLostLabel;
     private JLabel hints;
-    private int whoWon;
+    private int whoWon = 1;
     private int rand;
     private int cardChosen;
     private Card trumpSuitCard;
@@ -137,7 +138,7 @@ public class BriscolaGUI extends JFrame {
 
         //creating the button for the instructions on how to play. Once pressed the user will open another window with
         //instructions
-        JButton instructionsButton = new JButton("How To Play");
+        instructionsButton = new JButton("How To Play");
         instructionsButton.setBounds(gameWidth - 1125, gameHeight - 100, 110, 50);
         contentPane.add(instructionsButton);
 
@@ -150,11 +151,13 @@ public class BriscolaGUI extends JFrame {
 
 
     private void showInstructionsWindow() {
+        //make sure menu frame is closed before we begin to making the instruction window
         menuFrame.setVisible(false);
         instructionsFrame = new JFrame("Instructions");
         instructionsFrame.setSize(gameWidth, gameHeight);
         instructionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //same method as used above to paint background this time with the same background
         JPanel instructionsPanel = new JPanel() {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -169,6 +172,7 @@ public class BriscolaGUI extends JFrame {
         Container contentPane = instructionsFrame.getContentPane();
         contentPane.setLayout(null);
 
+        //create the how to play label with specific font and color
         JLabel howToPlay = new JLabel();
         howToPlay.setText("How To Play");
         howToPlay.setFont(new Font("SANS_SERIF", Font.BOLD, 22));
@@ -186,7 +190,9 @@ public class BriscolaGUI extends JFrame {
     }
 
     private void showGameWindow() {
+        //disable other buttons to prevent other frames from opening after startButton has been pressed
         startButton.setEnabled(false);
+        instructionsButton.setEnabled(false);
         //objects that need to be created for the game to start
         deck = new Deck();
         hand1 = new Hand();
@@ -195,9 +201,6 @@ public class BriscolaGUI extends JFrame {
         discard2 = new Discard();
         pile1 = new Pile();
         pile2 = new Pile();
-        //lets the game know that the user starts
-        whoStartsGame();
-
         //create the card buttons. Each button will get the image of the card it's associated with.
         player1Card1Button = new JButton();
         player1Card2Button = new JButton();
@@ -1060,6 +1063,7 @@ public class BriscolaGUI extends JFrame {
         gameFrame.setVisible(false);
         menuFrame.setVisible(true);
         startButton.setEnabled(true);
+        instructionsButton.setEnabled(true);
         startButton.setText("Play Again");
         if (pile1.getPoints() > 60) {
             wonOrLostLabel.setText("YOU WON WITH " + pile1.getPoints() + " POINTS");

@@ -63,7 +63,7 @@ public class Hand {
     }
 
     /**
-     * Removes all the cards in a hand.ga
+     * Removes all the cards in a hand
      */
     public void clear() {
         hand.clear();
