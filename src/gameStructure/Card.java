@@ -73,16 +73,27 @@ public class Card extends Sprite {
         }
     }
 
+    public Card(Suit suit, FaceName faceName) {
+        this.suit = suit;
+        this.faceName = faceName;
+        loadImage(SPRITE_SHEET_IMAGE);
+        initialize();
+    }
+
     /**
      * Constructor for the card.
      *
      * @param suit the associated  {@link Suit suit} of the card
      * @param faceName
      */
-    public Card(Suit suit, FaceName faceName) {
+    public Card(Suit suit, FaceName faceName, BufferedImage img) {
         this.suit = suit;
         this.faceName = faceName;
+        setImage(img);
+        initialize();
+    }
 
+    private void initialize() {
         int col;
 
         switch (faceName) {
@@ -132,11 +143,6 @@ public class Card extends Sprite {
                 break;
         }
 
-        loadImage(SPRITE_SHEET_IMAGE);
-        BufferedImage img = getImage();
-        setHeight(img.getHeight() / 4);
-        setWidth(img.getWidth() / 14);
-
         int row;
 
         switch (suit) {
@@ -157,7 +163,8 @@ public class Card extends Sprite {
                 row = 3;
                 break;
         }
-
+        setHeight(getImage().getHeight() / 4);
+        setWidth(getImage().getWidth() / 14);
         setXOffset(col * getWidth());
         setYOffset(row * getHeight());
     }

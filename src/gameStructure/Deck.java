@@ -1,5 +1,8 @@
 package gameStructure;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -10,19 +13,27 @@ import java.util.*;
 
 public class Deck {
     public static final int DECK_SIZE = 40;
+    private static final String SPRITE_SHEET_IMAGE = "/images/sprite.png";
     private final List<Card> deck;
 
     /**
      * Creates the deck object. It creates a deck with 10 unique cards from each of the four suits and then shuffles the deck.
      */
     public Deck() {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(this.getClass().getResource(SPRITE_SHEET_IMAGE));
+        } catch (IOException e) {
+            System.out.println("Image not found at '" + SPRITE_SHEET_IMAGE + "'");
+        }
         this.deck = new ArrayList<>();
         for (Card.Suit suit : Card.Suit.values()) {
             for (Card.FaceName faceName : Card.FaceName.values()) {
-                Card card = new Card(suit, faceName);
+                Card card = new Card(suit, faceName, img);
                 this.deck.add(card);
             }
         }
+        this.deck.remove(Card.FaceName.Back);
         Collections.shuffle(this.deck);
     }
 

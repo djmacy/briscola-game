@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import java.io.IOException;
+import java.nio.Buffer;
 
 /**
  * The Sprite class is the most generic class of drawable objects. We
