@@ -141,14 +141,12 @@ public class BriscolaGUI extends JFrame {
         instructionsButton.addActionListener(e -> showInstructionsWindow());
     }
 
-
     private void showInstructionsWindow() {
         //make sure menu frame is closed before we begin to making the instruction window
         menuFrame.setVisible(false);
         instructionsFrame = new JFrame("Instructions");
         instructionsFrame.setSize(gameWidth, gameHeight);
         instructionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         //same method as used above to paint background this time with the same background
         JPanel instructionsPanel = new JPanel() {
             public void paintComponent(Graphics g) {
@@ -158,12 +156,9 @@ public class BriscolaGUI extends JFrame {
                 g.drawImage(img,0,0,size.width,size.height,null);
             }
         };
-
         instructionsFrame.setContentPane(instructionsPanel);
-
         Container contentPane = instructionsFrame.getContentPane();
         contentPane.setLayout(null);
-
         //create the how to play label with specific font and color
         JLabel howToPlay = new JLabel();
         howToPlay.setText("How To Play");
@@ -171,13 +166,11 @@ public class BriscolaGUI extends JFrame {
         howToPlay.setForeground(Color.decode("#545454"));
         howToPlay.setBounds(gameWidth / 2 - 75,gameHeight - 800,200,100);
         contentPane.add(howToPlay);
-
-        //creating the back to main menu button
+        //creating the back to main menu button so user can go back
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth/2 - 55, gameHeight - 100, 110,50);
         mainMenu.addActionListener(e -> showMainMenuFrameFromInstrucions());
         contentPane.add(mainMenu);
-
         instructionsFrame.setVisible(true);
     }
 
@@ -197,11 +190,9 @@ public class BriscolaGUI extends JFrame {
         player1Card1Button = new JButton();
         player1Card2Button = new JButton();
         player1Card3Button = new JButton();
-
         gameFrame = new JFrame("Briscola");
         gameFrame.setSize(gameWidth, gameHeight);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         //https://stackoverflow.com/questions/26698975/how-to-deal-with-public-void-paint-method-in-jframe
         JPanel gamePanel = new JPanel() {
             public void paintComponent(Graphics g) {
@@ -211,29 +202,24 @@ public class BriscolaGUI extends JFrame {
                 g.drawImage(img,0,0,size.width,size.height,null);
             }
         };
-
         gameFrame.setContentPane(gamePanel);
         contentPane = gameFrame.getContentPane();
         contentPane.setLayout(null);
-
-        //create deal button
+        //create deal button to begin the game
         dealButton = new JButton("Deal Cards");
         dealButton.setBounds((gameWidth / 2) - 160, 570, 150, 50);
         contentPane.add(dealButton);
-
         //create next round button
         nextRoundButton = new JButton("Next Round");
         nextRoundButton.setBounds(gameWidth/2 - 160, 570, 150, 50);
         contentPane.add(nextRoundButton);
         nextRoundButton.setVisible(false);
-
         //create new game button
         newGameButton = new JButton("New Game");
         newGameButton.setBounds(gameWidth/2 - 160, 570, 150, 50);
         contentPane.add(newGameButton);
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
-
         //creating and adding the cpu cards to the screen
         JLabel topCardPic = new JLabel();
         contentPane.add(topCardPic);
@@ -243,7 +229,6 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(cpuCard2);
         cpuCard3 = new JLabel();
         contentPane.add(cpuCard3);
-
         //Add where we put the played cards
         JLabel player1PlayedCard = new JLabel();
         player1PlayedCard.setBounds(500, scaledHeight / 2 - 150, scaledWidth, scaledHeight);
@@ -251,55 +236,44 @@ public class BriscolaGUI extends JFrame {
         player2PlayedCard = new JLabel();
         player2PlayedCard.setBounds(405 + scaledWidth, scaledHeight / 2 + 150, scaledWidth, scaledHeight);
         contentPane.add(player2PlayedCard);
-
         //making back of card image
         backOfCard = new ImageIcon("src/images/back_of_card.png");
         scaledHeight = (int) ((double) scaledWidth / backOfCard.getIconWidth() * backOfCard.getIconHeight());
         Image scaledImage = backOfCard.getImage().getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
         scaledIcon = new ImageIcon(scaledImage);
-
         //add the back of card image to the screen
         JLabel backOfCardPic = new JLabel(scaledIcon);
         backOfCardPic.setBounds( 50, gameHeight / 2 - scaledHeight / 2  - 40, scaledWidth,scaledHeight);
         contentPane.add(backOfCardPic);
-
         //add message on who won after every round
         JLabel messageLabel = new JLabel("Who Won: ");
         messageLabel.setBounds(gameWidth - 400, gameHeight - 100, 150, 50);
         contentPane.add(messageLabel);
-
         //add message for what card is being hovered
         JLabel infoLabel = new JLabel("Card: ");
         infoLabel.setBounds(gameWidth - 200, gameHeight - 100, 150, 50);
         contentPane.add(infoLabel);
-
         //add message for Player One points
         userPointsLabel = new JLabel("User Points: 0");
         userPointsLabel.setBounds(gameWidth - 600, gameHeight - 100, 150, 50);
         contentPane.add(userPointsLabel);
-
         //add message for player two points
         cpuPointsLabel = new JLabel("CPU Points: 0");
         cpuPointsLabel.setBounds(gameWidth - 800, gameHeight - 100, 150, 50);
         contentPane.add(cpuPointsLabel);
-
         //add message for Trump Suit
         trumpSuitLabel = new JLabel("TrumpSuit: ");
         trumpSuitLabel.setBounds(gameWidth - 1000, gameHeight - 100, 150, 50);
         contentPane.add(trumpSuitLabel);
-
         //add message for how many cards left in the deck
         deckSizeLabel = new JLabel("Cards Left: ");
         deckSizeLabel.setBounds(gameWidth - 1200, gameHeight - 100, 150, 50);
         contentPane.add(deckSizeLabel);
-
         //add message for hints
         hints = new JLabel("");
-        hints.setBounds(gameWidth - 820, gameHeight - 700, 200, 50);
+        hints.setBounds(gameWidth - 825, gameHeight - 700, 200, 50);
         contentPane.add(hints);
-
         menuFrame.setVisible(false);
-
         dealButton.addActionListener(e -> {
             //deal cards will give each player three cards and then we will assign the trump suit card for the game
             trumpSuitCard = deck.dealCards(hand1, hand2);
@@ -1079,101 +1053,135 @@ public class BriscolaGUI extends JFrame {
 
     }
 
-    //unit test
+    /**
+     * Method used for randomly choosing a number 0-2. These three integers represent the possible choices a random
+     * opponent can choose from. Once it has chosen a variable it reassigns the global cardChosen variable.
+     */
     private void randomCardPicker() {
+        //if the hand size is one, only let the CPU choose its first card
         if (hand2.getHand().size() == 1) {
             cardChosen = 0;
         }
+        //if the hand size is 2, let the CPU choose anywhere 0 or 1
         if (hand2.getHand().size() == 2) {
             Random random = new Random();
             cardChosen = random.nextInt(2);
 
         }
+        //if the hand is full, let the CPU choose either 0, 1, 2.
         if (hand2.getHand().size() == 3) {
             Random random = new Random();
             cardChosen = random.nextInt(3);
         }
     }
-    //unit test
+
+    /**
+     * Method used for logically picking cards to play as the CPU. This is all done after looking to see what card has
+     * been played by the user. If the user is going second (which implies the CPU is going first) the CPU will choose
+     * to play the card worth least in its hand.
+     *
+     * @param player1Card
+     */
     private void hardModePicker(Card player1Card) {
+        //if CPU is going first then choose the card worth least in your hand
         if (player1Card == null) {
             cardChosen = lowestCardWorthIndex(hand2.getHand());
         } else {
+            //If player one hs played a king or a card worth more (assuming they didn't play a trump card), and CPU has
+            //a trump card in their hand, play the trump card.
             if (player1Card.getWorth() > 3 && playerHasTrumpSuit(hand2.getHand()) && !player1Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 cardChosen = trumpSuitCardIndex(hand2.getHand());
-
+            //If player one played a trump card, the CPU will play a card worth the least from its hand.
             } else if (player1Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 cardChosen = lowestCardWorthIndex(hand2.getHand());
-
+            //If the suit of the card that player one played equals the suit of the card worth the most in the CPU's hand
+            //and the cpu will win by playing that card, play that card.
             } else if (player1Card.getSuit().equals(highestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < highestWorthCard(hand2.getHand()).getStrength()) {
                 cardChosen = highestCardWorthIndex(hand2.getHand());
-
+            //else play the lowest worth card in your hand
             } else {
                 cardChosen = lowestCardWorthIndex(hand2.getHand());
             }
         }
     }
 
+    /**
+     * This method is only called when playing on easy mode. It modifies a JLabel on easy mode to give suggestions to
+     * the user who may be a little unsure on how to play.
+     */
     private void hints() {
-        System.out.println(player2Card);
+        //if player two has not played a card suggest to play the card worth least in the user's hand
         if (player2Card == null) {
             hints.setText("Try playing the card worth least");
         } else {
+            //If the CPU plays a king, three, or ace, it's not trump suits, and the user has a trump card in its hand
+            //suggest to play the trump card
             if (player2Card.getWorth() > 3 && playerHasTrumpSuit(hand1.getHand()) && !player2Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 hints.setText("Try playing your trump suit card");
+            //If player two played a trump suit card suggest to play the card worth least in your hand
             } else if (player2Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 hints.setText("Try playing the card worth least");
+            //If the CPU plays a card that is not of trump suit and your highest worth card is greater then the card
+            //the cpu played, suggest to play that card
             } else if (player2Card.getSuit().equals(highestWorthCard(hand1.getHand()).getSuit()) && player2Card.getStrength() < highestWorthCard(hand1.getHand()).getStrength()) {
                 hints.setText("Try playing the " + hand1.getHand().get(highestCardWorthIndex(hand1.getHand())));
+            //in any other scenario, suggest to play the card worth least
             } else {
                 hints.setText("Try playing the card worth least");
             }
         }
     }
 
+    /**
+     * This method sets the image for the card that the CPU decides to play.
+     * @param cardChosen integer from 0-2 representing the possible cards in the CPU's hand.
+     */
     private void setImagesForCPU(int cardChosen) {
         if (cardChosen == 0) {
+            //0 represents the first card in the CPU's hand
             player2Card = hand2.getHand().get(0);
-
+            //scale the image to make sure it's the right size and then show the card on the screen that was played
             Icon scaledIconPlayer2Card = scaleImage(player2Card);
             player2PlayedCard.setBounds(455 + scaledWidth, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
             contentPane.add(player2PlayedCard);
             player2PlayedCard.setIcon(scaledIconPlayer2Card);
-
+            //make sure to send the card to the discard and set the played card to visible
             hand2.playFirstCard(discard2);
-
             player2PlayedCard.setVisible(true);
             cpuCard1.setVisible(false);
-
         } else if (cardChosen == 1) {
+            //1 represents the second card in the CPU's hand
             player2Card = hand2.getHand().get(1);
-
+            //scale the image to make sure it's the right size and then show the card on the screen that was played
             Icon scaledIconPlayer2Card = scaleImage(player2Card);
             player2PlayedCard.setBounds(445 + scaledWidth, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
             contentPane.add(player2PlayedCard);
             player2PlayedCard.setIcon(scaledIconPlayer2Card);
-
+            //make sure to send the card to the discard and set the played card to visible
             hand2.playSecondCard(discard2);
-
             player2PlayedCard.setVisible(true);
             cpuCard2.setVisible(false);
-
         } else {
+            //2 represents the third card in the CPU's hand
             player2Card = hand2.getHand().get(2);
-
+            //scale the image to make sure it's the right size and then show the card on the screen that was played
             Icon scaledIconPlayer2Card = scaleImage(player2Card);
             player2PlayedCard.setBounds(445 + scaledWidth, scaledHeight / 2 + 97, scaledWidth, scaledHeight);
             contentPane.add(player2PlayedCard);
             player2PlayedCard.setIcon(scaledIconPlayer2Card);
-
+            //make sure to send the crd to  the discard and set the played card to visible
             hand2.playThirdCard(discard2);
-
             player2PlayedCard.setVisible(true);
             cpuCard3.setVisible(false);
         }
     }
 
-    //unit test this one
+    /**
+     * This method is used for determining which card in the hand is worth the most.
+     *
+     * @param hand list of cards
+     * @return index of the card worth the most in a list of cards
+     */
     private Card highestWorthCard(List<Card> hand) {
         Card highestWorthCard = hand.get(0);
         int highestCardWorth = 0;
@@ -1242,6 +1250,7 @@ public class BriscolaGUI extends JFrame {
         dealButton.setVisible(true);
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
+        whoWon = 1;
         nextRoundButton.setText("Next Round");
         userPointsLabel.setText("User Points: 0");
         cpuPointsLabel.setText("CPU Points: 0");
