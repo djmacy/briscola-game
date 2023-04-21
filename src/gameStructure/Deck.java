@@ -86,11 +86,9 @@ public class Deck {
      *
      * @param hand1 is the hand associated with player 1
      * @param hand2 is the hand associated with player 2
-     * @param whoStarts will determine which order the cards are dealt
      * @return the trumpSuitCard after cards have been dealt
      */
-    public Card dealCards(Hand hand1, Hand hand2, int whoStarts) {
-        if (whoStarts == 1) {
+    public Card dealCards(Hand hand1, Hand hand2) {
             Card cardOne = deck.remove(0);
             Card cardTwo = deck.remove(0);
             Card cardThree = deck.remove(0);
@@ -105,22 +103,7 @@ public class Deck {
             hand2.hand.add(cardFour);
             hand2.hand.add(cardSix);
             return trumpSuit;
-        } else {
-            Card cardOne = deck.remove(0);
-            Card cardTwo = deck.remove(0);
-            Card cardThree = deck.remove(0);
-            Card cardFour = deck.remove(0);
-            Card cardFive = deck.remove(0);
-            Card cardSix = deck.remove(0);
-            Card trumpSuit = deck.remove(0);
-            hand2.hand.add(cardOne);
-            hand2.hand.add(cardThree);
-            hand2.hand.add(cardFive);
-            hand1.hand.add(cardTwo);
-            hand1.hand.add(cardFour);
-            hand1.hand.add(cardSix);
-            return trumpSuit;
-        }
+
     }
 
 }

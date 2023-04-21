@@ -180,7 +180,7 @@ public class DeckTests {
         Card f = deck.getDeck().get(5);
         Card g = deck.getDeck().get(6);
 
-        Card trump = deck.dealCards(handA, handB, 1);
+        Card trump = deck.dealCards(handA, handB);
         System.out.println("Testing Trump Card");
         // This will ensure that the trump card is actually removed from the deck
         if (trump != deck.lookTopCard()) {
