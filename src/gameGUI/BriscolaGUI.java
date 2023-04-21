@@ -375,7 +375,7 @@ public class BriscolaGUI extends JFrame {
         //button that does a majority of the heavy lifting. Most of the logic is found in the following code. This button
         //is activated when both players have played a card.
         nextRoundButton.addActionListener(e -> {
-            messageLabel.setVisible(false);
+            messageLabel.setVisible(true);
             //this logic represents the majority of the game. This is before the end game starts.
             if (deck.getDeck().size() > 1) {
                 //this method compares two cards and returns and reassigns the whoWon variable
@@ -1079,9 +1079,6 @@ public class BriscolaGUI extends JFrame {
 
     }
 
-    private void whoStartsGame() {
-        whoWon = 1;
-    }
     //unit test
     private void randomCardPicker() {
         if (hand2.getHand().size() == 1) {
