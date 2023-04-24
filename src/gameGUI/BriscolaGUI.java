@@ -24,6 +24,7 @@ public class BriscolaGUI extends JFrame {
     private JFrame gameFrame;
     private JFrame menuFrame;
     private JFrame instructionsFrame;
+    JFrame pointsFrame;
     private Container contentPane;
     private JButton dealButton;
     private JButton player1Card1Button;
@@ -993,6 +994,7 @@ public class BriscolaGUI extends JFrame {
      */
     private void showMainMenuFrameFromInstructions() {
         instructionsFrame.setVisible(false);
+        pointsFrame.setVisible(false);
         menuFrame.setVisible(true);
         startButton.setEnabled(true);
         startButton.setText("Play");
@@ -1001,7 +1003,6 @@ public class BriscolaGUI extends JFrame {
 
     private void showCardPoints() {
         instructionsFrame.setVisible(false);
-        JFrame pointsFrame = new JFrame();
 
         pointsFrame = new JFrame("Instructions");
         pointsFrame.setSize(gameWidth, gameHeight);
@@ -1040,6 +1041,7 @@ public class BriscolaGUI extends JFrame {
      */
     private void showMainMenuFrame() {
         gameFrame.setVisible(false);
+        pointsFrame.setVisible(false);
         menuFrame.setVisible(true);
         startButton.setEnabled(true);
         instructionsButton.setEnabled(true);
