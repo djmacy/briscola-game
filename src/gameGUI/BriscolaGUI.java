@@ -28,6 +28,7 @@ public class BriscolaGUI extends JFrame {
     private JFrame gameFrame;
     private JFrame menuFrame;
     private JFrame instructionsFrame;
+    private JFrame pointsFrame;
     private Container contentPane;
     private JButton dealButton;
     private JButton player1Card1Button;
@@ -1003,10 +1004,15 @@ public class BriscolaGUI extends JFrame {
         startButton.setText("Play");
         wonOrLostLabel.setText("");
     }
+    private void showInstructionsFrameFromPointsFrame() {
+        pointsFrame.setVisible(false);
+        instructionsFrame.setVisible(true);
+
+    }
 
     private void showCardPoints() {
         instructionsFrame.setVisible(false);
-        JFrame pointsFrame = new JFrame();
+        pointsFrame = new JFrame();
 
         pointsFrame = new JFrame("Instructions");
         pointsFrame.setSize(gameWidth, gameHeight);
@@ -1036,7 +1042,7 @@ public class BriscolaGUI extends JFrame {
         //This needs to be the last action done to the frame that way all containers are visible at the same time.
         pointsFrame.setVisible(true);
         //This calls the method which opens the other window
-        instructionsButton.addActionListener(e -> showInstructionsWindow());
+        instructionsButton.addActionListener(e -> showInstructionsFrameFromPointsFrame());
 
     }
 
