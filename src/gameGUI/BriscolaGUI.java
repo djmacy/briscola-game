@@ -169,8 +169,13 @@ public class BriscolaGUI extends JFrame {
         //creating the back to main menu button so user can go back
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth/2 - 55, gameHeight - 100, 110,50);
-        mainMenu.addActionListener(e -> showMainMenuFrameFromInstrucions());
+        mainMenu.addActionListener(e -> showMainMenuFrameFromInstructions());
         contentPane.add(mainMenu);
+
+        JButton cardPoints = new JButton("Card Points");
+        cardPoints.setBounds(gameWidth/2 - 55 + 200, gameHeight - 100, 110, 50);
+        cardPoints.addActionListener(e -> showCardPoints());
+        contentPane.add(cardPoints);
         instructionsFrame.setVisible(true);
     }
 
@@ -468,7 +473,7 @@ public class BriscolaGUI extends JFrame {
                     Icon scaledIconCard1 = scaleImage(playerCard1);
                     Icon scaledIconCard2 = scaleImage(playerCard2);
                     Icon scaledIconCard3 = scaleImage(playerCard3);
-                    //reasigning the images for player 1's buttons
+                    //reassigning the images for player 1's buttons
                     player1Card1Button.setIcon(scaledIconCard1);
                     player1Card1Button.setVisible(true);
                     player1Card1Button.setEnabled(true);
@@ -986,12 +991,48 @@ public class BriscolaGUI extends JFrame {
     /**
      * Sends the user back to the main menu frame from the instructions frame.
      */
-    private void showMainMenuFrameFromInstrucions() {
+    private void showMainMenuFrameFromInstructions() {
         instructionsFrame.setVisible(false);
         menuFrame.setVisible(true);
         startButton.setEnabled(true);
         startButton.setText("Play");
         wonOrLostLabel.setText("");
+    }
+
+    private void showCardPoints() {
+        instructionsFrame.setVisible(false);
+        JFrame pointsFrame = new JFrame();
+
+        pointsFrame = new JFrame("Instructions");
+        pointsFrame.setSize(gameWidth, gameHeight);
+        pointsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel instructionsPanel = new JPanel() {
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Image img = new ImageIcon("src/images/card_points.png").getImage();
+                Dimension size = getSize();
+                g.drawImage(img,0,0,size.width,size.height,null);
+            }
+        };
+
+        pointsFrame.setContentPane(instructionsPanel);
+        Container contentPane = pointsFrame.getContentPane();
+        contentPane.setLayout(null);
+
+        JButton mainMenu = new JButton("Main Menu");
+        mainMenu.setBounds(gameWidth - 1125, gameHeight - 100, 110,50);
+        mainMenu.addActionListener(e -> showMainMenuFrameFromInstructions());
+        contentPane.add(mainMenu);
+
+        instructionsButton = new JButton("How To Play");
+        instructionsButton.setBounds(gameWidth/2 - 55, gameHeight - 100, 110, 50);
+        contentPane.add(instructionsButton);
+        //This needs to be the last action done to the frame that way all containers are visible at the same time.
+        pointsFrame.setVisible(true);
+        //This calls the method which opens the other window
+        instructionsButton.addActionListener(e -> showInstructionsWindow());
+
     }
 
     /**
