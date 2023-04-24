@@ -13,11 +13,15 @@ import javax.swing.*;
  * Controller class that creates the GUI and logic for the entire game of Briscola. This is going to be a 2P version
  * of the game where the user begins every game. This controller controls three windows, the gameFrame, menuFrame, and
  * the instructionsFrame. The menuFrame is where the user starts every time the application starts. In the menuFrame the
- * user can select which difficulty they would like to play on or visit the instructions frame, or to start the game.
+ * user can select which difficulty they would like to play on, visit the instructions frame, or to start the game.
  */
 
 public class BriscolaGUI extends JFrame {
-
+    /**
+     * Main method that starts the Briscola game
+     *
+     * @param args BriscolaGUI
+     */
     public static void main(String[] args) {
         new BriscolaGUI();
     }
@@ -76,7 +80,7 @@ public class BriscolaGUI extends JFrame {
     private int cardChosen;
     private Boolean easyMode = true;
 
-    public BriscolaGUI() {
+    private BriscolaGUI() {
         //creating the main menu frame. This inlcudes a way for the user to choose a difficulty and look at instructions
         // on how to play
         menuFrame = new JFrame("Main Menu");
@@ -954,7 +958,7 @@ public class BriscolaGUI extends JFrame {
         player1Card2Button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 //if the first button has been played or its invisible it will get the first card in the list
-                if (player1Card1Button.isVisible() == false) {
+                if (!player1Card1Button.isVisible()) {
                     infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
                 //if not it will always get the second card in the list
                 } else {
@@ -965,10 +969,11 @@ public class BriscolaGUI extends JFrame {
                 infoLabel.setText("Card: ");
             }
         });
+
         player1Card3Button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 //if either player card 1 or player card 2 button is invisible look at the second card
-                if (player1Card1Button.isVisible() == false || player1Card2Button.isVisible() == false) {
+                if (!player1Card1Button.isVisible()|| !player1Card2Button.isVisible()) {
                     infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
                 //change the label to the third card in the hand
                 } else {
@@ -1080,7 +1085,7 @@ public class BriscolaGUI extends JFrame {
      * been played by the user. If the user is going second (which implies the CPU is going first) the CPU will choose
      * to play the card worth least in its hand.
      *
-     * @param player1Card
+     * @param player1Card card that the user played
      */
     private void hardModePicker(Card player1Card) {
         //if CPU is going first then choose the card worth least in your hand
@@ -1180,7 +1185,7 @@ public class BriscolaGUI extends JFrame {
      * This method is used for determining which card in the hand is worth the most.
      *
      * @param hand list of cards
-     * @return index of the card worth the most in a list of cards
+     * @return card worth the most in list of cards
      */
     private Card highestWorthCard(List<Card> hand) {
         Card highestWorthCard = hand.get(0);
@@ -1194,7 +1199,13 @@ public class BriscolaGUI extends JFrame {
         }
         return highestWorthCard;
     }
-    //unit test
+
+    /**
+     * This method is used for determining where the card with the highest value is located in the list.
+     *
+     * @param hand list of cards
+     * @return index of the card worth the most
+     */
     private int highestCardWorthIndex(List<Card> hand) {
         int highestCardWorth = hand.get(0).getWorth();
         int highestCardIndex = 0;
@@ -1207,7 +1218,13 @@ public class BriscolaGUI extends JFrame {
         }
         return highestCardIndex;
     }
-    //unit test
+
+    /**
+     * This method is used for determining where the card with the least value is located in the list.
+     *
+     * @param hand list of cards
+     * @return index of the card worth the least
+     */
     private int lowestCardWorthIndex(List<Card> hand) {
         int lowestCardWorth = hand.get(0).getWorth();
         int lowestCardIndex = 0;
@@ -1220,7 +1237,13 @@ public class BriscolaGUI extends JFrame {
         }
         return lowestCardIndex;
     }
-    //unit test
+
+    /**
+     * This method is used for determining if a list of cards has a trump suit card in it.
+     *
+     * @param hand list of cards
+     * @return boolean true if list of cards has a trump suit card
+     */
     private boolean playerHasTrumpSuit(List<Card> hand) {
         boolean hasTrump = false;
         for (Card card : hand) {
@@ -1230,7 +1253,13 @@ public class BriscolaGUI extends JFrame {
         }
         return hasTrump;
     }
-    //unit test
+
+    /**
+     * This method is used for determining where the trump suit card is in a list of cards.
+     *
+     * @param hand list of cards
+     * @return index of the trump suit card
+     */
     private int trumpSuitCardIndex(List<Card> hand) {
         int trumpSuitCardIndex = 0;
         for (int i = 0; i < hand.size(); i++) {
@@ -1242,6 +1271,10 @@ public class BriscolaGUI extends JFrame {
         return trumpSuitCardIndex;
     }
 
+    /**
+     * This method will reset all conditions to prepare the board for a new game. All objects are re-created, whoWon is set
+     * to the default value of one, and the labels are reset.
+     */
     private void resetGame() {
         pile1.startOver();
         pile2.startOver();
