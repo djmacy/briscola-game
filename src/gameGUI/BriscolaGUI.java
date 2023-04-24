@@ -38,6 +38,7 @@ public class BriscolaGUI extends JFrame {
     private JButton newGameButton;
     private JButton instructionsButton;
     private JButton startButton;
+    private JButton mainMenuButton;
     private ButtonGroup bg;
     private Deck deck;
     private Hand hand1;
@@ -230,6 +231,12 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(newGameButton);
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
+        //create main menu button from game window
+        mainMenuButton = new JButton("Main Menu");
+        mainMenuButton.setBounds(125, 50, 100, 50);
+        contentPane.add(mainMenuButton);
+        mainMenuButton.setVisible(true);
+        mainMenuButton.setEnabled(true);
         //creating and adding the cpu cards to the screen
         JLabel topCardPic = new JLabel();
         contentPane.add(topCardPic);
@@ -355,6 +362,10 @@ public class BriscolaGUI extends JFrame {
             messageLabel.setText("Who Won: ");
             newGameButton.setVisible(false);
             newGameButton.setEnabled(false);
+        });
+        //button to go back to the main menu from the game window
+        mainMenuButton.addActionListener(e -> {
+            showMainMenuFrame();
         });
         //button that does a majority of the heavy lifting. Most of the logic is found in the following code. This button
         //is activated when both players have played a card.
@@ -522,10 +533,6 @@ public class BriscolaGUI extends JFrame {
                     player1Card3Button.setIcon(scaledIconCard3);
                     player1Card3Button.setVisible(true);
                     player1Card3Button.setEnabled(true);
-                    //only make two cards visible because the cpu will have to play a card
-                    cpuCard1.setVisible(true);
-                    cpuCard2.setVisible(true);
-                    cpuCard3.setVisible(false);
                     //make the next round button disabled until the next time
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
@@ -540,6 +547,10 @@ public class BriscolaGUI extends JFrame {
                     }
                     //reassign the image for the player 2 played card
                     setImagesForCPU(cardChosen);
+                    //only make two cards visible because the cpu will have to play a card
+                    cpuCard1.setVisible(true);
+                    cpuCard2.setVisible(true);
+                    cpuCard3.setVisible(false);
                     //make it visible to user can see what card has been played
                     player2PlayedCard.setVisible(true);
                 }
@@ -598,11 +609,6 @@ public class BriscolaGUI extends JFrame {
                     player1Card3Button.setVisible(false);
                     player1Card3Button.setEnabled(false);
                     //make only the first CPU back of card image visible because the CPU will have to play a card as well
-                    //since they won the previous round
-                    cpuCard1.setVisible(true);
-                    cpuCard1.setIcon(scaledIcon);
-                    cpuCard2.setVisible(false);
-                    cpuCard3.setVisible(false);
                     //deactivate the next round button until the next time
                     nextRoundButton.setVisible(false);
                     nextRoundButton.setEnabled(false);
@@ -617,6 +623,10 @@ public class BriscolaGUI extends JFrame {
                     }
                     //set the image for the card selected to be played
                     setImagesForCPU(cardChosen);
+                    //since they won the previous round
+                    cpuCard1.setVisible(true);
+                    cpuCard2.setVisible(false);
+                    cpuCard3.setVisible(false);
                     //make the card thar was just chosen to be visible for the user to see
                     player2PlayedCard.setVisible(true);
                 }
@@ -1059,7 +1069,7 @@ public class BriscolaGUI extends JFrame {
             wonOrLostLabel.setText("YOU WON WITH " + pile1.getPoints() + " POINTS");
         } else if (pile2.getPoints() > 60) {
             wonOrLostLabel.setText("YOU LOST WITH " + pile1.getPoints() + " POINTS");
-        } else {
+        } else if (pile1.getPoints() == 60 && pile2.getPoints() == 60){
             wonOrLostLabel.setText("YOU TIED WITH " + pile1.getPoints() + " POINTS");
         }
     }
