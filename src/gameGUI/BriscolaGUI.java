@@ -1052,7 +1052,6 @@ public class BriscolaGUI extends JFrame {
      */
     private void showMainMenuFrame() {
         gameFrame.setVisible(false);
-        pointsFrame.setVisible(false);
         menuFrame.setVisible(true);
         startButton.setEnabled(true);
         instructionsButton.setEnabled(true);
