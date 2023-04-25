@@ -1274,7 +1274,7 @@ public class BriscolaGUI extends JFrame {
             } else if (player1Card.getSuit().equals(highestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < highestWorthCard(hand2.getHand()).getStrength()) {
                 cardChosen = highestCardWorthIndex(hand2.getHand());
             //else play the lowest worth card in your hand
-            } else if (player1Card.getSuit().equals(secondHighestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < secondHighestWorthCard(hand2.getHand()).getStrength()) {
+            } else if (hand2.getHand().size() > 1 && player1Card.getSuit().equals(secondHighestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < secondHighestWorthCard(hand2.getHand()).getStrength()) {
                 cardChosen = secondHighestCardWorthIndex(hand2.getHand());
             }
             else {
@@ -1304,7 +1304,7 @@ public class BriscolaGUI extends JFrame {
             } else if (player2Card.getSuit().equals(highestWorthCard(hand1.getHand()).getSuit()) && player2Card.getStrength() < highestWorthCard(hand1.getHand()).getStrength()) {
                 hints.setText("Try playing the " + hand1.getHand().get(highestCardWorthIndex(hand1.getHand())));
             //in any other scenario, suggest to play the card worth least
-            } else if (player2Card.getSuit().equals(secondHighestWorthCard(hand1.getHand()).getSuit()) && player2Card.getStrength() < secondHighestWorthCard(hand1.getHand()).getStrength()) {
+            } else if (hand1.getHand().size() > 1 && player2Card.getSuit().equals(secondHighestWorthCard(hand1.getHand()).getSuit()) && player2Card.getStrength() < secondHighestWorthCard(hand1.getHand()).getStrength()) {
                 hints.setText("Try playing the " + hand1.getHand().get(secondHighestCardWorthIndex(hand1.getHand())));
             } else {
                 hints.setText("Try playing the card worth least");
