@@ -280,10 +280,36 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(messageLabel);
         messageLabel.setVisible(false);
         //add message for what card is being hovered
-        JLabel infoLabel = new JLabel("Card: ");
-        infoLabel.setBounds(gameWidth - 200, gameHeight - 100, 150, 50);
-        contentPane.add(infoLabel);
-        infoLabel.setVisible(false);
+        JLabel player1Card1Label = new JLabel("");
+        player1Card1Label.setBounds(gameWidth - 200, gameHeight - 100, 150, 50);
+        contentPane.add(player1Card1Label);
+        player1Card1Label.setVisible(true);
+        //
+        JLabel player1Card2Label = new JLabel("");
+        player1Card2Label.setBounds(gameWidth - 200, gameHeight - 100, 150, 50);
+        contentPane.add(player1Card2Label);
+        player1Card2Label.setVisible(true);
+        //
+        JLabel player1Card3Label = new JLabel("");
+        player1Card3Label.setBounds(gameWidth - 200, gameHeight - 100, 150, 50);
+        contentPane.add(player1Card3Label);
+        player1Card3Label.setVisible(true);
+        //
+        JLabel player1PlayedCardLabel = new JLabel("");
+        player1PlayedCardLabel.setBounds(gameWidth - 200, gameHeight - 100, 150, 50);
+        contentPane.add(player1PlayedCardLabel);
+        player1PlayedCardLabel.setVisible(true);
+        //
+        JLabel player2PlayedCardLabel = new JLabel("");
+        player2PlayedCardLabel.setBounds(gameWidth - 200, gameHeight - 100, 150, 50);
+        contentPane.add(player2PlayedCardLabel);
+        player2PlayedCardLabel.setVisible(true);
+        //
+        JLabel trumpSuitCardLabel = new JLabel("");
+        trumpSuitCardLabel.setBounds(gameWidth - 200, gameHeight - 100, 150, 50);
+        contentPane.add(trumpSuitCardLabel);
+        trumpSuitCardLabel.setVisible(true);
+
         //add message for Player One points
         userPointsLabel = new JLabel("User Points: 0");
         userPointsLabel.setBounds(gameWidth - 600, gameHeight - 100, 150, 50);
@@ -370,7 +396,6 @@ public class BriscolaGUI extends JFrame {
             //disabling the button so it can't be pressed twice
             dealButton.setEnabled(false);
             dealButton.setVisible(false);
-            infoLabel.setVisible(true);
             userPointsLabel.setVisible(true);
             cpuPointsLabel.setVisible(true);
             deckSizeLabel.setVisible(true);
@@ -1003,24 +1028,24 @@ public class BriscolaGUI extends JFrame {
         player1Card1Button.addMouseListener(new MouseAdapter() {
             //show what the card is called when mouse hovers over the first button
             public void mouseEntered(MouseEvent e) {
-                infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
+                player1Card1Label.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
             }
             public void mouseExited(MouseEvent e) {
-                infoLabel.setText("Card: ");
+                player1Card1Label.setText("Card: ");
             }
         });
         player1Card2Button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 //if the first button has been played or its invisible it will get the first card in the list
                 if (!player1Card1Button.isVisible()) {
-                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
+                    player1Card2Label.setText(String.valueOf("Card: " + hand1.getHand().get(0)));
                 //if not it will always get the second card in the list
                 } else {
-                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
+                    player1Card2Label.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
                 }
             }
             public void mouseExited(MouseEvent e) {
-                infoLabel.setText("Card: ");
+                player1Card2Label.setText("Card: ");
             }
         });
 
@@ -1028,47 +1053,47 @@ public class BriscolaGUI extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 //if either player card 1 or player card 2 button is invisible look at the second card
                 if (!player1Card1Button.isVisible()|| !player1Card2Button.isVisible()) {
-                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
+                    player1Card3Label.setText(String.valueOf("Card: " + hand1.getHand().get(1)));
                 //change the label to the third card in the hand
                 } else {
-                    infoLabel.setText(String.valueOf("Card: " + hand1.getHand().get(2)));
+                    player1Card3Label.setText(String.valueOf("Card: " + hand1.getHand().get(2)));
                 }
             }
             public void mouseExited(MouseEvent e) {
-                infoLabel.setText("Card: ");
+                player1Card3Label.setText("Card: ");
             }
         });
 
         topCardPic.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 if (topCardPic.isVisible()) {
-                    infoLabel.setText(String.valueOf("Card: " + trumpSuitCard));
+                    trumpSuitCardLabel.setText(String.valueOf("Card: " + trumpSuitCard));
                 }
             }
             public void mouseExited(MouseEvent e) {
-                infoLabel.setText("Card: ");
+                trumpSuitCardLabel.setText("Card: ");
             }
         });
 
         player1PlayedCard.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 if (discard2.getDiscard().size() == 1) {
-                    infoLabel.setText(String.valueOf("Card: " + discard1.getDiscard().get(0)));
+                    player1PlayedCardLabel.setText(String.valueOf("Card: " + discard1.getDiscard().get(0)));
                 }
             }
             public void mouseExited(MouseEvent e) {
-                infoLabel.setText("Card: ");
+                player1PlayedCardLabel.setText("Card: ");
             }
         });
 
         player2PlayedCard.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 if (discard2.getDiscard().size() == 1) {
-                    infoLabel.setText(String.valueOf("Card: " + discard2.getDiscard().get(0)));
+                    player2PlayedCardLabel.setText(String.valueOf("Card: " + discard2.getDiscard().get(0)));
                 }
             }
             public void mouseExited(MouseEvent e) {
-                infoLabel.setText("Card: ");
+                player2PlayedCardLabel.setText("Card: ");
             }
         });
         // Set the frame to be visible after the window has been called
@@ -1377,7 +1402,7 @@ public class BriscolaGUI extends JFrame {
         Card highestCardWorth = hand.get(highestCardWorthIndex);
         Card secondHighestCard = null;
         for (Card card : hand) {
-            if (card != highestCardWorth && (secondHighestCard == null || card.getWorth() > secondHighestCard.getWorth())) {
+            if (card != highestCardWorth && (secondHighestCard == null || (card.getWorth() > secondHighestCard.getWorth() && card.getWorth() < highestCardWorth.getWorth()))) {
                 secondHighestCard = card;
             }
         }
