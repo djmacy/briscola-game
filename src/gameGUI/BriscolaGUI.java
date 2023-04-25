@@ -273,10 +273,10 @@ public class BriscolaGUI extends JFrame {
         backOfCardPic.setBounds( 50, gameHeight / 2 - scaledHeight / 2  - 40, scaledWidth,scaledHeight);
         contentPane.add(backOfCardPic);
         //add message on who won after every round
-        messageLabel = new JLabel("Who Won: ");
-        messageLabel.setFont(new Font("SANS_SERIF", Font.BOLD, 22));
+        messageLabel = new JLabel("");
+        messageLabel.setFont(new Font("SANS_SERIF", Font.BOLD, 30));
         messageLabel.setForeground(Color.decode("#545454"));
-        messageLabel.setBounds(gameWidth/ 2 - 130, 50, 110, 50);
+        messageLabel.setBounds(gameWidth/ 2 - 150, 100, 150, 50);
         contentPane.add(messageLabel);
         messageLabel.setVisible(false);
         //add message for what card is being hovered
@@ -284,45 +284,44 @@ public class BriscolaGUI extends JFrame {
         player1Card1Label.setBounds(gameWidth - 435, gameHeight - 165, 150, 50);
         contentPane.add(player1Card1Label);
         player1Card1Label.setVisible(true);
-        //
+        //creating new labels for the hover first card
         JLabel player1Card2Label = new JLabel("");
         player1Card2Label.setBounds(gameWidth - 310, gameHeight - 165, 150, 50);
         contentPane.add(player1Card2Label);
         player1Card2Label.setVisible(true);
-        //
+        //creating new labels for the hover third card
         JLabel player1Card3Label = new JLabel("");
         player1Card3Label.setBounds(gameWidth - 175, gameHeight - 165, 150, 50);
         contentPane.add(player1Card3Label);
         player1Card3Label.setVisible(true);
-        //
+        //creting new labels for the player1 card played
         JLabel player1PlayedCardLabel = new JLabel("");
         player1PlayedCardLabel.setBounds(gameWidth - 835, gameHeight - 595, 150, 50);
         contentPane.add(player1PlayedCardLabel);
         player1PlayedCardLabel.setVisible(true);
-        //
+        //creating new labels for the player2 card played
         JLabel player2PlayedCardLabel = new JLabel("");
         player2PlayedCardLabel.setBounds(gameWidth - 695, gameHeight - 595, 150, 50);
         contentPane.add(player2PlayedCardLabel);
         player2PlayedCardLabel.setVisible(true);
-        //
+        //creating new labels for the trump suit card
         JLabel trumpSuitCardLabel = new JLabel("");
         trumpSuitCardLabel.setBounds(gameWidth - 1090, gameHeight - 330, 150, 50);
         contentPane.add(trumpSuitCardLabel);
         trumpSuitCardLabel.setVisible(true);
-
         //add message for Player One points
         userPointsLabel = new JLabel("User Points: 0");
-        userPointsLabel.setBounds(gameWidth - 600, gameHeight - 100, 150, 50);
+        userPointsLabel.setBounds(gameWidth - 300, gameHeight - 100, 150, 50);
         contentPane.add(userPointsLabel);
         userPointsLabel.setVisible(false);
         //add message for player two points
         cpuPointsLabel = new JLabel("CPU Points: 0");
-        cpuPointsLabel.setBounds(gameWidth - 800, gameHeight - 100, 150, 50);
+        cpuPointsLabel.setBounds(gameWidth - 600, gameHeight - 100, 150, 50);
         contentPane.add(cpuPointsLabel);
         cpuPointsLabel.setVisible(false);
         //add message for Trump Suit
         trumpSuitLabel = new JLabel("TrumpSuit: ");
-        trumpSuitLabel.setBounds(gameWidth - 1000, gameHeight - 100, 150, 50);
+        trumpSuitLabel.setBounds(gameWidth - 900, gameHeight - 100, 150, 50);
         contentPane.add(trumpSuitLabel);
         trumpSuitLabel.setVisible(false);
         //add message for how many cards left in the deck
