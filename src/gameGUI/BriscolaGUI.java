@@ -140,6 +140,7 @@ public class BriscolaGUI extends JFrame {
         //instructions
         instructionsButton = new JButton("How To Play");
         instructionsButton.setBounds(gameWidth - 1125, gameHeight - 100, 110, 50);
+        instructionsButton.setFocusPainted(false);
         contentPane.add(instructionsButton);
         //This needs to be the last action done to the frame that way all containers are visible at the same time.
         menuFrame.setVisible(true);
@@ -175,6 +176,7 @@ public class BriscolaGUI extends JFrame {
         //creating the back to main menu button so user can go back
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth/2 - 55, gameHeight - 100, 110,50);
+        mainMenu.setFocusPainted(false);
         mainMenu.addActionListener(e -> showMainMenuFrameFromInstructions());
         contentPane.add(mainMenu);
 
@@ -234,6 +236,7 @@ public class BriscolaGUI extends JFrame {
         //create main menu button from game window
         mainMenuButton = new JButton("Main Menu");
         mainMenuButton.setBounds(125, 50, 100, 50);
+        mainMenuButton.setFocusPainted(false);
         contentPane.add(mainMenuButton);
         mainMenuButton.setVisible(true);
         mainMenuButton.setEnabled(true);
@@ -1058,6 +1061,7 @@ public class BriscolaGUI extends JFrame {
 
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth - 1125, gameHeight - 100, 110,50);
+        mainMenu.setFocusPainted(false);
         mainMenu.addActionListener(e -> showMainMenuFrameFromInstructions());
         contentPane.add(mainMenu);
 
