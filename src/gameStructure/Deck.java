@@ -1,9 +1,6 @@
 package gameStructure;
 
 import java.util.*;
-//import java.lang.Object;
-//import javax.microedition.lcdui.game.Layer;
-//import javax.microedition.lcdui.game.Sprite;
 
 /**
  * Creates a collection of cards that will represent the deck for the card game Briscola. The functionality for this class will
