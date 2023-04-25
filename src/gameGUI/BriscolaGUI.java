@@ -106,6 +106,12 @@ public class BriscolaGUI extends JFrame {
         startButton.setBounds(gameWidth/2 - 60, gameHeight - 100, 110,50);
         startButton.addActionListener(e -> showGameWindow());
         contentPane.add(startButton);
+        //exit the game button
+        JButton quitGameButton = new JButton("Exit");
+        quitGameButton.setBounds(gameWidth - 1125, 100, 100, 50);
+        quitGameButton.setFocusPainted(false);
+        quitGameButton.addActionListener(e -> exitGame());
+        contentPane.add(quitGameButton);
         //display point label after a game has been played
         wonOrLostLabel = new JLabel("");
         wonOrLostLabel.setFont(new Font("SANS_SERIF", Font.BOLD, 22));
@@ -299,7 +305,7 @@ public class BriscolaGUI extends JFrame {
         deckSizeLabel.setVisible(false);
         //add message for hints
         hints = new JLabel("");
-        hints.setBounds(gameWidth - 825, gameHeight - 700, 200, 50);
+        hints.setBounds(gameWidth - 355, gameHeight - 475, 200, 50);
         contentPane.add(hints);
 
         menuFrame.setVisible(false);
@@ -1018,8 +1024,45 @@ public class BriscolaGUI extends JFrame {
                 infoLabel.setText("Card: ");
             }
         });
+
+        topCardPic.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (topCardPic.isVisible()) {
+                    infoLabel.setText(String.valueOf("Card: " + trumpSuitCard));
+                }
+            }
+            public void mouseExited(MouseEvent e) {
+                infoLabel.setText("Card: ");
+            }
+        });
+
+        player1PlayedCard.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (player1PlayedCard.isVisible()) {
+                    infoLabel.setText(String.valueOf("Card: " + discard1.getDiscard().get(0)));
+                }
+            }
+            public void mouseExited(MouseEvent e) {
+                infoLabel.setText("Card: ");
+            }
+        });
+
+        player2PlayedCard.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                if (player2PlayedCard.isVisible()) {
+                    infoLabel.setText(String.valueOf("Card: " + discard2.getDiscard().get(0)));
+                }
+            }
+            public void mouseExited(MouseEvent e) {
+                infoLabel.setText("Card: ");
+            }
+        });
         // Set the frame to be visible after the window has been called
         gameFrame.setVisible(true);
+    }
+
+    private void exitGame() {
+        System.exit(0);
     }
 
     /**
