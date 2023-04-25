@@ -1008,7 +1008,7 @@ public class BriscolaGUI extends JFrame {
 
     private void showInstructionsFromScenarioThree() {
         scenarioThree.setVisible(false);
-        instructionsFrame.setVisible(false);
+        instructionsFrame.setVisible(true);
     }
 
     private void showPointsFrameFromScenarioOne() {
