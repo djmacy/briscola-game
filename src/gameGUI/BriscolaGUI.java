@@ -83,6 +83,9 @@ public class BriscolaGUI extends JFrame {
     private int cardChosen;
     private Boolean easyMode = true;
 
+    /**
+     * This creates the main menu where the user can navigate to the game, select a difficulty, or see the instructions.
+     */
     private BriscolaGUI() {
         //creating the main menu frame. This inlcudes a way for the user to choose a difficulty and look at instructions
         // on how to play
@@ -155,6 +158,9 @@ public class BriscolaGUI extends JFrame {
         instructionsButton.addActionListener(e -> showInstructionsWindow());
     }
 
+    /**
+     * Sends the user to the instructions where they can see how to play the game of Briscola.
+     */
     private void showInstructionsWindow() {
         //make sure menu frame is closed before we begin to making the instruction window
         menuFrame.setVisible(false);
@@ -194,6 +200,9 @@ public class BriscolaGUI extends JFrame {
         instructionsFrame.setVisible(true);
     }
 
+    /**
+     * Sends the user to the game and generates the deck of cards with the buttons needed to play the game of Briscola.
+     */
     private void showGameWindow() {
         //disable other buttons to prevent other frames from opening after startButton has been pressed
         startButton.setEnabled(false);
@@ -333,7 +342,6 @@ public class BriscolaGUI extends JFrame {
         hints = new JLabel("");
         hints.setBounds(gameWidth - 355, gameHeight - 475, 200, 50);
         contentPane.add(hints);
-
         menuFrame.setVisible(false);
         dealButton.addActionListener(e -> {
             //deal cards will give each player three cards and then we will assign the trump suit card for the game
@@ -1099,6 +1107,9 @@ public class BriscolaGUI extends JFrame {
         gameFrame.setVisible(true);
     }
 
+    /**
+     * Closes the application.
+     */
     private void exitGame() {
         System.exit(0);
     }
@@ -1113,12 +1124,19 @@ public class BriscolaGUI extends JFrame {
         startButton.setText("Play");
         wonOrLostLabel.setText("");
     }
+
+    /**
+     * Sends the user back to the instructions frame from the points explanation frame.
+     */
     private void showInstructionsFrameFromPointsFrame() {
         pointsFrame.setVisible(false);
         instructionsFrame.setVisible(true);
 
     }
 
+    /**
+     * Sends the user to the points explanation frame.
+     */
     private void showCardPoints() {
         instructionsFrame.setVisible(false);
         pointsFrame = new JFrame();
@@ -1175,6 +1193,10 @@ public class BriscolaGUI extends JFrame {
         whoWon = 1;
         rounds = 20;
     }
+
+    /**
+     * Sends the user to the Main Menu from the Game
+     */
     private void showMainMenuFrameFromGameFrame() {
         gameFrame.setVisible(false);
         menuFrame.setVisible(true);
@@ -1186,9 +1208,14 @@ public class BriscolaGUI extends JFrame {
         rounds = 20;
     }
 
-    //changed
-    private ImageIcon scaleImage(Card topCard) {
-        ImageIcon originalImage = new ImageIcon(topCard.getImage().getImage());
+    /**
+     * Scales image to a constant size.
+     *
+     * @param card that is going to be resized
+     * @return resized image
+     */
+    private ImageIcon scaleImage(Card card) {
+        ImageIcon originalImage = new ImageIcon(card.getImage().getImage());
         // Scale the image to a smaller size
         scaledHeight = (int) ((double) scaledWidth / originalImage.getIconWidth() * originalImage.getIconHeight());
         Image scaledImage = originalImage.getImage().getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
@@ -1313,6 +1340,7 @@ public class BriscolaGUI extends JFrame {
 
     /**
      * This method sets the image for the card that the CPU decides to play.
+     *
      * @param cardChosen integer from 0-2 representing the possible cards in the CPU's hand.
      */
     private void setImagesForCPU(int cardChosen) {
