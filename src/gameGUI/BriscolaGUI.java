@@ -1274,7 +1274,10 @@ public class BriscolaGUI extends JFrame {
             } else if (player1Card.getSuit().equals(highestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < highestWorthCard(hand2.getHand()).getStrength()) {
                 cardChosen = highestCardWorthIndex(hand2.getHand());
             //else play the lowest worth card in your hand
-            } else {
+            } else if (player1Card.getSuit().equals(secondHighestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < secondHighestWorthCard(hand2.getHand()).getStrength()) {
+                cardChosen = secondHighestCardWorthIndex(hand2.getHand());
+            }
+            else {
                 cardChosen = lowestCardWorthIndex(hand2.getHand());
             }
         }
