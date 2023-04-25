@@ -79,6 +79,7 @@ public class BriscolaGUI extends JFrame {
     private JLabel wonOrLostLabel;
     private JLabel hints;
     private int whoWon = 1;
+    private int rounds = 20;
     private int cardChosen;
     private Boolean easyMode = true;
 
@@ -299,7 +300,7 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(trumpSuitLabel);
         trumpSuitLabel.setVisible(false);
         //add message for how many cards left in the deck
-        deckSizeLabel = new JLabel("Cards Left: ");
+        deckSizeLabel = new JLabel("Rounds: ");
         deckSizeLabel.setBounds(gameWidth - 1200, gameHeight - 100, 150, 50);
         contentPane.add(deckSizeLabel);
         deckSizeLabel.setVisible(false);
@@ -312,7 +313,7 @@ public class BriscolaGUI extends JFrame {
         dealButton.addActionListener(e -> {
             //deal cards will give each player three cards and then we will assign the trump suit card for the game
             trumpSuitCard = deck.dealCards(hand1, hand2);
-            deckSizeLabel.setText("Cards Left: " + deck.getDeck().size());
+            deckSizeLabel.setText("Rounds Left: " + rounds);
             trumpSuitLabel.setText("Trump Suit: " + trumpSuitCard.getSuit());
             //assign the variables of each players cards in their hands. This will allows us to get the respective
             //images from each card object and any other information we need from them.
@@ -760,7 +761,7 @@ public class BriscolaGUI extends JFrame {
             userPointsLabel.setText("User Points: " + pile1.getPoints());
             cpuPointsLabel.setText("CPU Points: " + pile2.getPoints());
             messageLabel.setText("");
-            deckSizeLabel.setText("Cards Left: " + deck.getDeck().size());
+            deckSizeLabel.setText("Rounds Left: " + --rounds);
         });
         //setting up the action listener logic for the first card button
         player1Card1Button.addActionListener(e -> {
@@ -1148,6 +1149,7 @@ public class BriscolaGUI extends JFrame {
             wonOrLostLabel.setText("YOU TIED WITH " + pile1.getPoints() + " POINTS");
         }
         whoWon = 1;
+        rounds = 20;
     }
     private void showMainMenuFrameFromGameFrame() {
         gameFrame.setVisible(false);
@@ -1157,6 +1159,7 @@ public class BriscolaGUI extends JFrame {
         startButton.setText("Play Again");
         wonOrLostLabel.setText("");
         whoWon = 1;
+        rounds = 20;
     }
 
     //changed
@@ -1273,6 +1276,8 @@ public class BriscolaGUI extends JFrame {
             } else if (player2Card.getSuit().equals(highestWorthCard(hand1.getHand()).getSuit()) && player2Card.getStrength() < highestWorthCard(hand1.getHand()).getStrength()) {
                 hints.setText("Try playing the " + hand1.getHand().get(highestCardWorthIndex(hand1.getHand())));
             //in any other scenario, suggest to play the card worth least
+            } else if (player2Card.getSuit().equals(secondHighestWorthCard(hand1.getHand()).getSuit()) && player2Card.getStrength() < secondHighestWorthCard(hand1.getHand()).getStrength()) {
+                hints.setText("Try playing the " + hand1.getHand().get(secondHighestCardWorthIndex(hand1.getHand())));
             } else {
                 hints.setText("Try playing the card worth least");
             }
@@ -1359,6 +1364,50 @@ public class BriscolaGUI extends JFrame {
             }
         }
         return highestCardIndex;
+    }
+
+    /**
+     * Returns the second most valuable card in a list of cards.
+     *
+     * @param hand list of cards
+     * @return card worth the second most
+     */
+    private Card secondHighestWorthCard(List<Card> hand) {
+        int highestCardWorthIndex = highestCardWorthIndex(hand);
+        Card highestCardWorth = hand.get(highestCardWorthIndex);
+        Card secondHighestCard = null;
+        for (Card card : hand) {
+            if (card != highestCardWorth && (secondHighestCard == null || card.getWorth() > secondHighestCard.getWorth())) {
+                secondHighestCard = card;
+            }
+        }
+        return secondHighestCard;
+    }
+
+    /**
+     * This method is used for determining where the second most valuable card is in the list.
+     *
+     * @param hand
+     * @return index of the card worth the second most
+     */
+    private int secondHighestCardWorthIndex(List<Card> hand) {
+        int highestCardWorth = -1;
+        int secondHighestCardWorth = -1;
+        int highestCardIndex = 0;
+        int secondHighestCardIndex = 0;
+        for (int i = 0; i < hand.size(); i++) {
+            int worth = hand.get(i).getWorth();
+            if (worth > highestCardWorth) {
+                secondHighestCardWorth = highestCardWorth;
+                highestCardWorth = worth;
+                secondHighestCardIndex = highestCardIndex;
+                highestCardIndex = i;
+            } else if (worth > secondHighestCardWorth && worth != highestCardWorth) {
+                secondHighestCardWorth = worth;
+                secondHighestCardIndex = i;
+            }
+        }
+        return secondHighestCardIndex;
     }
 
     /**
