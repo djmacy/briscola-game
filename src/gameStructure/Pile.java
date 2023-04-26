@@ -10,13 +10,13 @@ import java.util.List;
  */
 
 public class Pile {
-    List<Card> pile;
+    private final List<Card> pile;
 
     /**
      * Creates the pile object. It creates a list of cards.
      */
     public Pile() {
-        this.pile = new ArrayList<Card>();
+        this.pile = new ArrayList<>();
     }
 
     /**

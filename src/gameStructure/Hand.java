@@ -8,13 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    List<Card> hand;
+    /**
+     * List of cards that represent a players hand.
+     */
+    public List<Card> hand;
 
     /**
      * Creates the Hand object. It creates a list of cards.
      */
     public Hand() {
-        this.hand = new ArrayList<Card>();
+        this.hand = new ArrayList<>();
     }
 
     /**

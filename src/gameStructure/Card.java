@@ -45,8 +45,8 @@ public class Card {
         /**
          * Constructor for the FaceName enum.
          *
-         * @param cardWorth
-         * @param cardStrength
+         * @param cardWorth worth of the card
+         * @param cardStrength strength of the card
          */
         FaceName(int cardWorth, int cardStrength) {
             this.cardWorth = cardWorth;
