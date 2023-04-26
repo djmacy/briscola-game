@@ -1013,62 +1013,62 @@ public class BriscolaGUI extends JFrame {
 
     private void showPointsFrameFromScenarioOne() {
         scenarioOne.setVisible(false);
-        pointsFrame.setVisible(true);
+        showCardPoints();
     }
 
     private void showPointsFrameFromScenarioTwo() {
         scenarioTwo.setVisible(false);
-        pointsFrame.setVisible(true);
+        showCardPoints();
     }
 
     private void showPointsFrameFromScenarioThree() {
         scenarioThree.setVisible(false);
-        pointsFrame.setVisible(true);
+        showCardPoints();
     }
 
     private void showScenarioOneFromCardPoints() {
         pointsFrame.setVisible(false);
-        scenarioOne.setVisible(true);
+        showScenarioOne();
     }
 
     private void showScenarioTwoFromCardPoints() {
         pointsFrame.setVisible(false);
-        scenarioTwo.setVisible(true);
+        showScenarioTwo();
     }
 
     private void showScenarioThreeFromCardPoints() {
         pointsFrame.setVisible(false);
-        scenarioThree.setVisible(true);
+        showScenarioThree();
     }
 
     private void showScenarioTwoFromScenarioOne() {
         scenarioOne.setVisible(false);
-        scenarioTwo.setVisible(true);
+        showScenarioTwo();
     }
 
     private void showScenarioThreeFromScenarioOne() {
         scenarioOne.setVisible(false);
-        scenarioThree.setVisible(true);
+        showScenarioThree();
     }
 
     private void showScenarioOneFromScenarioTwo() {
         scenarioTwo.setVisible(false);
-        scenarioOne.setVisible(true);
+        showScenarioOne();
     }
 
     private void showScenarioThreeFromScenarioTwo() {
         scenarioTwo.setVisible(false);
-        scenarioThree.setVisible(true);
+        showScenarioThree();
     }
 
     private void showScenarioOneFromScenarioThree() {
         scenarioThree.setVisible(false);
-        scenarioOne.setVisible(true);
+        showScenarioOne();
     }
 
     private void showScenarioTwoFromScenarioThree() {
-        scenarioTwo.setVisible(false);
-        scenarioOne.setVisible(true);
+        scenarioThree.setVisible(false);
+        showScenarioTwo();
     }
 
     private void showInstructionsWindow() {
@@ -1078,6 +1078,7 @@ public class BriscolaGUI extends JFrame {
         instructionsFrame.setSize(gameWidth, gameHeight);
         instructionsFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         instructionsFrame.setResizable(false);
+
         //same method as used above to paint background this time with the same background
         JPanel instructionsPanel = new JPanel() {
             public void paintComponent(Graphics g) {
@@ -1090,13 +1091,7 @@ public class BriscolaGUI extends JFrame {
         instructionsFrame.setContentPane(instructionsPanel);
         Container contentPane = instructionsFrame.getContentPane();
         contentPane.setLayout(null);
-        //create the how to play label with specific font and color
-        JLabel howToPlay = new JLabel();
-        howToPlay.setText("How To Play");
-        howToPlay.setFont(new Font("SANS_SERIF", Font.BOLD, 22));
-        howToPlay.setForeground(Color.decode("#545454"));
-        howToPlay.setBounds(gameWidth / 2 - 75,gameHeight - 800,200,100);
-        contentPane.add(howToPlay);
+
         //creating the back to main menu button so user can go back
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth/5 - 90, gameHeight - 100, 110,50);
