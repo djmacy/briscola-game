@@ -32,7 +32,7 @@ public class BriscolaGUI extends JFrame {
     /**
      * Main method that starts the Briscola game
      *
-     * @param args BriscolaGUI
+     * @param args unused
      */
     public static void main(String[] args) {
         new BriscolaGUI();
