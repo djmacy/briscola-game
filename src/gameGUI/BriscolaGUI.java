@@ -108,6 +108,7 @@ public class BriscolaGUI extends JFrame {
         //creating the start game button
         startButton = new JButton("Start Game");
         startButton.setBounds(gameWidth/2 - 60, gameHeight - 100, 110,50);
+        startButton.setFocusPainted(false);
         startButton.addActionListener(e -> showGameWindow());
         contentPane.add(startButton);
         //exit the game button
@@ -128,6 +129,7 @@ public class BriscolaGUI extends JFrame {
         contentPane.add(easyButton);
         easyButton.setOpaque(false);
         easyButton.setSelected(true);
+        easyButton.setFocusPainted(false);
         //easy mode is set by default to true since easy button is selected by default. If it gets pressed to normal mode
         //and then back to easyMode the boolean will switch back to true.
         easyButton.addActionListener(e -> {
@@ -138,6 +140,7 @@ public class BriscolaGUI extends JFrame {
         normalButton.setBounds(gameWidth - 200, gameHeight - 100, 100, 50);
         contentPane.add(normalButton);
         normalButton.setOpaque(false);
+        normalButton.setFocusPainted(false);
         //setting the boolean to false whenever normal mode is pressed
         normalButton.addActionListener(e -> {
             easyMode = false;
@@ -237,15 +240,18 @@ public class BriscolaGUI extends JFrame {
         //create deal button to begin the game
         dealButton = new JButton("Deal Cards");
         dealButton.setBounds((gameWidth / 2) - 160, 570, 150, 50);
+        dealButton.setFocusPainted(false);
         contentPane.add(dealButton);
         //create next round button
         nextRoundButton = new JButton("Next Round");
         nextRoundButton.setBounds(gameWidth/2 - 160, 570, 150, 50);
+        nextRoundButton.setFocusPainted(false);
         contentPane.add(nextRoundButton);
         nextRoundButton.setVisible(false);
         //create new game button
         newGameButton = new JButton("New Game");
         newGameButton.setBounds(gameWidth/2 - 160, 570, 150, 50);
+        newGameButton.setFocusPainted(false);
         contentPane.add(newGameButton);
         newGameButton.setVisible(false);
         newGameButton.setEnabled(false);
@@ -1318,12 +1324,8 @@ public class BriscolaGUI extends JFrame {
         if (player2Card == null) {
             hints.setText("Try playing the card worth least");
         } else {
-            //If the CPU plays a king, three, or ace, it's not trump suits, and the user has a trump card in its hand
-            //suggest to play the trump card
-            if (player2Card.getWorth() > 3 && playerHasTrumpSuit(hand1.getHand()) && !player2Card.getSuit().equals(trumpSuitCard.getSuit())) {
-                hints.setText("Try playing your trump suit card");
             //If player two played a trump suit card suggest to play the card worth least in your hand
-            } else if (player2Card.getSuit().equals(trumpSuitCard.getSuit())) {
+             if (player2Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 hints.setText("Try playing the card worth least");
             //If the CPU plays a card that is not of trump suit and your highest worth card is greater then the card
             //the cpu played, suggest to play that card
@@ -1332,7 +1334,11 @@ public class BriscolaGUI extends JFrame {
             //in any other scenario, suggest to play the card worth least
             } else if (hand1.getHand().size() > 1 && player2Card.getSuit().equals(secondHighestWorthCard(hand1.getHand()).getSuit()) && player2Card.getStrength() < secondHighestWorthCard(hand1.getHand()).getStrength()) {
                 hints.setText("Try playing the " + hand1.getHand().get(secondHighestCardWorthIndex(hand1.getHand())));
-            } else {
+                //If the CPU plays a king, three, or ace, it's not trump suits, and the user has a trump card in its hand
+                 // suggest to play the trump card
+             } else if (player2Card.getWorth() > 3 && playerHasTrumpSuit(hand1.getHand()) && !player2Card.getSuit().equals(trumpSuitCard.getSuit())) {
+                 hints.setText("Try playing your trump suit card");
+             } else {
                 hints.setText("Try playing the card worth least");
             }
         }
