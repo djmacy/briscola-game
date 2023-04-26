@@ -1096,26 +1096,31 @@ public class BriscolaGUI extends JFrame {
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth/5 - 90, gameHeight - 100, 110,50);
         mainMenu.addActionListener(e -> showMainMenuFrameFromInstructions());
+        mainMenu.setFocusPainted(false);
         contentPane.add(mainMenu);
 
         JButton cardPoints = new JButton("Card Points");
         cardPoints.setBounds(gameWidth/5 - 90 + 210, gameHeight - 100, 110, 50);
         cardPoints.addActionListener(e -> showCardPoints());
+        cardPoints.setFocusPainted(false);
         contentPane.add(cardPoints);
 
         JButton scenarioOne = new JButton("Scenario One");
         scenarioOne.setBounds(gameWidth/5 - 90 + 420, gameHeight - 100, 110, 50);
         scenarioOne.addActionListener(e -> showScenarioOne());
+        scenarioOne.setFocusPainted(false);
         contentPane.add(scenarioOne);
 
         JButton scenarioTwo = new JButton("Scenario Two");
         scenarioTwo.setBounds(gameWidth/5 - 90 + 630, gameHeight - 100, 110, 50);
         scenarioTwo.addActionListener(e -> showScenarioTwo());
+        scenarioTwo.setFocusPainted(false);
         contentPane.add(scenarioTwo);
 
         JButton scenarioThree = new JButton("Scenario Three");
         scenarioThree.setBounds(gameWidth/5 - 90 + 840, gameHeight - 100, 110, 50);
         scenarioThree.addActionListener(e -> showScenarioThree());
+        scenarioThree.setFocusPainted(false);
         contentPane.add(scenarioThree);
 
         instructionsFrame.setVisible(true);
@@ -1146,26 +1151,31 @@ public class BriscolaGUI extends JFrame {
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth/5 - 90, gameHeight - 100, 110,50);
         mainMenu.addActionListener(e -> showMainMenuFrameFromInstructions());
+        mainMenu.setFocusPainted(false);
         contentPane.add(mainMenu);
 
         JButton howToPlay = new JButton("How To Play");
         howToPlay.setBounds(gameWidth/5 - 90 + 210, gameHeight - 100, 110, 50);
         howToPlay.addActionListener(e -> showInstructionsFromPointsFrame());
+        howToPlay.setFocusPainted(false);
         contentPane.add(howToPlay);
 
         JButton scenarioOne = new JButton("Scenario One");
         scenarioOne.setBounds(gameWidth/5 - 90 + 420, gameHeight - 100, 110, 50);
         scenarioOne.addActionListener(e -> showScenarioOneFromCardPoints());
+        scenarioOne.setFocusPainted(false);
         contentPane.add(scenarioOne);
 
         JButton scenarioTwo = new JButton("Scenario Two");
         scenarioTwo.setBounds(gameWidth/5 - 90 + 630, gameHeight - 100, 110, 50);
         scenarioTwo.addActionListener(e -> showScenarioTwoFromCardPoints());
+        scenarioTwo.setFocusPainted(false);
         contentPane.add(scenarioTwo);
 
         JButton scenarioThree = new JButton("Scenario Three");
         scenarioThree.setBounds(gameWidth/5 - 90 + 840, gameHeight - 100, 110, 50);
         scenarioThree.addActionListener(e -> showScenarioThreeFromCardPoints());
+        scenarioThree.setFocusPainted(false);
         contentPane.add(scenarioThree);
 
         //This needs to be the last action done to the frame that way all containers are visible at the same time.
@@ -1197,26 +1207,31 @@ public class BriscolaGUI extends JFrame {
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth/5 - 90, gameHeight - 100, 110,50);
         mainMenu.addActionListener(e -> showMainMenuFrameFromInstructions());
+        mainMenu.setFocusPainted(false);
         contentPane.add(mainMenu);
 
         JButton howToPlay = new JButton("How To Play");
         howToPlay.setBounds(gameWidth/5 - 90 + 210, gameHeight - 100, 110, 50);
         howToPlay.addActionListener(e -> showInstructionsFromScenarioOne());
+        howToPlay.setFocusPainted(false);
         contentPane.add(howToPlay);
 
         JButton cardPoints = new JButton("Card Points");
         cardPoints.setBounds(gameWidth/5 - 90 + 420, gameHeight - 100, 110, 50);
         cardPoints.addActionListener(e -> showPointsFrameFromScenarioOne());
+        cardPoints.setFocusPainted(false);
         contentPane.add(cardPoints);
 
         JButton scenarioTwo = new JButton("Scenario Two");
         scenarioTwo.setBounds(gameWidth/5 - 90 + 630, gameHeight - 100, 110, 50);
         scenarioTwo.addActionListener(e -> showScenarioTwoFromScenarioOne());
+        scenarioTwo.setFocusPainted(false);
         contentPane.add(scenarioTwo);
 
         JButton scenarioThree = new JButton("Scenario Three");
         scenarioThree.setBounds(gameWidth/5 - 90 + 840, gameHeight - 100, 110, 50);
         scenarioThree.addActionListener(e -> showScenarioThreeFromScenarioOne());
+        scenarioThree.setFocusPainted(false);
         contentPane.add(scenarioThree);
 
         //This needs to be the last action done to the frame that way all containers are visible at the same time.
@@ -1248,26 +1263,31 @@ public class BriscolaGUI extends JFrame {
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth/5 - 90, gameHeight - 100, 110,50);
         mainMenu.addActionListener(e -> showMainMenuFrameFromInstructions());
+        mainMenu.setFocusPainted(false);
         contentPane.add(mainMenu);
 
         JButton howToPlay = new JButton("How To Play");
         howToPlay.setBounds(gameWidth/5 - 90 + 210, gameHeight - 100, 110, 50);
         howToPlay.addActionListener(e -> showInstructionsFromScenarioTwo());
+        howToPlay.setFocusPainted(false);
         contentPane.add(howToPlay);
 
         JButton cardPoints = new JButton("Card Points");
         cardPoints.setBounds(gameWidth/5 - 90 + 420, gameHeight - 100, 110, 50);
         cardPoints.addActionListener(e -> showPointsFrameFromScenarioTwo());
+        cardPoints.setFocusPainted(false);
         contentPane.add(cardPoints);
 
         JButton scenarioOne = new JButton("Scenario One");
         scenarioOne.setBounds(gameWidth/5 - 90 + 630, gameHeight - 100, 110, 50);
         scenarioOne.addActionListener(e -> showScenarioOneFromScenarioTwo());
+        scenarioOne.setFocusPainted(false);
         contentPane.add(scenarioOne);
 
         JButton scenarioThree = new JButton("Scenario Three");
         scenarioThree.setBounds(gameWidth/5 - 90 + 840, gameHeight - 100, 110, 50);
         scenarioThree.addActionListener(e -> showScenarioThreeFromScenarioTwo());
+        scenarioThree.setFocusPainted(false);
         contentPane.add(scenarioThree);
 
         //This needs to be the last action done to the frame that way all containers are visible at the same time.
@@ -1299,26 +1319,31 @@ public class BriscolaGUI extends JFrame {
         JButton mainMenu = new JButton("Main Menu");
         mainMenu.setBounds(gameWidth/5 - 90, gameHeight - 100, 110,50);
         mainMenu.addActionListener(e -> showMainMenuFrameFromInstructions());
+        mainMenu.setFocusPainted(false);
         contentPane.add(mainMenu);
 
         JButton howToPlay = new JButton("How To Play");
         howToPlay.setBounds(gameWidth/5 - 90 + 210, gameHeight - 100, 110, 50);
         howToPlay.addActionListener(e -> showInstructionsFromScenarioThree());
+        howToPlay.setFocusPainted(false);
         contentPane.add(howToPlay);
 
         JButton cardPoints = new JButton("Card Points");
         cardPoints.setBounds(gameWidth/5 - 90 + 420, gameHeight - 100, 110, 50);
         cardPoints.addActionListener(e -> showPointsFrameFromScenarioThree());
+        cardPoints.setFocusPainted(false);
         contentPane.add(cardPoints);
 
         JButton scenarioOne = new JButton("Scenario One");
         scenarioOne.setBounds(gameWidth/5 - 90 + 630, gameHeight - 100, 110, 50);
         scenarioOne.addActionListener(e -> showScenarioOneFromScenarioThree());
+        scenarioOne.setFocusPainted(false);
         contentPane.add(scenarioOne);
 
         JButton scenarioTwo = new JButton("Scenario Two");
         scenarioTwo.setBounds(gameWidth/5 - 90 + 840, gameHeight - 100, 110, 50);
         scenarioTwo.addActionListener(e -> showScenarioTwoFromScenarioThree());
+        scenarioTwo.setFocusPainted(false);
         contentPane.add(scenarioTwo);
 
         //This needs to be the last action done to the frame that way all containers are visible at the same time.
