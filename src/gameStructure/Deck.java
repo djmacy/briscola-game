@@ -11,8 +11,6 @@ import java.util.Collections;
  */
 
 public class Deck {
-    public static final int DECK_SIZE = 40;
-//    public Sprite sprite = new Sprite("sprite.png");
     private final List<Card> deck;
 
     /**

@@ -58,7 +58,7 @@ public class Card {
          *
          * @return the worth of the FaceName
          */
-        public int getWorth() {
+        private int getWorth() {
             return cardWorth;
         }
 
@@ -67,7 +67,7 @@ public class Card {
          *
          * @return the strength of the FaceName
          */
-        public int getStrength() {
+        private int getStrength() {
             return cardStrength;
         }
     }
@@ -85,13 +85,6 @@ public class Card {
         this.image = new ImageIcon(imagePath);
     }
 
-    public Card(Suit suit, FaceName faceName) {
-        String imagePath = "src/images/" + faceName.name().toLowerCase() + "_of_" + suit.name().toLowerCase() + ".png";
-        this.suit = suit;
-        this.faceName = faceName;
-        this.image = new ImageIcon(imagePath);
-    }
-
     /**
      * Returns the suit of a card.
      *
@@ -104,7 +97,7 @@ public class Card {
     /**
      * Returns the faceName of a card.
      *
-     * @return faceName of card
+     * @return {@link FaceName faceName} of card
      */
     public FaceName getFaceName() {
         return faceName;

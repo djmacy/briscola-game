@@ -50,7 +50,7 @@ public class DeckTests {
         List<Card> listDeckB = deckB.getDeck();
 
         System.out.println("Testing Size...");
-        if (listDeckA.size() == Deck.DECK_SIZE) {
+        if (listDeckA.size() == 40) {
             System.out.println("   pass");
             passed++;
         } else {
