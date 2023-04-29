@@ -1595,7 +1595,7 @@ public class BriscolaGUI extends JFrame {
         if (player1Card == null) {
             cardChosen = lowestCardWorthIndex(hand2.getHand());
         } else {
-            //If player one hs played a king or a card worth more (assuming they didn't play a trump card), and CPU has
+            //If player one has played a king or a card worth more (assuming they didn't play a trump card), and CPU has
             //a trump card in their hand, play the trump card.
             if (player1Card.getWorth() > 3 && playerHasTrumpSuit(hand2.getHand()) && !player1Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 cardChosen = trumpSuitCardIndex(hand2.getHand());
@@ -1606,10 +1606,11 @@ public class BriscolaGUI extends JFrame {
             //and the cpu will win by playing that card, play that card.
             } else if (player1Card.getSuit().equals(highestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < highestWorthCard(hand2.getHand()).getStrength()) {
                 cardChosen = highestCardWorthIndex(hand2.getHand());
-            //else play the lowest worth card in your hand
+            //same logic as above but if the cpu has two valuable cards it won't ignore the second one and play it.
             } else if (hand2.getHand().size() > 1 && player1Card.getSuit().equals(secondHighestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < secondHighestWorthCard(hand2.getHand()).getStrength()) {
                 cardChosen = secondHighestCardWorthIndex(hand2.getHand());
             }
+            //else play the lowest worth card in your hand
             else {
                 cardChosen = lowestCardWorthIndex(hand2.getHand());
             }
