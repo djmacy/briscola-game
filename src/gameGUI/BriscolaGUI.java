@@ -1514,6 +1514,7 @@ public class BriscolaGUI extends JFrame {
      * @param card that is going to be resized
      * @return resized image
      */
+
     private ImageIcon scaleImage(Card card) {
         ImageIcon originalImage = new ImageIcon(card.getImage().getImage());
         // Scale the image to a smaller size
@@ -1531,27 +1532,32 @@ public class BriscolaGUI extends JFrame {
      * @param card2 the card the CPU played
      */
     private void checkWhoWins(Card card1, Card card2) {
-        //
+        //if the user's card has the same suit as the CPU then whoever has the stronger card wins.
         if (card1.getSuit().equals(card2.getSuit())) {
             if (card1.getStrength() > card2.getStrength()) {
                 whoWon = 1;
             } else {
                 whoWon =  2;
             }
+        //if the user plays a card with the same suit as the trump suit card and the CPU did not match the trump suit then
+        //the user wins.
         } else if (card1.getSuit().equals(trumpSuitCard.getSuit()) && !card2.getSuit().equals(trumpSuitCard.getSuit())) {
             whoWon = 1;
+        //The opposite applies here. If the user does not play a card matching trump suit but the CPU does, the CPU wins.
         } else if (!card1.getSuit().equals(trumpSuitCard.getSuit()) && card2.getSuit().equals(trumpSuitCard.getSuit())) {
             whoWon = 2;
         } else {
+            //if the user won the previous round and the CPU does not play a suit matching the user or a trump suit card
+            //then the user wins.
             if (whoWon == 1) {
                 if (!card1.getSuit().equals(card2.getSuit())) {
                     whoWon = 1;
                 }
+            //if it's the other way around then the CPU wins.
             } else {
                 whoWon = 2;
             }
         }
-
     }
 
     /**
