@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Creates a collection of cards that will represent the deck for the card game Briscola. The functionality for this class will
- * include dealing and drawing cards from the deck to the players hands.
+ * Creates a collection of cards that will represent the deck for the card game Briscola. Each deck contains 40 cards,
+ * 10 cards from each suit. The deck is shuffled everytime it's created so it does not have to be done during the game.
+ * The functionality for this class will include dealing and drawing cards from the deck to the players hands.
  * @author David
  */
 

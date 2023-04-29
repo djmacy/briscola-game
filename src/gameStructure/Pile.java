@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Creates a list of cards that will represent the pile where all cards won will end up. Once the game is finished all
- * cards values are counted up to see who scores more points. More than 60 points guarantees a win while 60 is a draw.
+ * card values are counted up to see who scores more points. More than 60 points guarantees a win while 60 is a draw.
  * @author David
  */
 
