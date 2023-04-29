@@ -1,4 +1,3 @@
-
 package gameGUI;
 
 import gameStructure.*;
@@ -72,21 +71,15 @@ public class BriscolaGUI extends JFrame {
     private Card player2Card1;
     private Card player2Card2;
     private Card player2Card3;
-    private Card playedCard;
     private Card player2Card;
     private Card trumpSuitCard;
     private ImageIcon scaledIcon;
     private ImageIcon backOfCard;
-    private JLabel backOfCardPic;
-
     private JLabel cpuCard1;
     private JLabel cpuCard2;
     private JLabel cpuCard3;
-    private JLabel player1PlayedCard;
     private JLabel player2PlayedCard;
     private JLabel messageLabel;
-    private JLabel topCardPic;
-    private JLabel backgroundImage;
     private JLabel userPointsLabel;
     private JLabel cpuPointsLabel;
     private JLabel trumpSuitLabel;
@@ -96,7 +89,7 @@ public class BriscolaGUI extends JFrame {
     private int whoWon = 1;
     private int rounds = 20;
     private int cardChosen;
-    private Boolean easyMode = true;
+    private boolean easyMode = true;
 
     /**
      * This creates the main menu where the user can navigate to the game, select a difficulty, or see the instructions.
@@ -422,8 +415,8 @@ public class BriscolaGUI extends JFrame {
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(false);
                     //deal the card to us first then CPU
-                    deck.dealTopCard(hand1);
-                    deck.dealTopCard(hand2);
+                    deck.drawTopCard(hand1);
+                    deck.drawTopCard(hand2);
                     //reset all the playercard variables
                     playerCard1 = hand1.getHand().get(0);
                     playerCard2 = hand1.getHand().get(1);
@@ -461,8 +454,8 @@ public class BriscolaGUI extends JFrame {
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(true);
                     //draw the cards this time with the CPU getting the top card of the deck
-                    deck.dealTopCard(hand2);
-                    deck.dealTopCard(hand1);
+                    deck.drawTopCard(hand2);
+                    deck.drawTopCard(hand1);
                     //reassign player card variables for the pictures
                     playerCard1 = hand1.getHand().get(0);
                     playerCard2 = hand1.getHand().get(1);
@@ -518,7 +511,7 @@ public class BriscolaGUI extends JFrame {
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(false);
                     //deal the topcard to player 1 and give the trump suit card to player two
-                    deck.dealTopCard(hand1);
+                    deck.drawTopCard(hand1);
                     hand2.dealTrumpSuitCard(trumpSuitCard);
                     //reassigning the variables of player ones cards
                     playerCard1 = hand1.getHand().get(0);
@@ -556,7 +549,7 @@ public class BriscolaGUI extends JFrame {
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(false);
                     //give the top card to the CPU and give the trumpSuitCard to the user
-                    deck.dealTopCard(hand2);
+                    deck.drawTopCard(hand2);
                     hand1.dealTrumpSuitCard(trumpSuitCard);
                     //reassign the player card variables to get the proper cards after new cards drawn
                     playerCard1 = hand1.getHand().get(0);

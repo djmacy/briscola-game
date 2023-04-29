@@ -129,7 +129,7 @@ public class DeckTests {
         // Save the top card in a variable
         Card topCardA = deckA.lookTopCard();
         // deal the top card (removes it from deck)
-        deckA.dealTopCard(hand);
+        deckA.drawTopCard(hand);
 
         if (hand.getPlayedCard() == topCardA) {
             System.out.println("   pass");
@@ -141,7 +141,7 @@ public class DeckTests {
         hand.clear();
 
         Card topCardB = deckB.lookTopCard();
-        deckB.dealTopCard(hand);
+        deckB.drawTopCard(hand);
         if (hand.getPlayedCard() == topCardB) {
             System.out.println("   pass");
             passed++;
@@ -151,7 +151,7 @@ public class DeckTests {
         }
 
         hand.clear();
-        deckA.dealTopCard(hand);
+        deckA.drawTopCard(hand);
         if (hand.getPlayedCard() != deckA.lookTopCard()) {
             System.out.println("   pass");
             passed++;

@@ -11,7 +11,7 @@ public class Hand {
     /**
      * List of cards that represent a players hand.
      */
-    public List<Card> hand;
+    private List<Card> hand;
 
     /**
      * Creates the Hand object. It creates a list of cards.

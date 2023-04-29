@@ -71,7 +71,7 @@ public class Deck {
      * @param hand is the hand where the card will go when called
      * @return the top card
      */
-    public Card dealTopCard(Hand hand) {
+    public Card drawTopCard(Hand hand) {
         Card topCard = deck.remove(0);
         hand.getHand().add(topCard);
         return topCard;
@@ -93,12 +93,12 @@ public class Deck {
             Card cardFive = deck.remove(0);
             Card cardSix = deck.remove(0);
             Card trumpSuit = deck.remove(0);
-            hand1.hand.add(cardOne);
-            hand1.hand.add(cardThree);
-            hand1.hand.add(cardFive);
-            hand2.hand.add(cardTwo);
-            hand2.hand.add(cardFour);
-            hand2.hand.add(cardSix);
+            hand1.getHand().add(cardOne);
+            hand1.getHand().add(cardThree);
+            hand1.getHand().add(cardFive);
+            hand2.getHand().add(cardTwo);
+            hand2.getHand().add(cardFour);
+            hand2.getHand().add(cardSix);
             return trumpSuit;
 
     }

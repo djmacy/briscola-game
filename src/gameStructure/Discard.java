@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Discard {
 
-    List<Card> discard;
+    private List<Card> discard;
 
     public Discard() {
         this.discard = new ArrayList<Card>();
