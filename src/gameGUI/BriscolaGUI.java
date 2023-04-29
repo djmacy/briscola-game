@@ -1563,7 +1563,7 @@ public class BriscolaGUI extends JFrame {
     /**
      * Method used for randomly choosing a number 0-2 when game is set on easyMode. These three integers represent the
      * possible choices a random opponent can choose from. Once it has chosen a variable it reassigns the global
-     * cardChosen variable.
+     * cardChosen variable. The cardChosen variable is used to set the images on the board for the CPU’s played card.
      */
     private void randomCardPicker() {
         //if the hand size is one, only let the CPU choose its first card
