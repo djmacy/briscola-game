@@ -35,9 +35,11 @@ public class CardTests {
      * The constructor will print the number of passed and failed cases.
      */
     public CardTests() {
+        // call our card test methods
         testDifferentCards(cardOne, cardTwo);
         testDuplicateCards(cardOne, cardThree);
 
+        // let the user know if all cases passed or not
         if (failed > 0) {
             System.err.println(failed + " CASE(S) FAILED");
         } else {
@@ -53,23 +55,27 @@ public class CardTests {
      */
     public void testDifferentCards(Card cardA, Card cardB) {
         System.out.println("Testing High Level Cards (getStrength)...");
+        // check that the test cards actually have the correct strength (based on face value)
         if (cardA.getStrength() == 9 && cardB.getStrength() == 8) {
             System.out.println("   pass");
             passed++;
-            System.out.println("Testing High Level Cards (getWorth)...");
-            if (cardA.getWorth() == 11 && cardB.getWorth() == 10) {
-                System.out.println("   pass");
-                passed++;
-            } else {
-                System.err.println("   failed getWorth");
-                failed++;
-            }
         } else {
             System.err.println("   failed getStrength");
             failed++;
         }
 
+        System.out.println("Testing High Level Cards (getWorth)...");
+        // check that the card worth (point value) is correct
+        if (cardA.getWorth() == 11 && cardB.getWorth() == 10) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed getWorth");
+            failed++;
+        }
+
         System.out.println("Testing High Level Cards (getFaceName)...");
+        // check that the correct FaceName was applied to both cards
         if (cardA.getFaceName() == Card.FaceName.Ace && cardB.getFaceName() == Card.FaceName.Three) {
             System.out.println("   pass");
             passed++;
@@ -79,6 +85,7 @@ public class CardTests {
         }
 
         System.out.println("Testing High Level Cards (getSuit)...");
+        // test that the correct suit was assigned to each test card
         if (cardA.getSuit() == Card.Suit.Coins && cardB.getSuit() == Card.Suit.Sticks) {
             System.out.println("   pass");
             passed++;
@@ -87,6 +94,7 @@ public class CardTests {
             failed++;
         }
 
+        // test that the correct image was truly assigned (with test images)
         System.out.println("Testing Get Image Path (getImage)...");
         if (cardA.getImage().getImage().equals(testIcon.getImage())) {
             System.out.println("   pass");
@@ -96,6 +104,7 @@ public class CardTests {
             failed++;
         }
 
+        // test that the image icons don't equal each other
         if (!cardA.getImage().getImage().equals(testIconTwo.getImage())) {
             System.out.println("   pass");
             passed++;
@@ -105,6 +114,7 @@ public class CardTests {
         }
 
         System.out.println("Testing To String (toString)...");
+        // test that the to String method returns the correct string name
         if (cardA.toString().equals("Ace of Coins")) {
             System.out.println("   pass");
             passed++;
@@ -113,6 +123,7 @@ public class CardTests {
             failed++;
         }
 
+        // test it for the other card as well
         if (cardB.toString().equals("Three of Sticks")) {
             System.out.println("   pass");
             passed++;
@@ -131,23 +142,27 @@ public class CardTests {
      */
     public void testDuplicateCards(Card cardA, Card cardB) {
         System.out.println("Testing Duplicate Cards (getStrength)...");
+        // test two identical cards' get strength (faceName value)
         if (cardA.getStrength() == 9 && cardB.getStrength() == 9) {
             System.out.println("   pass");
             passed++;
-            System.out.println("Testing Duplicated Cards (getWorth)...");
-            if (cardA.getWorth() == 11 && cardB.getWorth() == 11) {
-                System.out.println("   pass");
-                passed++;
-            } else {
-                System.err.println("   failed getWorth");
-                failed++;
-            }
         } else {
             System.err.println("   failed getStrength");
             failed++;
         }
 
+        System.out.println("Testing Duplicated Cards (getWorth)...");
+        // test that the worth is the same (card point value)
+        if (cardA.getWorth() == 11 && cardB.getWorth() == 11) {
+            System.out.println("   pass");
+            passed++;
+        } else {
+            System.err.println("   failed getWorth");
+            failed++;
+        }
+
         System.out.println("Testing Duplicate Cards (getFaceName)...");
+        // check that the faceNames are the same
         if (cardA.getFaceName() == Card.FaceName.Ace && cardB.getFaceName() == Card.FaceName.Ace) {
             System.out.println("   pass");
             passed++;
@@ -157,6 +172,7 @@ public class CardTests {
         }
 
         System.out.println("Testing Duplicate Cards (getSuit)...");
+        // check that the card suits match
         if (cardA.getSuit() == Card.Suit.Coins && cardB.getSuit() == Card.Suit.Coins) {
             System.out.println("   pass");
             passed++;
@@ -166,6 +182,7 @@ public class CardTests {
         }
 
         System.out.println("Testing Duplicate Image Path (getImage)...");
+        // check that the images are the same
         if (cardA.getImage().getImage().equals(testIcon.getImage())) {
             if (cardB.getImage().getImage().equals(testIcon.getImage())) {
                 System.out.println("   pass");
@@ -176,6 +193,7 @@ public class CardTests {
             failed++;
         }
 
+        // check that the image doesn't equal the wrong image
         if (!cardA.getImage().getImage().equals(testIconTwo.getImage())) {
             if (!cardB.getImage().getImage().equals(testIconTwo.getImage())) {
                 System.out.println("   pass");
@@ -187,6 +205,7 @@ public class CardTests {
         }
 
         System.out.println("Testing Duplicate To String (toString)...");
+        // check that the to string is correc
         if (cardA.toString().equals("Ace of Coins")) {
             System.out.println("   pass");
             passed++;

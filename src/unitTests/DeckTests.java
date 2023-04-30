@@ -11,7 +11,6 @@ import java.util.List;
  * @author abbybrown
  * @see gameStructure.Deck
  */
-
 public class DeckTests {
     public static void main(String[] args) {
         new DeckTests();
@@ -25,10 +24,12 @@ public class DeckTests {
      * all the failed/passed cases and print these cases to the user.
      */
     public DeckTests() {
+        // call methods
         testDeck();
         testDealTopCard();
         testDealCards();
 
+        // tell user how many cases passed or failed
         if (failed > 0) {
             System.err.println(failed + " CASE(S) FAILED");
         } else {
@@ -42,13 +43,16 @@ public class DeckTests {
      * the size of the deck is what it should be. Counts passed/failed cases.
      */
     public void testDeck() {
+        // create a new deck
         Deck deckA = new Deck();
         Deck deckB = new Deck();
 
         System.out.println("Testing Deck Shuffle Method...");
+        // create a shuffled list of cards
         List<Card> listDeckA = deckA.getDeck();
         List<Card> listDeckB = deckB.getDeck();
 
+        // test that the size of the deck is actually correct
         System.out.println("Testing Size...");
         if (listDeckA.size() == Deck.DECK_SIZE) {
             System.out.println("   pass");
@@ -58,6 +62,7 @@ public class DeckTests {
             failed++;
         }
 
+        // check that the two deck sizes are equal
         if (listDeckA.size() == listDeckB.size()) {
             System.out.println("   pass");
             passed++;
@@ -66,6 +71,7 @@ public class DeckTests {
             failed++;
         }
 
+        // count the number of repeated cards shuffled in the same place
         for (int i = 0; i < listDeckA.size(); i++) {
             if (listDeckA.get(i).equals(listDeckB.get(i))) {
                 count++;
@@ -73,6 +79,7 @@ public class DeckTests {
         }
 
         System.out.println("Testing Shuffle Order...");
+        // if there are more than ten cards shuffled in the same spot, test failed
         if (count >= 10) {
             System.err.println("   failed Shuffle: " + count + " cards are in the same place");
             failed++;
@@ -81,6 +88,7 @@ public class DeckTests {
             passed++;
         }
 
+        // test that the top card found is actually the top card
         System.out.println("Testing getTopCard, lookTopCard...");
         if (deckA.lookTopCard() == deckA.getTopCard()) {
             System.out.println("   pass");
@@ -90,6 +98,7 @@ public class DeckTests {
             failed++;
         }
 
+        // test the the top card peeked at is actually the top card
         if (deckB.lookTopCard() == deckB.getTopCard()) {
             System.out.println("   pass");
             passed++;
@@ -98,6 +107,7 @@ public class DeckTests {
             failed++;
         }
 
+        // test that the two top cards are not equal
         if (deckA.lookTopCard() != deckB.lookTopCard()) {
             System.out.println("   pass");
             passed++;
@@ -106,6 +116,7 @@ public class DeckTests {
             failed++;
         }
 
+        // test that the two top cards are not equal
         if (deckA.getTopCard() != deckB.getTopCard()) {
             System.out.println("   pass");
             passed++;
@@ -120,6 +131,7 @@ public class DeckTests {
      * the first card being dealt is actually the first card in the deck.
      */
     public void testDealTopCard() {
+        // create two decks and a hand
         Deck deckA = new Deck();
         Deck deckB = new Deck();
         Hand hand = new Hand();
@@ -128,9 +140,11 @@ public class DeckTests {
 
         // Save the top card in a variable
         Card topCardA = deckA.lookTopCard();
+
         // deal the top card (removes it from deck)
         deckA.dealTopCard(hand);
 
+        // check that the played card is the true top card
         if (hand.getPlayedCard() == topCardA) {
             System.out.println("   pass");
             passed++;
@@ -140,6 +154,7 @@ public class DeckTests {
         }
         hand.clear();
 
+        // save the top card from deck be and check that the played card is the true top card
         Card topCardB = deckB.lookTopCard();
         deckB.dealTopCard(hand);
         if (hand.getPlayedCard() == topCardB) {
@@ -151,6 +166,8 @@ public class DeckTests {
         }
 
         hand.clear();
+
+        // check that the new top of the deck does not equal the played card
         deckA.dealTopCard(hand);
         if (hand.getPlayedCard() != deckA.lookTopCard()) {
             System.out.println("   pass");
@@ -168,10 +185,13 @@ public class DeckTests {
      */
     public void testDealCards() {
         System.out.println("Testing dealCards");
+
+        // create a new deck and two hands
         Deck deck = new Deck();
         Hand handA = new Hand();
         Hand handB = new Hand();
 
+        // save the cards that are about to be dealt
         Card a = deck.getDeck().get(0);
         Card b = deck.getDeck().get(1);
         Card c = deck.getDeck().get(2);
@@ -191,6 +211,7 @@ public class DeckTests {
             failed++;
         }
 
+        // check that the correct card was set as trump
         if (trump == g) {
             System.out.println("   pass");
             passed++;
@@ -200,6 +221,7 @@ public class DeckTests {
         }
 
         System.out.println("Testing Correct Dealing Order");
+        // test that the correct card was dealt
         if (handA.getHand().get(0) == a) {
             System.out.println("   pass");
             passed++;
@@ -209,6 +231,7 @@ public class DeckTests {
         }
 
         if (handA.getHand().get(1) == c) {
+            // test that the correct card was dealt
             System.out.println("   pass");
             passed++;
         } else {
@@ -217,6 +240,7 @@ public class DeckTests {
         }
 
         if (handA.getHand().get(2) == e) {
+            // test that the correct card was dealt
             System.out.println("   pass");
             passed++;
         } else {
@@ -225,6 +249,7 @@ public class DeckTests {
         }
 
         if (handB.getHand().get(0) == b) {
+            // test that the correct card was dealt
             System.out.println("   pass");
             passed++;
         } else {
@@ -233,6 +258,7 @@ public class DeckTests {
         }
 
         if (handB.getHand().get(1) == d) {
+            // test that the correct card was dealt
             System.out.println("   pass");
             passed++;
         } else {
@@ -241,6 +267,7 @@ public class DeckTests {
         }
 
         if (handB.getHand().get(2) == f) {
+            // test that the correct card was dealt
             System.out.println("   pass");
             passed++;
         } else {

@@ -20,6 +20,7 @@ public class HandTests {
         new HandTests();
     }
 
+    // Counters to determine the number of passed/failed cases
     private int passed = 0;
     private int failed = 0;
 
@@ -100,6 +101,7 @@ public class HandTests {
             failed++;
         }
 
+        // test that the Hand does not have cardA
         if (!hand.getHand().contains(cardA)) {
             System.out.println("   pass");
             passed++;
@@ -109,7 +111,9 @@ public class HandTests {
         }
 
         hand.clear();
+
         System.out.println("Testing clear...");
+        // test that the hand was really cleared
         if (hand.getHand().size() == 0) {
             System.out.println("   pass");
             passed++;
@@ -140,6 +144,7 @@ public class HandTests {
         hand.getHand().add(cardC);
 
         System.out.println("Testing playThirdCard...");
+        // play the third card and check that it was played
         Card third = hand.playThirdCard(discard);
         if (third == cardC) {
             System.out.println("   pass");
@@ -149,6 +154,7 @@ public class HandTests {
             failed++;
         }
 
+        // check that the hand size decreased
         if (hand.getHand().size() == 2) {
             System.out.println("   pass");
             passed++;
@@ -157,6 +163,7 @@ public class HandTests {
             failed++;
         }
 
+        // check that the discard size increased
         if (discard.getDiscard().size() == 1) {
             System.out.println("   pass");
             passed++;
@@ -181,11 +188,13 @@ public class HandTests {
         // create an instance of hand so the cards have a hand to go to
         Hand hand = new Hand();
 
+        // add the cards to the hand
         hand.getHand().add(cardA);
         hand.getHand().add(cardB);
         hand.getHand().add(cardC);
 
         System.out.println("Testing playSecondCard...");
+        // check that the second card was actually played
         Card second = hand.playSecondCard(discard);
         if (second == cardB) {
             System.out.println("   pass");
@@ -195,6 +204,7 @@ public class HandTests {
             failed++;
         }
 
+        // check that the hand size decreased
         if (hand.getHand().size() == 2) {
             System.out.println("   pass");
             passed++;
@@ -203,6 +213,7 @@ public class HandTests {
             failed++;
         }
 
+        // check that the discard size increased
         if (discard.getDiscard().size() == 1) {
             System.out.println("   pass");
             passed++;
@@ -227,11 +238,13 @@ public class HandTests {
         // create an instance of hand so the cards have a hand to go to
         Hand hand = new Hand();
 
+        // add the cards to the hand
         hand.getHand().add(cardA);
         hand.getHand().add(cardB);
         hand.getHand().add(cardC);
 
         System.out.println("Testing playFirstCard...");
+        // check that the first card was actually played
         Card first = hand.playFirstCard(discard);
         if (first == cardA) {
             System.out.println("   pass");
@@ -241,6 +254,7 @@ public class HandTests {
             failed++;
         }
 
+        // check that the hand size decreased
         if (hand.getHand().size() == 2) {
             System.out.println("   pass");
             passed++;
@@ -249,6 +263,7 @@ public class HandTests {
             failed++;
         }
 
+        // check that the discard size increased
         if (discard.getDiscard().size() == 1) {
             System.out.println("   pass");
             passed++;
@@ -275,10 +290,12 @@ public class HandTests {
         // create an instance of hand so the cards have a hand to go to
         Hand hand = new Hand();
 
+        // add the cards to the hand
         hand.getHand().add(cardA);
         hand.getHand().add(cardB);
         hand.getHand().add(cardC);
 
+        // get the played card and verify it's the first card
         System.out.println("Testing getPlayedCard...");
         Card cardPlayed = hand.getPlayedCard();
         if (cardPlayed == cardA) {
@@ -289,8 +306,11 @@ public class HandTests {
             failed++;
         }
 
+        // get the trump suit card dealt
         System.out.println("Testing trumpSuitCard...");
         hand.dealTrumpSuitCard(trump);
+
+        // make sure hand got the trump suit
         if (hand.getHand().contains(trump)) {
             System.out.println("   pass");
             passed++;
