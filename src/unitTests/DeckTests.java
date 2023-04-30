@@ -54,7 +54,7 @@ public class DeckTests {
 
         // test that the size of the deck is actually correct
         System.out.println("Testing Size...");
-        if (listDeckA.size() == Deck.DECK_SIZE) {
+        if (listDeckA.size() == 40) {
             System.out.println("   pass");
             passed++;
         } else {
@@ -142,7 +142,7 @@ public class DeckTests {
         Card topCardA = deckA.lookTopCard();
 
         // deal the top card (removes it from deck)
-        deckA.dealTopCard(hand);
+        deckA.drawTopCard(hand);
 
         // check that the played card is the true top card
         if (hand.getPlayedCard() == topCardA) {
@@ -156,7 +156,7 @@ public class DeckTests {
 
         // save the top card from deck be and check that the played card is the true top card
         Card topCardB = deckB.lookTopCard();
-        deckB.dealTopCard(hand);
+        deckB.drawTopCard(hand);
         if (hand.getPlayedCard() == topCardB) {
             System.out.println("   pass");
             passed++;
@@ -168,7 +168,8 @@ public class DeckTests {
         hand.clear();
 
         // check that the new top of the deck does not equal the played card
-        deckA.dealTopCard(hand);
+        deckA.drawTopCard(hand);
+
         if (hand.getPlayedCard() != deckA.lookTopCard()) {
             System.out.println("   pass");
             passed++;

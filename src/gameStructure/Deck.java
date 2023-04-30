@@ -1,16 +1,17 @@
 package gameStructure;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
- * Creates a collection of cards that will represent the deck for the card game Briscola. The functionality for this class will
- * include dealing and drawing cards from the deck to the players hands.
+ * Creates a collection of cards that will represent the deck for the card game Briscola. Each deck contains 40 cards,
+ * 10 cards from each suit. The deck is shuffled everytime it's created so it does not have to be done during the game.
+ * The functionality for this class will include dealing and drawing cards from the deck to the players hands.
  * @author David
  */
 
 public class Deck {
-    public static final int DECK_SIZE = 40;
-//    public Sprite sprite = new Sprite("sprite.png");
     private final List<Card> deck;
 
     /**
@@ -71,7 +72,7 @@ public class Deck {
      * @param hand is the hand where the card will go when called
      * @return the top card
      */
-    public Card dealTopCard(Hand hand) {
+    public Card drawTopCard(Hand hand) {
         Card topCard = deck.remove(0);
         hand.getHand().add(topCard);
         return topCard;
@@ -93,12 +94,12 @@ public class Deck {
             Card cardFive = deck.remove(0);
             Card cardSix = deck.remove(0);
             Card trumpSuit = deck.remove(0);
-            hand1.hand.add(cardOne);
-            hand1.hand.add(cardThree);
-            hand1.hand.add(cardFive);
-            hand2.hand.add(cardTwo);
-            hand2.hand.add(cardFour);
-            hand2.hand.add(cardSix);
+            hand1.getHand().add(cardOne);
+            hand1.getHand().add(cardThree);
+            hand1.getHand().add(cardFive);
+            hand2.getHand().add(cardTwo);
+            hand2.getHand().add(cardFour);
+            hand2.getHand().add(cardSix);
             return trumpSuit;
 
     }

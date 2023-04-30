@@ -1,6 +1,7 @@
 /**
  * Creates a list of cards that will represent the hand for each player. The functionality of this class will include
- * playing any of the three cards that can be played per round.
+ * playing one of the three cards in the players hand's. Each player will only play one card per round. The user and the
+ * CPU will always have three cards in their hands unless the deck runs out of cards to draw from.
  * @author David
  */
 package gameStructure;
@@ -8,13 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    List<Card> hand;
+    /**
+     * List of cards that represent a players hand.
+     */
+    private List<Card> hand;
 
     /**
      * Creates the Hand object. It creates a list of cards.
      */
     public Hand() {
-        this.hand = new ArrayList<Card>();
+        this.hand = new ArrayList<>();
     }
 
     /**

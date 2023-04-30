@@ -5,13 +5,13 @@ import java.util.List;
 
 /**
  * Creates a list of cards that will represent the discard for each player. This is used to compare the two cards played
- * by each player and evaluate who wins the round. Once a winner is determined cards are sent to the winnner's pile.
+ * by each player and evaluate who wins the round. Once a winner is determined cards are sent to the winner's pile.
  * @author David
  */
 
 public class Discard {
 
-    List<Card> discard;
+    private List<Card> discard;
 
     public Discard() {
         this.discard = new ArrayList<Card>();

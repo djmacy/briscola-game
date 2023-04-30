@@ -1,14 +1,26 @@
-
 package gameGUI;
 
 import gameStructure.*;
 
-import java.awt.*;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Color;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Random;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.Icon;
 
 /**
  * Controller class that creates the GUI and logic for the entire game of Briscola. This is going to be a 2P version
@@ -21,7 +33,7 @@ public class BriscolaGUI extends JFrame {
     /**
      * Main method that starts the Briscola game
      *
-     * @param args BriscolaGUI
+     * @param args unused
      */
     public static void main(String[] args) {
         new BriscolaGUI();
@@ -62,20 +74,15 @@ public class BriscolaGUI extends JFrame {
     private Card player2Card1;
     private Card player2Card2;
     private Card player2Card3;
-    private Card playedCard;
     private Card player2Card;
     private Card trumpSuitCard;
     private ImageIcon scaledIcon;
     private ImageIcon backOfCard;
-    private JLabel backOfCardPic;
     private JLabel cpuCard1;
     private JLabel cpuCard2;
     private JLabel cpuCard3;
-    private JLabel player1PlayedCard;
     private JLabel player2PlayedCard;
     private JLabel messageLabel;
-    private JLabel topCardPic;
-    private JLabel backgroundImage;
     private JLabel userPointsLabel;
     private JLabel cpuPointsLabel;
     private JLabel trumpSuitLabel;
@@ -85,7 +92,7 @@ public class BriscolaGUI extends JFrame {
     private int whoWon = 1;
     private int rounds = 20;
     private int cardChosen;
-    private Boolean easyMode = true;
+    private boolean easyMode = true;
 
     /**
      * This creates the main menu where the user can navigate to the game, select a difficulty, or see the instructions.
@@ -464,9 +471,9 @@ public class BriscolaGUI extends JFrame {
                     player1PlayedCard.setVisible(false);
                     player2PlayedCard.setVisible(false);
 
-                    //deal the card to us first then CPU
-                    deck.dealTopCard(hand1);
-                    deck.dealTopCard(hand2);
+                    //reset all the playerCard variables
+                    deck.drawTopCard(hand1);
+                    deck.drawTopCard(hand2);
 
                     //reset all the playerCard variables
                     playerCard1 = hand1.getHand().get(0);
@@ -512,8 +519,8 @@ public class BriscolaGUI extends JFrame {
                     player2PlayedCard.setVisible(true);
 
                     //draw the cards this time with the CPU getting the top card of the deck
-                    deck.dealTopCard(hand2);
-                    deck.dealTopCard(hand1);
+                    deck.drawTopCard(hand2);
+                    deck.drawTopCard(hand1);
 
                     //reassign player card variables for the pictures
                     playerCard1 = hand1.getHand().get(0);
@@ -578,7 +585,7 @@ public class BriscolaGUI extends JFrame {
                     player2PlayedCard.setVisible(false);
 
                     //deal the topCard to player 1 and give the trump suit card to player two
-                    deck.dealTopCard(hand1);
+                    deck.drawTopCard(hand1);
                     hand2.dealTrumpSuitCard(trumpSuitCard);
 
                     //reassigning the variables of player ones cards
@@ -623,7 +630,7 @@ public class BriscolaGUI extends JFrame {
                     player2PlayedCard.setVisible(false);
 
                     //give the top card to the CPU and give the trumpSuitCard to the user
-                    deck.dealTopCard(hand2);
+                    deck.drawTopCard(hand2);
                     hand1.dealTrumpSuitCard(trumpSuitCard);
 
                     //reassign the player card variables to get the proper cards after new cards drawn
@@ -1766,6 +1773,7 @@ public class BriscolaGUI extends JFrame {
      * @param card that is going to be resized
      * @return resized image
      */
+
     private ImageIcon scaleImage(Card card) {
         ImageIcon originalImage = new ImageIcon(card.getImage().getImage());
         // Scale the image to a smaller size
@@ -1783,38 +1791,45 @@ public class BriscolaGUI extends JFrame {
      * @param card2 the card the CPU played
      */
     private void checkWhoWins(Card card1, Card card2) {
+        //if the user's card has the same suit as the CPU then whoever has the stronger card wins.
         if (card1.getSuit().equals(card2.getSuit())) {
             if (card1.getStrength() > card2.getStrength()) {
                 whoWon = 1;
             } else {
                 whoWon = 2;
             }
+        //if the user plays a card with the same suit as the trump suit card and the CPU did not match the trump suit then
+        //the user wins.
         } else if (card1.getSuit().equals(trumpSuitCard.getSuit()) && !card2.getSuit().equals(trumpSuitCard.getSuit())) {
             whoWon = 1;
+        //The opposite applies here. If the user does not play a card matching trump suit but the CPU does, the CPU wins.
         } else if (!card1.getSuit().equals(trumpSuitCard.getSuit()) && card2.getSuit().equals(trumpSuitCard.getSuit())) {
             whoWon = 2;
         } else {
+            //if the user won the previous round and the CPU does not play a suit matching the user or a trump suit card
+            //then the user wins.
             if (whoWon == 1) {
                 if (!card1.getSuit().equals(card2.getSuit())) {
                     whoWon = 1;
                 }
+            //if it's the other way around then the CPU wins.
             } else {
                 whoWon = 2;
             }
         }
-
     }
 
     /**
-     * Method used for randomly choosing a number 0-2. These three integers represent the possible choices a random
-     * opponent can choose from. Once it has chosen a variable it reassigns the global cardChosen variable.
+     * Method used for randomly choosing a number 0-2 when game is set on easyMode. These three integers represent the
+     * possible choices a random opponent can choose from. Once it has chosen a variable it reassigns the global
+     * cardChosen variable. The cardChosen variable is used to set the images on the board for the CPU’s played card.
      */
     private void randomCardPicker() {
         //if the hand size is one, only let the CPU choose its first card
         if (hand2.getHand().size() == 1) {
             cardChosen = 0;
         }
-        //if the hand size is 2, let the CPU choose anywhere 0 or 1
+        //if the hand size is 2, let the CPU choose 0 or 1
         if (hand2.getHand().size() == 2) {
             Random random = new Random();
             cardChosen = random.nextInt(2);
@@ -1839,7 +1854,7 @@ public class BriscolaGUI extends JFrame {
         if (player1Card == null) {
             cardChosen = lowestCardWorthIndex(hand2.getHand());
         } else {
-            //If player one hs played a king or a card worth more (assuming they didn't play a trump card), and CPU has
+            //If player one has played a king or a card worth more (assuming they didn't play a trump card), and CPU has
             //a trump card in their hand, play the trump card.
             if (player1Card.getWorth() > 3 && playerHasTrumpSuit(hand2.getHand()) && !player1Card.getSuit().equals(trumpSuitCard.getSuit())) {
                 cardChosen = trumpSuitCardIndex(hand2.getHand());
@@ -1853,11 +1868,12 @@ public class BriscolaGUI extends JFrame {
             } else if (player1Card.getSuit().equals(highestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < highestWorthCard(hand2.getHand()).getStrength()) {
                 cardChosen = highestCardWorthIndex(hand2.getHand());
 
-            //else play the lowest worth card in your hand
+            //same logic as above but if the cpu has two valuable cards it won't ignore the second one and play it.
             } else if (hand2.getHand().size() > 1 && player1Card.getSuit().equals(secondHighestWorthCard(hand2.getHand()).getSuit()) && player1Card.getStrength() < secondHighestWorthCard(hand2.getHand()).getStrength()) {
                 cardChosen = secondHighestCardWorthIndex(hand2.getHand());
-
-            } else {
+            }
+            //else play the lowest worth card in your hand
+            else {
                 cardChosen = lowestCardWorthIndex(hand2.getHand());
             }
         }
